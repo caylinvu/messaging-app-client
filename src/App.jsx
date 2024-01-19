@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { useState } from 'react';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   return (
     <>
@@ -13,10 +13,6 @@ function App() {
 }
 
 export default App;
-
-// Create component templates
-
-// Set up react router
 
 // Set up authorization to login and get current user info
 
@@ -34,3 +30,4 @@ export default App;
 // Create loading screen
 
 // Create error page
+//-- either have all paths navigate back to '/chats' or have an error page

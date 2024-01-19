@@ -6,6 +6,7 @@ import ContactPage from './ContactPage';
 import LoginPage from './LoginPage';
 import SignUpPage from './SignUpPage';
 import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
 import Layout from './Layout';
 
 function Router() {
@@ -28,16 +29,25 @@ function Router() {
               children: [{ path: '/chats/:chatId', element: <Chat /> }],
             },
             { path: '/contacts', element: <ContactPage /> },
+            { path: '*', element: <Navigate to="/chats" /> },
           ],
         },
 
         {
           path: '/login',
-          element: <LoginPage />,
+          element: (
+            <PublicRoute>
+              <LoginPage />
+            </PublicRoute>
+          ),
         },
         {
           path: '/sign-up',
-          element: <SignUpPage />,
+          element: (
+            <PublicRoute>
+              <SignUpPage />
+            </PublicRoute>
+          ),
         },
       ],
     },
