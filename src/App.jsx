@@ -3,11 +3,11 @@ import { Outlet } from 'react-router-dom';
 import { useState } from 'react';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || '');
 
   return (
     <>
-      <Outlet context={{ isLoggedIn, setIsLoggedIn }} />
+      <Outlet context={{ user, setUser }} />
     </>
   );
 }

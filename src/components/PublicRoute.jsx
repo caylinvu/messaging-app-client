@@ -2,9 +2,9 @@ import { Navigate, useOutletContext } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 function PublicRoute({ children }) {
-  const { isLoggedIn } = useOutletContext();
+  const { user } = useOutletContext();
 
-  if (isLoggedIn) {
+  if (user) {
     return <Navigate to="/chats" />;
   }
 
