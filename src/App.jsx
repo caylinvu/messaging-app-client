@@ -21,6 +21,8 @@ export default App;
 //-- localstorage to save token, current user, token, and login status
 //-- sign up form (automatically logs you in)
 
+// Edit where login error messages are shown
+
 // Use returned login info to connect to socket
 
 // Use returned login info to fetch data
