@@ -34,3 +34,28 @@ a {
 .login-form button {
   display: block;
 }
+
+.chat-page {
+  display: flex;
+}
+
+.chat-column {
+  width: 300px;
+  background-color: rgb(174, 174, 212);
+}
+
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.chat-list {
+  padding: 10px;
+}
+
+.chat-preview {
+  border: solid black 1px;
+  padding: 10px;
+  margin-bottom: 5px;
+}
