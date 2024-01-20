@@ -1,6 +1,7 @@
 import { useOutletContext, useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-function Sidebar() {
+function Sidebar({ userDetails }) {
   const { handleLogout } = useOutletContext();
   const navigate = useNavigate();
 
@@ -11,9 +12,13 @@ function Sidebar() {
         <button onClick={() => navigate('/contacts')}>Contacts</button>
         <button onClick={handleLogout}>Logout</button>
       </div>
-      <button className="profile-btn">Profile</button>
+      <button className="profile-btn">{userDetails.firstName}</button>
     </div>
   );
 }
+
+Sidebar.propTypes = {
+  userDetails: PropTypes.object,
+};
 
 export default Sidebar;

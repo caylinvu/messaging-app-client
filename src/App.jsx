@@ -31,8 +31,6 @@ function App() {
 
 export default App;
 
-// Set up authorization to login and get current user info
-
 // Set up authorization to login
 //-- login page form
 //-- localstorage to save token, current user, token, and login status
