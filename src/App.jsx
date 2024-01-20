@@ -1,13 +1,30 @@
 import './styles/App.css';
 import { Outlet } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || '');
 
+  const handleLogout = () => {
+    localStorage.clear();
+    setUser('');
+  };
+
+  // Log user out if token is older than 24 hours
+  useEffect(() => {
+    if (localStorage.getItem('user')) {
+      const hours = 24;
+      const createdAt = JSON.parse(localStorage.getItem('createdAt'));
+      if (new Date().getTime() - createdAt > hours * 60 * 60 * 1000) {
+        handleLogout();
+        return;
+      }
+    }
+  }, []);
+
   return (
     <>
-      <Outlet context={{ user, setUser }} />
+      <Outlet context={{ user, setUser, handleLogout }} />
     </>
   );
 }
@@ -22,6 +39,8 @@ export default App;
 //-- sign up form (automatically logs you in)
 
 // Edit where login error messages are shown
+
+// Do we want to keep logout after 24 hours????
 
 // Use returned login info to connect to socket
 

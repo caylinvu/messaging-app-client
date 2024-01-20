@@ -1,0 +1,36 @@
+button:hover {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+.main-app {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100px;
+  padding: 10px 5px;
+  background-color: rgb(82, 82, 114);
+}
+
+.nav-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.nav-btns button,
+.profile-btn {
+  height: 50px;
+}
+
+.login-form button {
+  display: block;
+}

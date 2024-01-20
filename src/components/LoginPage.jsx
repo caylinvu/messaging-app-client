@@ -35,6 +35,34 @@ function LoginPage() {
     }
   };
 
+  const demoLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:3000/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: 'jon@gmail.com',
+          password: 'JonSnow3',
+        }),
+      });
+      const responseData = await response.json();
+      console.log(responseData);
+      if (response.status === 200) {
+        setLoginError(null);
+        setUser(responseData.user);
+        setEmail('');
+        setPassword('');
+        localStorage.setItem('user', JSON.stringify(responseData.user));
+        localStorage.setItem('createdAt', new Date().getTime());
+      } else if (!response.ok) {
+        setLoginError(responseData.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div onSubmit={handleLogin} className="login-page">
       <h1>Login to your account</h1>
@@ -61,8 +89,11 @@ function LoginPage() {
             required
           />
         </div>
-        <button type="submit">Login</button>
         {loginError ? <p>{loginError}</p> : null}
+        <button type="submit">Login</button>
+        <button type="button" onClick={demoLogin}>
+          Demo user (Jon Snow)
+        </button>
       </form>
       <p>
         New to Cherry Chat? <a href="/sign-up">Create an account</a>
