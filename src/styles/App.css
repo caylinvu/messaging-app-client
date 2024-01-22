@@ -133,6 +133,24 @@ a {
   align-items: center;
 }
 
+.msg-container {
+  flex-grow: 1;
+}
+
+.msg {
+  border: solid black 1px;
+  max-width: 300px;
+  border-radius: 5px;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
 .send-bar {
   background-color: rgb(140, 140, 184);
   padding: 10px;

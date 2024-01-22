@@ -1,10 +1,17 @@
-import { Outlet, useOutletContext, Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Outlet, useOutletContext, Link, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { DateTime } from 'luxon';
 
 function ChatPage() {
   const [activeChat, setActiveChat] = useState('');
-  const { contacts, chats, userDetails } = useOutletContext();
+  const { contacts, chats, userDetails, user } = useOutletContext();
+  const { chatId } = useParams();
+
+  useEffect(() => {
+    if (chatId) {
+      setActiveChat(chatId);
+    }
+  }, []);
 
   return (
     <div className="chat-page">
@@ -56,7 +63,7 @@ function ChatPage() {
         </div>
       </div>
       {activeChat ? (
-        <Outlet context={{ contacts, chats, userDetails }} />
+        <Outlet context={{ contacts, chats, userDetails, user }} />
       ) : (
         <div className="intro-page">
           <img src="/jam.png" alt="" />
@@ -66,5 +73,8 @@ function ChatPage() {
     </div>
   );
 }
+
+// Change so that the intro page is within the Outlet, and the activeChat is set on the Outlet
+// page depending on the conversationId param, so that on refresh it will stay within active chat
 
 export default ChatPage;
