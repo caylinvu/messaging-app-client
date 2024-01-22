@@ -1,5 +1,6 @@
 import { Outlet, useOutletContext } from 'react-router-dom';
 import { useState } from 'react';
+import { DateTime } from 'luxon';
 
 function ChatPage() {
   const [activeChat, setActiveChat] = useState('');
@@ -22,15 +23,43 @@ function ChatPage() {
             }
             return (
               <div className="chat-preview" key={obj._id}>
-                {obj.isGroup
-                  ? obj.groupName
-                  : otherUser.member.firstName + ' ' + otherUser.member.lastName}
+                <div className="chat-img">
+                  {obj.isGroup ? obj.groupName.slice(0, 1) : otherUser.member.firstName.slice(0, 1)}
+                </div>
+                <div className="chat-details">
+                  <div className="preview-top">
+                    <div>
+                      {obj.isGroup
+                        ? obj.groupName
+                        : otherUser.member.firstName + ' ' + otherUser.member.lastName}
+                    </div>
+                    <div className="preview-time">
+                      {obj.lastMessage
+                        ? DateTime.fromISO(obj.lastMessage.timestamp).toLocaleString(DateTime)
+                        : DateTime.fromISO(obj.timestamp).toLocaleString(DateTime)}
+                    </div>
+                  </div>
+                  <div className="preview-bottom">
+                    {obj.lastMessage && obj.lastMessage.text.length > 25
+                      ? obj.lastMessage.text.slice(0, 25) + '...'
+                      : obj.lastMessage && obj.lastMessage.text.length <= 25
+                        ? obj.lastMessage.text.slice(0, 25)
+                        : 'Started new chat'}
+                  </div>
+                </div>
               </div>
             );
           })}
         </div>
       </div>
-      {activeChat ? <Outlet /> : <div>Please select chat</div>}
+      {activeChat ? (
+        <Outlet />
+      ) : (
+        <div className="intro-page">
+          <img src="/jam.png" alt="" />
+          <p>Welcome to Cherry Chat! Select a chat or start a new conversation</p>
+        </div>
+      )}
     </div>
   );
 }

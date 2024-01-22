@@ -9,6 +9,7 @@ a {
 .main-app {
   display: flex;
   height: 100vh;
+  width: 100vw;
 }
 
 .sidebar {
@@ -37,25 +38,73 @@ a {
 
 .chat-page {
   display: flex;
+  flex-grow: 1;
 }
 
 .chat-column {
-  width: 300px;
+  width: 321px;
   background-color: rgb(174, 174, 212);
+  border-right: solid black 1px;
 }
 
 .chat-header {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 20px;
 }
 
 .chat-list {
-  padding: 10px;
+  padding: 0px 20px;
 }
 
 .chat-preview {
   border: solid black 1px;
-  padding: 10px;
+  padding: 13px 10px;
   margin-bottom: 5px;
+  display: flex;
+  gap: 10px;
+  border-radius: 5px;
+  align-items: center;
+  width: 280px;
+}
+
+.chat-img {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  background-color: white;
+  border-radius: 25px;
+}
+
+.chat-details {
+  flex-grow: 1;
+}
+
+.preview-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.preview-time {
+  font-size: 15px;
+}
+
+.preview-bottom {
+  font-size: 15px;
+}
+
+.intro-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  gap: 20px;
+  background-color: rgb(174, 174, 212);
+}
+
+.intro-page img {
+  width: 150px;
 }

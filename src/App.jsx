@@ -40,6 +40,10 @@ export default App;
 
 // Do we want to keep logout after 24 hours????
 
+// Add ability to fetch images from backend
+
+// Show preview time instead of date if in last 24 hours
+
 // Use returned login info to connect to socket
 
 // Use returned login info to fetch data

@@ -49,8 +49,21 @@ function Layout() {
           throw new Error(`This is an HTTP error: The status is ${response.status}`);
         }
         const chatData = await response.json();
-        setChats(chatData);
-        console.log(chatData);
+        // Sort by conversation's last message timestamp, or if no last message
+        // then sort by conversation's creation timestamp
+        const sortedChats = chatData.sort((x, y) => {
+          if (x.lastMessage && y.lastMessage) {
+            return new Date(y.lastMessage.timestamp) - new Date(x.lastMessage.timestamp);
+          } else if (x.lastMessage && !y.lastMessage) {
+            return new Date(y.timestamp) - new Date(x.lastMessage.timestamp);
+          } else if (!x.lastMessage && y.lastMessage) {
+            return new Date(y.lastMessage.timestamp) - new Date(x.timestamp);
+          } else if (!x.lastMessage && !y.lastMessage) {
+            return new Date(y.timestamp) - new Date(x.timestamp);
+          }
+        });
+        setChats(sortedChats);
+        console.log(sortedChats);
       } catch (err) {
         setChats([]);
         console.log(err);
