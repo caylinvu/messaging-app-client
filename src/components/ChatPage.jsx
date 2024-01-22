@@ -20,21 +20,20 @@ function ChatPage() {
               otherUser = obj.members.find(
                 (chatMember) => chatMember.member._id !== userDetails._id,
               );
+              otherUser = otherUser.member;
             }
             return (
-              <Link to={'/chats/' + obj._id} onClick={() => setActiveChat(obj._id)}>
-                <div className="chat-preview" key={obj._id}>
+              <Link to={'/chats/' + obj._id} onClick={() => setActiveChat(obj._id)} key={obj._id}>
+                <div className="chat-preview">
                   <div className="chat-img">
-                    {obj.isGroup
-                      ? obj.groupName.slice(0, 1)
-                      : otherUser.member.firstName.slice(0, 1)}
+                    {obj.isGroup ? obj.groupName.slice(0, 1) : otherUser.firstName.slice(0, 1)}
                   </div>
                   <div className="chat-details">
                     <div className="preview-top">
                       <div>
                         {obj.isGroup
                           ? obj.groupName
-                          : otherUser.member.firstName + ' ' + otherUser.member.lastName}
+                          : otherUser.firstName + ' ' + otherUser.lastName}
                       </div>
                       <div className="preview-time">
                         {obj.lastMessage
@@ -57,7 +56,7 @@ function ChatPage() {
         </div>
       </div>
       {activeChat ? (
-        <Outlet />
+        <Outlet context={{ contacts, chats, userDetails }} />
       ) : (
         <div className="intro-page">
           <img src="/jam.png" alt="" />
