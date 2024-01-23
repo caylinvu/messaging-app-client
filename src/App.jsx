@@ -54,3 +54,5 @@ export default App;
 
 // Create error page
 //-- either have all paths navigate back to '/chats' or have an error page
+
+// Add date bar in messages!!
