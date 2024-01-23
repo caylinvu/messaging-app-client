@@ -46,6 +46,7 @@ a {
   width: 321px;
   background-color: rgb(174, 174, 212);
   border-right: solid black 1px;
+  overflow-y: auto;
 }
 
 .chat-header {
@@ -56,6 +57,7 @@ a {
 
 .chat-list {
   padding: 0px 20px;
+  /* overflow-y: auto; */
 }
 
 .chat-preview {
@@ -135,20 +137,41 @@ a {
 
 .msg-container {
   flex-grow: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
 }
 
 .msg {
   border: solid black 1px;
-  max-width: 300px;
+  max-width: 250px;
+  min-width: 125px;
   border-radius: 5px;
+  padding: 5px 10px;
 }
 
-.left {
-  float: left;
+.msg .author {
+  font-size: 15px;
+  margin-bottom: 3px;
 }
 
-.right {
-  float: right;
+.msg .text {
+  margin-bottom: 3px;
+}
+
+.msg .time {
+  font-size: 15px;
+  text-align: right;
+}
+
+.received {
+  align-self: start;
+}
+
+.sent {
+  align-self: end;
 }
 
 .send-bar {

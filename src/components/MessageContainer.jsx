@@ -8,11 +8,13 @@ function MessageContainer({ messages, userDetails }) {
         return (
           <div
             key={msg._id}
-            className={msg.author._id === userDetails._id ? 'msg received' : 'msg sent'}
+            className={msg.author._id === userDetails._id ? 'msg sent' : 'msg received'}
           >
-            <p>{msg.author.firstName}</p>
-            <p>{msg.text}</p>
-            <p>{DateTime.fromISO(msg.timestamp).toLocaleString(DateTime.TIME_SIMPLE)}</p>
+            <p className="author">{msg.author.firstName}</p>
+            <p className="text">{msg.text}</p>
+            <p className="time">
+              {DateTime.fromISO(msg.timestamp).toLocaleString(DateTime.TIME_SIMPLE)}
+            </p>
           </div>
         );
       })}
