@@ -66,6 +66,9 @@ function ChatPage() {
     }
   });
 
+  // CHANGE ALL OF THIS TO GET ALL USER INFO FROM CONTACTS
+  // SO THAT WHEN CONTACTS IS UPDATED WITH ONLINE/OFFLINE STATUS IT WILL SHOW
+
   return (
     <div className="chat-page">
       <div className="chat-column">
@@ -80,7 +83,8 @@ function ChatPage() {
               otherUser = obj.members.find(
                 (chatMember) => chatMember.member._id !== userDetails._id,
               );
-              otherUser = otherUser.member;
+              let tmpUser = otherUser.member;
+              otherUser = contacts.find((contact) => contact._id === tmpUser._id);
             }
             const currentUser = obj.members.find((user) => user.member._id == userDetails._id);
             return (
@@ -88,6 +92,7 @@ function ChatPage() {
                 <div className="chat-preview">
                   <div className="chat-img">
                     {obj.isGroup ? obj.groupName.slice(0, 1) : otherUser.firstName.slice(0, 1)}
+                    {!obj.isGroup && otherUser.isOnline && <span>*</span>}
                   </div>
                   <div className="chat-details">
                     <div className="preview-top">
@@ -111,8 +116,10 @@ function ChatPage() {
                             : 'Started new chat'}
                       </div>
                       <div className="new-msg">
-                        {(obj.lastMessage && !currentUser.lastRead) ||
-                        (obj.lastMessage && currentUser.lastRead < obj.lastMessage.timestamp)
+                        {(obj.lastMessage && currentUser && !currentUser.lastRead) ||
+                        (obj.lastMessage &&
+                          currentUser &&
+                          currentUser.lastRead < obj.lastMessage.timestamp)
                           ? '*'
                           : ''}
                       </div>

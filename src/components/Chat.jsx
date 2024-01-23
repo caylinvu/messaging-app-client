@@ -44,7 +44,8 @@ function Chat() {
           let otherUser;
           if (!obj.isGroup) {
             otherUser = obj.members.find((chatMember) => chatMember.member._id !== userDetails._id);
-            otherUser = otherUser.member;
+            let tmpUser = otherUser.member;
+            otherUser = contacts.find((contact) => contact._id === tmpUser._id);
           }
           return (
             <div className="chat" key={obj._id}>
@@ -52,6 +53,7 @@ function Chat() {
                 <div className="info-left">
                   <div className="info-img">
                     {obj.isGroup ? obj.groupName.slice(0, 1) : otherUser.firstName.slice(0, 1)}
+                    {!obj.isGroup && otherUser.isOnline && <span>*</span>}
                   </div>
                   <div className="details">
                     <div>

@@ -19,7 +19,7 @@ function LoginPage() {
         }),
       });
       const responseData = await response.json();
-      console.log(responseData);
+      // console.log(responseData);
       if (response.status === 200) {
         setLoginError(null);
         setUser(responseData.user);

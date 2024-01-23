@@ -6,7 +6,21 @@ function Layout() {
   const [contacts, setContacts] = useState([]);
   const [chats, setChats] = useState([]);
   const [userDetails, setUserDetails] = useState({});
-  const { user } = useOutletContext();
+  const { user, socket } = useOutletContext();
+
+  socket.on('onlineStatus', (currentUser) => {
+    const updatedContacts = contacts.map((contact) => {
+      if (contact._id === currentUser._id) {
+        return {
+          ...contact,
+          isOnline: currentUser.isOnline,
+        };
+      } else {
+        return contact;
+      }
+    });
+    setContacts(updatedContacts);
+  });
 
   useEffect(() => {
     const getContacts = async () => {

@@ -79,6 +79,14 @@ a {
   line-height: 40px;
   background-color: white;
   border-radius: 25px;
+  position: relative;
+}
+
+.info-img span,
+.chat-img span {
+  position: absolute;
+  right: 5px;
+  bottom: -20px;
 }
 
 .chat-details {

@@ -1,13 +1,32 @@
 import './styles/App.css';
 import { Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { io } from 'socket.io-client';
 
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || '');
 
+  const socket = io('http://localhost:3000', {
+    autoConnect: false,
+    auth: {
+      token: user.token,
+      user: user._id,
+    },
+  });
+
+  useEffect(() => {
+    if (user) {
+      socket.connect();
+      console.log('User connected');
+      console.log(socket);
+    }
+  }, [socket, user]);
+
   const handleLogout = () => {
     localStorage.clear();
     setUser('');
+    socket.disconnect();
+    ('User disconnected');
   };
 
   // Log user out if token is older than 24 hours
@@ -24,7 +43,7 @@ function App() {
 
   return (
     <>
-      <Outlet context={{ user, setUser, handleLogout }} />
+      <Outlet context={{ user, setUser, handleLogout, socket }} />
     </>
   );
 }
@@ -83,3 +102,5 @@ export default App;
 // Deal with chat notifications if you already have page open when you refresh or get new message
 
 // Instead of doing a conditional statement on returned HTML, use state and useEffect to store the variable on render and then display dynamically
+
+// Make login work on enter
