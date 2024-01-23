@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import { DateTime } from 'luxon';
-import { useState } from 'react';
 
 function MessageContainer({ messages, userDetails }) {
   return (

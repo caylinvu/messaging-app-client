@@ -1,17 +1,70 @@
 import { Outlet, useOutletContext, Link, useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 import { DateTime } from 'luxon';
+import { useEffect } from 'react';
 
 function ChatPage() {
-  const [activeChat, setActiveChat] = useState('');
-  const { contacts, chats, userDetails, user } = useOutletContext();
+  const { contacts, chats, setChats, userDetails, user } = useOutletContext();
   const { chatId } = useParams();
 
-  useEffect(() => {
-    if (chatId) {
-      setActiveChat(chatId);
+  const updateDbUser = async (chat) => {
+    try {
+      const response = await fetch(
+        'http://localhost:3000/api/conversations/' + chat._id + '/timestamp/' + user._id,
+        {
+          method: 'PUT',
+          headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' },
+        },
+      );
+      if (response.status === 200) {
+        updateLocalUser(chat);
+      }
+    } catch (err) {
+      console.log(err);
     }
-  }, []);
+  };
+
+  const updateLocalUser = (chat) => {
+    const updatedChats = chats.map((obj) => {
+      if (obj._id === chat._id) {
+        return {
+          ...obj,
+          members: obj.members.map((user) => {
+            if (user.member._id === userDetails._id) {
+              return {
+                ...user,
+                lastRead: new Date().toISOString(),
+              };
+            } else {
+              return user;
+            }
+          }),
+        };
+      } else {
+        return obj;
+      }
+    });
+    setChats(updatedChats);
+  };
+
+  const openNewMsg = (user, chat) => {
+    if (
+      (chat.lastMessage && !user.lastRead) ||
+      (chat.lastMessage && user.lastRead < chat.lastMessage.timestamp)
+    ) {
+      updateDbUser(chat);
+    }
+  };
+
+  // Handle opening new chat notications
+  useEffect(() => {
+    if (chatId && chats) {
+      const thisChat = chats.find((obj) => obj._id === chatId);
+      if (thisChat) {
+        const thisUser = thisChat.members.find((obj) => obj.member._id === userDetails._id);
+        openNewMsg(thisUser, thisChat);
+      }
+    }
+  });
 
   return (
     <div className="chat-page">
@@ -31,7 +84,7 @@ function ChatPage() {
             }
             const currentUser = obj.members.find((user) => user.member._id == userDetails._id);
             return (
-              <Link to={'/chats/' + obj._id} onClick={() => setActiveChat(obj._id)} key={obj._id}>
+              <Link to={'/chats/' + obj._id} key={obj._id}>
                 <div className="chat-preview">
                   <div className="chat-img">
                     {obj.isGroup ? obj.groupName.slice(0, 1) : otherUser.firstName.slice(0, 1)}
@@ -58,9 +111,8 @@ function ChatPage() {
                             : 'Started new chat'}
                       </div>
                       <div className="new-msg">
-                        {obj.lastMessage &&
-                        currentUser &&
-                        currentUser.lastRead < obj.lastMessage.timestamp
+                        {(obj.lastMessage && !currentUser.lastRead) ||
+                        (obj.lastMessage && currentUser.lastRead < obj.lastMessage.timestamp)
                           ? '*'
                           : ''}
                       </div>

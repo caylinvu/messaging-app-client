@@ -79,3 +79,7 @@ export default App;
 // Add date bar in messages!!
 
 // figure out why eslint isn't working???
+
+// Deal with chat notifications if you already have page open when you refresh or get new message
+
+// Instead of doing a conditional statement on returned HTML, use state and useEffect to store the variable on render and then display dynamically

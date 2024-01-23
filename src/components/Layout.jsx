@@ -19,7 +19,7 @@ function Layout() {
         }
         const contactData = await response.json();
         setContacts(contactData);
-        console.log(contactData);
+        // console.log(contactData);
       } catch (err) {
         setContacts([]);
         console.log(err);
@@ -63,7 +63,7 @@ function Layout() {
           }
         });
         setChats(sortedChats);
-        console.log(sortedChats);
+        // console.log(sortedChats);
       } catch (err) {
         setChats([]);
         console.log(err);
@@ -77,7 +77,7 @@ function Layout() {
   return (
     <div className="main-app">
       <Sidebar userDetails={userDetails} />
-      <Outlet context={{ contacts, chats, userDetails, user }} />
+      <Outlet context={{ contacts, chats, setChats, userDetails, user }} />
     </div>
   );
 }

@@ -22,7 +22,7 @@ function Chat() {
         }
         const messageData = await response.json();
         setMessages(messageData);
-        console.log(messageData);
+        // console.log(messageData);
       } catch (err) {
         setMessages([]);
         console.log(err);
@@ -31,7 +31,7 @@ function Chat() {
     if (chatId) {
       getMessages();
     }
-  }, [chatId]);
+  }, [chatId, user.token]);
 
   const handleSend = (e) => {
     e.preventDefault();
