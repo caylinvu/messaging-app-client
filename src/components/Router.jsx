@@ -8,6 +8,7 @@ import SignUpPage from './SignUpPage';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import Layout from './Layout';
+import Intro from './Intro';
 
 function Router() {
   const router = createBrowserRouter([
@@ -26,7 +27,10 @@ function Router() {
             {
               path: '/chats',
               element: <ChatPage />,
-              children: [{ path: '/chats/:chatId', element: <Chat /> }],
+              children: [
+                { path: '/chats', element: <Intro /> },
+                { path: '/chats/:chatId', element: <Chat /> },
+              ],
             },
             { path: '/contacts', element: <ContactPage /> },
             { path: '*', element: <Navigate to="/chats" /> },

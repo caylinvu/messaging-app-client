@@ -31,10 +31,30 @@ function App() {
 
 export default App;
 
+// TO DO NEXT:
+
+// Use returned login info to connect to socket
+
+// Implement sending a new message through chat
+
+// ALL TO DO:
+
 // Set up authorization to login
 //-- login page form
 //-- localstorage to save token, current user, token, and login status
 //-- sign up form (automatically logs you in)
+
+// Sign up page
+
+// Contact page
+
+// New chat
+
+// New chat from contact page
+
+// Profile info pop up
+
+// Chat info pop up
 
 // Edit where login error messages are shown
 
@@ -44,7 +64,8 @@ export default App;
 
 // Show preview time instead of date if in last 24 hours
 
-// Use returned login info to connect to socket
+// If user's last read time for a conversation is less than the conversations last message timestamp, show notification
+//-- UPDATE LAST READ TIME WHEN OPEN
 
 // Use returned login info to fetch data
 //-- If logged in, need to fetch all user data and all chats that include the current user
@@ -56,3 +77,5 @@ export default App;
 //-- either have all paths navigate back to '/chats' or have an error page
 
 // Add date bar in messages!!
+
+// figure out why eslint isn't working???

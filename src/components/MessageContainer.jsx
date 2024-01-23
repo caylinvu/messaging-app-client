@@ -8,7 +8,7 @@ function MessageContainer({ messages, userDetails }) {
       {messages.map((msg, index, arr) => {
         const prevMsg = arr[index - 1];
         return (
-          <>
+          <div className="msg-outer" key={msg._id}>
             {!prevMsg ? (
               <div className="full-date">
                 {DateTime.fromISO(msg.timestamp).toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)}
@@ -24,17 +24,14 @@ function MessageContainer({ messages, userDetails }) {
               </div>
             )}
 
-            <div
-              key={msg._id}
-              className={msg.author._id === userDetails._id ? 'msg sent' : 'msg received'}
-            >
+            <div className={msg.author._id === userDetails._id ? 'msg sent' : 'msg received'}>
               <p className="author">{msg.author.firstName}</p>
               <p className="text">{msg.text}</p>
               <p className="time">
                 {DateTime.fromISO(msg.timestamp).toLocaleString(DateTime.TIME_SIMPLE)}
               </p>
             </div>
-          </>
+          </div>
         );
       })}
     </div>

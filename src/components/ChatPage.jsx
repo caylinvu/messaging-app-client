@@ -29,6 +29,7 @@ function ChatPage() {
               );
               otherUser = otherUser.member;
             }
+            const currentUser = obj.members.find((user) => user.member._id == userDetails._id);
             return (
               <Link to={'/chats/' + obj._id} onClick={() => setActiveChat(obj._id)} key={obj._id}>
                 <div className="chat-preview">
@@ -49,11 +50,20 @@ function ChatPage() {
                       </div>
                     </div>
                     <div className="preview-bottom">
-                      {obj.lastMessage && obj.lastMessage.text.length > 25
-                        ? obj.lastMessage.text.slice(0, 25) + '...'
-                        : obj.lastMessage && obj.lastMessage.text.length <= 25
-                          ? obj.lastMessage.text.slice(0, 25)
-                          : 'Started new chat'}
+                      <div className="preview-msg">
+                        {obj.lastMessage && obj.lastMessage.text.length > 25
+                          ? obj.lastMessage.text.slice(0, 25) + '...'
+                          : obj.lastMessage && obj.lastMessage.text.length <= 25
+                            ? obj.lastMessage.text.slice(0, 25)
+                            : 'Started new chat'}
+                      </div>
+                      <div className="new-msg">
+                        {obj.lastMessage &&
+                        currentUser &&
+                        currentUser.lastRead < obj.lastMessage.timestamp
+                          ? '*'
+                          : ''}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -62,14 +72,7 @@ function ChatPage() {
           })}
         </div>
       </div>
-      {activeChat ? (
-        <Outlet context={{ contacts, chats, userDetails, user }} />
-      ) : (
-        <div className="intro-page">
-          <img src="/jam.png" alt="" />
-          <p>Welcome to Cherry Chat! Select a chat or start a new conversation</p>
-        </div>
-      )}
+      <Outlet context={{ contacts, chats, userDetails, user }} />
     </div>
   );
 }
