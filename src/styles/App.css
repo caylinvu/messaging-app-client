@@ -1,3 +1,5 @@
+/* ~~~~~~~~~~~~~~~MAIN APP~~~~~~~~~~~~~~~ */
+
 button:hover {
   cursor: pointer;
 }
@@ -13,6 +15,8 @@ a {
   width: 100vw;
 }
 
+/* ~~~~~~~~~~~~~~~SIDEBAR~~~~~~~~~~~~~~~ */
+
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -20,6 +24,7 @@ a {
   width: 100px;
   padding: 10px 5px;
   background-color: rgb(82, 82, 114);
+  flex-shrink: 0;
 }
 
 .nav-btns {
@@ -33,9 +38,13 @@ a {
   height: 50px;
 }
 
+/* ~~~~~~~~~~~~~~~LOGIN FORM~~~~~~~~~~~~~~~ */
+
 .login-form button {
   display: block;
 }
+
+/* ~~~~~~~~~~~~~~~CHAT PAGE~~~~~~~~~~~~~~~ */
 
 .chat-page {
   display: flex;
@@ -47,6 +56,7 @@ a {
   background-color: rgb(174, 174, 212);
   border-right: solid black 1px;
   overflow-y: auto;
+  flex-shrink: 0;
 }
 
 .chat-header {
@@ -77,9 +87,9 @@ a {
   height: 40px;
   text-align: center;
   line-height: 40px;
-  background-color: white;
   border-radius: 25px;
   position: relative;
+  background-color: white;
 }
 
 .info-img span,
@@ -112,6 +122,8 @@ a {
   font-size: 15px;
 }
 
+/* ~~~~~~~~~~~~~~~INTRO PAGE~~~~~~~~~~~~~~~ */
+
 .intro-page {
   display: flex;
   flex-direction: column;
@@ -125,6 +137,8 @@ a {
 .intro-page img {
   width: 150px;
 }
+
+/* ~~~~~~~~~~~~~~~CHAT OUTLET~~~~~~~~~~~~~~~ */
 
 .chat {
   display: flex;
@@ -231,4 +245,75 @@ a {
 
 .msg-form input {
   flex-grow: 1;
+}
+
+/* ~~~~~~~~~~~~~~~NEW CHAT POPUP~~~~~~~~~~~~~~~ */
+
+.blocker {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.5);
+  clip-path: inset(0 -100vmax);
+  z-index: 10;
+}
+
+.popup-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.chat-popup {
+  border-radius: 10px;
+  background-color: rgb(82, 82, 114);
+  border: rgb(70, 70, 97) solid 3px;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: 18px;
+  width: 350px;
+  position: relative;
+  width: 360px;
+  height: 350px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.popup-users {
+  height: 280px;
+  overflow-y: auto;
+}
+
+.popup-users button {
+  width: 295px;
+  text-align: left;
+  background-color: rgb(174, 174, 212);
+  border: none;
+  padding: 7px 5px;
+  border-bottom: #000 solid 1px;
+}
+
+.popup-users button:last-child {
+  border-bottom: none;
+}
+
+.btn-img {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 25px;
+  background-color: white;
+  display: inline-block;
+  margin-right: 5px;
+  margin-left: 5px;
 }

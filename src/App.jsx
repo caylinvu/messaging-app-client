@@ -26,20 +26,20 @@ function App() {
     localStorage.clear();
     setUser('');
     socket.disconnect();
-    ('User disconnected');
+    console.log('User disconnected');
   };
 
   // Log user out if token is older than 24 hours
-  useEffect(() => {
-    if (localStorage.getItem('user')) {
-      const hours = 24;
-      const createdAt = JSON.parse(localStorage.getItem('createdAt'));
-      if (new Date().getTime() - createdAt > hours * 60 * 60 * 1000) {
-        handleLogout();
-        return;
-      }
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem('user')) {
+  //     const hours = 24;
+  //     const createdAt = JSON.parse(localStorage.getItem('createdAt'));
+  //     if (new Date().getTime() - createdAt > hours * 60 * 60 * 1000) {
+  //       handleLogout();
+  //       return;
+  //     }
+  //   }
+  // }, []);
 
   return (
     <>
@@ -52,16 +52,13 @@ export default App;
 
 // TO DO NEXT:
 
-// Use returned login info to connect to socket
+// Implement creating a new conversation
 
 // Implement sending a new message through chat
 
-// ALL TO DO:
+// show own online status on profile button!!!
 
-// Set up authorization to login
-//-- login page form
-//-- localstorage to save token, current user, token, and login status
-//-- sign up form (automatically logs you in)
+// ALL TO DO:
 
 // Sign up page
 
@@ -104,3 +101,9 @@ export default App;
 // Instead of doing a conditional statement on returned HTML, use state and useEffect to store the variable on render and then display dynamically
 
 // Make login work on enter
+
+// REFACTOR TO DO:
+
+// Make a sort chat function to use in multiple places
+
+// Move socket.on('createConversation) from ChatPop component to ChatPage component

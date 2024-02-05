@@ -91,7 +91,7 @@ function Layout() {
   return (
     <div className="main-app">
       <Sidebar userDetails={userDetails} />
-      <Outlet context={{ contacts, chats, setChats, userDetails, user }} />
+      <Outlet context={{ contacts, chats, setChats, userDetails, user, socket }} />
     </div>
   );
 }

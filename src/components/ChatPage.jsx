@@ -1,9 +1,11 @@
 import { Outlet, useOutletContext, Link, useParams } from 'react-router-dom';
 import { DateTime } from 'luxon';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import ChatPopup from './ChatPopup';
 
 function ChatPage() {
-  const { contacts, chats, setChats, userDetails, user } = useOutletContext();
+  const [showChatPopup, setShowChatPopup] = useState(false);
+  const { contacts, chats, setChats, userDetails, user, socket } = useOutletContext();
   const { chatId } = useParams();
 
   const updateDbUser = async (chat) => {
@@ -60,7 +62,7 @@ function ChatPage() {
     if (chatId && chats) {
       const thisChat = chats.find((obj) => obj._id === chatId);
       if (thisChat) {
-        const thisUser = thisChat.members.find((obj) => obj.member._id === userDetails._id);
+        const thisUser = thisChat.members.find((obj) => obj.member.toString() === userDetails._id);
         openNewMsg(thisUser, thisChat);
       }
     }
@@ -71,35 +73,46 @@ function ChatPage() {
 
   return (
     <div className="chat-page">
+      {showChatPopup && (
+        <ChatPopup
+          setShowChatPopup={setShowChatPopup}
+          contacts={contacts}
+          chats={chats}
+          setChats={setChats}
+          user={user}
+          socket={socket}
+        />
+      )}
       <div className="chat-column">
         <div className="chat-header">
           <h1>Chats</h1>
-          <button>New chat</button>
+          <button onClick={() => setShowChatPopup(true)}>New chat</button>
         </div>
         <div className="chat-list">
           {chats.map((obj) => {
             let otherUser;
             if (!obj.isGroup) {
-              otherUser = obj.members.find(
-                (chatMember) => chatMember.member._id !== userDetails._id,
+              const tmpUser = obj.members.find(
+                (chatMember) => chatMember.member.toString() !== userDetails._id,
               );
-              let tmpUser = otherUser.member;
-              otherUser = contacts.find((contact) => contact._id === tmpUser._id);
+              otherUser = contacts.find((contact) => contact._id === tmpUser.member.toString());
             }
             const currentUser = obj.members.find((user) => user.member._id == userDetails._id);
             return (
               <Link to={'/chats/' + obj._id} key={obj._id}>
                 <div className="chat-preview">
                   <div className="chat-img">
-                    {obj.isGroup ? obj.groupName.slice(0, 1) : otherUser.firstName.slice(0, 1)}
-                    {!obj.isGroup && otherUser.isOnline && <span>*</span>}
+                    {obj.isGroup && obj.groupName.slice(0, 1)}
+                    {!obj.isGroup && otherUser && otherUser.firstName.slice(0, 1)}
+                    {!obj.isGroup && otherUser && otherUser.isOnline && <span>*</span>}
                   </div>
                   <div className="chat-details">
                     <div className="preview-top">
                       <div>
-                        {obj.isGroup
-                          ? obj.groupName
-                          : otherUser.firstName + ' ' + otherUser.lastName}
+                        {obj.isGroup && obj.groupName}
+                        {!obj.isGroup &&
+                          otherUser &&
+                          otherUser.firstName + ' ' + otherUser.lastName}
                       </div>
                       <div className="preview-time">
                         {obj.lastMessage
@@ -135,8 +148,5 @@ function ChatPage() {
     </div>
   );
 }
-
-// Change so that the intro page is within the Outlet, and the activeChat is set on the Outlet
-// page depending on the conversationId param, so that on refresh it will stay within active chat
 
 export default ChatPage;

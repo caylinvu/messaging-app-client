@@ -43,28 +43,28 @@ function Chat() {
         if (obj._id === chatId) {
           let otherUser;
           if (!obj.isGroup) {
-            otherUser = obj.members.find((chatMember) => chatMember.member._id !== userDetails._id);
-            let tmpUser = otherUser.member;
-            otherUser = contacts.find((contact) => contact._id === tmpUser._id);
+            const tmpUser = obj.members.find(
+              (chatMember) => chatMember.member.toString() !== userDetails._id,
+            );
+            otherUser = contacts.find((contact) => contact._id === tmpUser.member.toString());
           }
           return (
             <div className="chat" key={obj._id}>
               <div className="info-bar">
                 <div className="info-left">
                   <div className="info-img">
-                    {obj.isGroup ? obj.groupName.slice(0, 1) : otherUser.firstName.slice(0, 1)}
-                    {!obj.isGroup && otherUser.isOnline && <span>*</span>}
+                    {obj.isGroup && obj.groupName.slice(0, 1)}
+                    {!obj.isGroup && otherUser && otherUser.firstName.slice(0, 1)}
+                    {!obj.isGroup && otherUser && otherUser.isOnline && <span>*</span>}
                   </div>
                   <div className="details">
                     <div>
-                      {obj.isGroup ? obj.groupName : otherUser.firstName + ' ' + otherUser.lastName}
+                      {obj.isGroup && obj.groupName}
+                      {!obj.isGroup && otherUser && otherUser.firstName + ' ' + otherUser.lastName}
                     </div>
                     <div>
-                      {obj.isGroup
-                        ? obj.members.length + ' members'
-                        : otherUser.isOnline
-                          ? 'Online'
-                          : 'Offline'}
+                      {obj.isGroup && obj.members.length + ' members'}
+                      {!obj.isGroup && otherUser && otherUser.isOnline ? 'Online' : 'Offline'}
                     </div>
                   </div>
                 </div>
