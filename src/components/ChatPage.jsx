@@ -68,6 +68,9 @@ function ChatPage() {
     }
   });
 
+  // Send new message with msg object (including text, author, conversation, image, and timestamp)
+  // Save new message to local messages state and broadcast OR just emit to all including sender
+
   // CHANGE ALL OF THIS TO GET ALL USER INFO FROM CONTACTS
   // SO THAT WHEN CONTACTS IS UPDATED WITH ONLINE/OFFLINE STATUS IT WILL SHOW
 

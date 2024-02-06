@@ -72,7 +72,7 @@ function Chat() {
                   <button>Menu</button>
                 </div>
               </div>
-              <MessageContainer messages={messages} userDetails={userDetails} />
+              <MessageContainer messages={messages} userDetails={userDetails} contacts={contacts} />
               {/* maybe need contacts, currentChat, and otherUser */}
               <div onSubmit={handleSend} className="send-bar">
                 <form action="" className="msg-form">

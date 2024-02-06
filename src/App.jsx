@@ -52,8 +52,6 @@ export default App;
 
 // TO DO NEXT:
 
-// Implement creating a new conversation
-
 // Implement sending a new message through chat
 
 // show own online status on profile button!!!
@@ -64,7 +62,7 @@ export default App;
 
 // Contact page
 
-// New chat
+// Group chat
 
 // New chat from contact page
 
@@ -77,6 +75,8 @@ export default App;
 // Do we want to keep logout after 24 hours????
 
 // Add ability to fetch images from backend
+
+// Send images
 
 // Show preview time instead of date if in last 24 hours
 
