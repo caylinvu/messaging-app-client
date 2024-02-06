@@ -1,4 +1,4 @@
-import { Outlet, useOutletContext } from 'react-router-dom';
+import { Outlet, useOutletContext, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Sidebar from './Sidebar';
 
@@ -7,6 +7,7 @@ function Layout() {
   const [chats, setChats] = useState([]);
   const [userDetails, setUserDetails] = useState({});
   const { user, socket } = useOutletContext();
+  const navigate = useNavigate();
 
   socket.on('onlineStatus', (currentUser) => {
     const updatedContacts = contacts.map((contact) => {
@@ -20,6 +21,27 @@ function Layout() {
       }
     });
     setContacts(updatedContacts);
+  });
+
+  socket.on('createConversation', (data) => {
+    const newChats = [...chats, data.conversation];
+    const sortedChats = newChats.sort((x, y) => {
+      if (x.lastMessage && y.lastMessage) {
+        return new Date(y.lastMessage.timestamp) - new Date(x.lastMessage.timestamp);
+      } else if (x.lastMessage && !y.lastMessage) {
+        return new Date(y.timestamp) - new Date(x.lastMessage.timestamp);
+      } else if (!x.lastMessage && y.lastMessage) {
+        return new Date(y.lastMessage.timestamp) - new Date(x.timestamp);
+      } else if (!x.lastMessage && !y.lastMessage) {
+        return new Date(y.timestamp) - new Date(x.timestamp);
+      }
+    });
+    console.log(sortedChats);
+    setChats(sortedChats);
+    // If user created chat, navigate to new chat page
+    if (data.sender === user._id) {
+      navigate('/chats/' + data.conversation._id);
+    }
   });
 
   useEffect(() => {

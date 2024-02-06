@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }) {
+function ChatPopup({ setShowChatPopup, contacts, chats, user, socket }) {
   const navigate = useNavigate();
 
   // Handle choosing contact to start new chat
@@ -10,7 +9,7 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
     // Check if chat with chosen contact already exists
     const existingChat = chats.find((obj) => {
       const userExists = obj.members.find((member) => {
-        if (obj.members.length === 2 && member.member._id === contact._id) {
+        if (obj.members.length === 2 && member.member.toString() === contact._id) {
           return member.member;
         }
       });
@@ -26,18 +25,7 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
       setShowChatPopup(false);
     } else {
       // Create array with member id's
-      const newMembers = [
-        {
-          member: {
-            _id: contact._id,
-          },
-        },
-        {
-          member: {
-            _id: user._id,
-          },
-        },
-      ];
+      const newMembers = [{ member: contact._id }, { member: user._id }];
       // If chat does not exist, create new chat (including members array, isGroup, and groupName)
       const conv = {
         members: newMembers,
@@ -45,34 +33,16 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
         groupName: '',
         timestamp: new Date().toISOString(),
       };
+
+      const convData = {
+        conv: conv,
+        receiver: contact._id,
+      };
       // Send 'conv' object to backend
-      socket.emit('createConversation', conv);
+      socket.emit('createConversation', convData);
       setShowChatPopup(false);
     }
   };
-
-  // Add new conversation to current chats array
-  useEffect(() => {
-    socket.on('createConversation', (data) => {
-      const newChats = [...chats, data.conversation];
-      const sortedChats = newChats.sort((x, y) => {
-        if (x.lastMessage && y.lastMessage) {
-          return new Date(y.lastMessage.timestamp) - new Date(x.lastMessage.timestamp);
-        } else if (x.lastMessage && !y.lastMessage) {
-          return new Date(y.timestamp) - new Date(x.lastMessage.timestamp);
-        } else if (!x.lastMessage && y.lastMessage) {
-          return new Date(y.lastMessage.timestamp) - new Date(x.timestamp);
-        } else if (!x.lastMessage && !y.lastMessage) {
-          return new Date(y.timestamp) - new Date(x.timestamp);
-        }
-      });
-      setChats(sortedChats);
-      // If user created chat, navigate to new chat page
-      if (data.sender === user._id) {
-        navigate('/chats/' + data.conversation._id);
-      }
-    });
-  });
 
   return (
     <div className="blocker">
