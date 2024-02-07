@@ -6,7 +6,7 @@ function Chat() {
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState('');
   const { chatId } = useParams();
-  const { contacts, chats, userDetails, user } = useOutletContext();
+  const { contacts, chats, userDetails, user, socket } = useOutletContext();
 
   useEffect(() => {
     const getMessages = async () => {
@@ -33,9 +33,41 @@ function Chat() {
     }
   }, [chatId, user.token]);
 
+  // Emitting message
+  // Send new message with msg object (including text, author, conversation, image, and timestamp)
+  // Save new message to local messages state and broadcast OR just emit to all including sender
   const handleSend = (e) => {
     e.preventDefault();
+    if (text) {
+      const msg = {
+        text: text,
+        author: user._id,
+        conversation: chatId,
+        image: '',
+        timestamp: new Date().toISOString(),
+      };
+      socket.emit('sendMessage', msg);
+      setText('');
+    }
   };
+
+  // Receiving message
+  // Save new message to messages object
+  useEffect(() => {
+    socket.on('receiveMessage', (message) => {
+      if (chatId === message.conversation.toString()) {
+        const newMessages = [...messages, message];
+        const sortedMessages = newMessages.sort((x, y) => {
+          return new Date(x.timestamp) - new Date(y.timestamp);
+        });
+        setMessages(sortedMessages);
+      }
+    });
+
+    return () => {
+      socket.off('receiveMessage');
+    };
+  }, [chatId, messages, socket]);
 
   return (
     <>
@@ -64,7 +96,7 @@ function Chat() {
                     </div>
                     <div>
                       {obj.isGroup && obj.members.length + ' members'}
-                      {!obj.isGroup && otherUser && otherUser.isOnline ? 'Online' : 'Offline'}
+                      {!obj.isGroup && otherUser && (otherUser.isOnline ? 'Online' : 'Offline')}
                     </div>
                   </div>
                 </div>

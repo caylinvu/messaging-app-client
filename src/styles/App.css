@@ -162,7 +162,7 @@ a {
   align-items: center;
 }
 
-.msg-container {
+#msg-container {
   flex-grow: 1;
   padding: 20px;
   display: flex;

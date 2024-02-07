@@ -15,6 +15,9 @@ function ChatPage() {
         {
           method: 'PUT',
           headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            timestamp: new Date().toISOString(),
+          }),
         },
       );
       if (response.status === 200) {
@@ -30,14 +33,14 @@ function ChatPage() {
       if (obj._id === chat._id) {
         return {
           ...obj,
-          members: obj.members.map((user) => {
-            if (user.member._id === userDetails._id) {
+          members: obj.members.map((member) => {
+            if (member.member.toString() === userDetails._id) {
               return {
-                ...user,
+                ...member,
                 lastRead: new Date().toISOString(),
               };
             } else {
-              return user;
+              return member;
             }
           }),
         };
@@ -57,6 +60,8 @@ function ChatPage() {
     }
   };
 
+  // FIX THIS
+  // ALL ARE TRYING TO UPDATE AT THE SAME TIME SO ONLY ONE IS GOING THROUGH
   // Handle opening new chat notications
   useEffect(() => {
     if (chatId && chats) {
@@ -66,10 +71,40 @@ function ChatPage() {
         openNewMsg(thisUser, thisChat);
       }
     }
-  });
+  }, [chatId, chats, userDetails]);
 
-  // Send new message with msg object (including text, author, conversation, image, and timestamp)
-  // Save new message to local messages state and broadcast OR just emit to all including sender
+  // Receiving message
+  // Update last message in the chats array with chatId
+  useEffect(() => {
+    socket.on('receiveMessagePrev', (message) => {
+      const newChats = chats.map((chat) => {
+        if (message.conversation.toString() === chat._id) {
+          return {
+            ...chat,
+            lastMessage: message,
+          };
+        } else {
+          return chat;
+        }
+      });
+      const sortedChats = newChats.sort((x, y) => {
+        if (x.lastMessage && y.lastMessage) {
+          return new Date(y.lastMessage.timestamp) - new Date(x.lastMessage.timestamp);
+        } else if (x.lastMessage && !y.lastMessage) {
+          return new Date(y.timestamp) - new Date(x.lastMessage.timestamp);
+        } else if (!x.lastMessage && y.lastMessage) {
+          return new Date(y.lastMessage.timestamp) - new Date(x.timestamp);
+        } else if (!x.lastMessage && !y.lastMessage) {
+          return new Date(y.timestamp) - new Date(x.timestamp);
+        }
+      });
+      setChats(sortedChats);
+    });
+
+    return () => {
+      socket.off('receiveMessagePrev');
+    };
+  }, [chats, socket]);
 
   // CHANGE ALL OF THIS TO GET ALL USER INFO FROM CONTACTS
   // SO THAT WHEN CONTACTS IS UPDATED WITH ONLINE/OFFLINE STATUS IT WILL SHOW
@@ -100,7 +135,9 @@ function ChatPage() {
               );
               otherUser = contacts.find((contact) => contact._id === tmpUser.member.toString());
             }
-            const currentUser = obj.members.find((user) => user.member._id == userDetails._id);
+            const currentUser = obj.members.find(
+              (user) => user.member.toString() == userDetails._id,
+            );
             return (
               <Link to={'/chats/' + obj._id} key={obj._id}>
                 <div className="chat-preview">
@@ -147,7 +184,7 @@ function ChatPage() {
           })}
         </div>
       </div>
-      <Outlet context={{ contacts, chats, userDetails, user }} />
+      <Outlet context={{ contacts, chats, userDetails, user, socket }} />
     </div>
   );
 }

@@ -1,9 +1,16 @@
 import PropTypes from 'prop-types';
 import { DateTime } from 'luxon';
+import { useEffect } from 'react';
 
 function MessageContainer({ messages, userDetails, contacts }) {
+  // Scroll to bottom of messages
+  useEffect(() => {
+    let msgContainer = document.getElementById('msg-container');
+    msgContainer.scrollTop = msgContainer.scrollHeight;
+  }, [messages]);
+
   return (
-    <div className="msg-container">
+    <div id="msg-container">
       {messages.map((msg, index, arr) => {
         const prevMsg = arr[index - 1];
         const author = contacts.find((contact) => msg.author.toString() === contact._id);
