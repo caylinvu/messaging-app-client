@@ -5,13 +5,13 @@ import ChatPopup from './ChatPopup';
 
 function ChatPage() {
   const [showChatPopup, setShowChatPopup] = useState(false);
-  const { contacts, chats, setChats, userDetails, user, socket } = useOutletContext();
+  const { contacts, setContacts, chats, setChats, userDetails, user, socket } = useOutletContext();
   const { chatId } = useParams();
 
-  const updateDbUser = async (chat) => {
+  const updateDbUser = async (chat, thisUser) => {
     try {
       const response = await fetch(
-        'http://localhost:3000/api/conversations/' + chat._id + '/timestamp/' + user._id,
+        'http://localhost:3000/api/users/' + user._id + '/timestamp/' + chat._id,
         {
           method: 'PUT',
           headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' },
@@ -21,42 +21,44 @@ function ChatPage() {
         },
       );
       if (response.status === 200) {
-        updateLocalUser(chat);
+        updateLocalUser(chat, thisUser);
       }
     } catch (err) {
       console.log(err);
     }
   };
 
-  const updateLocalUser = (chat) => {
-    const updatedChats = chats.map((obj) => {
-      if (obj._id === chat._id) {
+  const updateLocalUser = (chat, thisUser) => {
+    const updatedConvs = thisUser.convData.map((obj) => {
+      if (obj.conv.toString() === chat._id) {
         return {
           ...obj,
-          members: obj.members.map((member) => {
-            if (member.member.toString() === userDetails._id) {
-              return {
-                ...member,
-                lastRead: new Date().toISOString(),
-              };
-            } else {
-              return member;
-            }
-          }),
+          lastRead: new Date().toISOString(),
         };
       } else {
         return obj;
       }
     });
-    setChats(updatedChats);
+
+    const updatedUsers = contacts.map((obj) => {
+      if (obj._id === thisUser._id) {
+        return {
+          ...obj,
+          convData: updatedConvs,
+        };
+      } else {
+        return obj;
+      }
+    });
+    setContacts(updatedUsers);
   };
 
-  const openNewMsg = (user, chat) => {
+  const openNewMsg = (chat, thisUser, userConv) => {
     if (
-      (chat.lastMessage && !user.lastRead) ||
-      (chat.lastMessage && user.lastRead < chat.lastMessage.timestamp)
+      (chat.lastMessage && !userConv.lastRead) ||
+      (chat.lastMessage && userConv.lastRead < chat.lastMessage.timestamp)
     ) {
-      updateDbUser(chat);
+      updateDbUser(chat, thisUser);
     }
   };
 
@@ -67,11 +69,13 @@ function ChatPage() {
     if (chatId && chats) {
       const thisChat = chats.find((obj) => obj._id === chatId);
       if (thisChat) {
-        const thisUser = thisChat.members.find((obj) => obj.member.toString() === userDetails._id);
-        openNewMsg(thisUser, thisChat);
+        const thisUser = contacts.find((obj) => obj._id === user._id);
+        const userConv = thisUser.convData.find((obj) => obj.conv.toString() === chatId);
+        // const thisUser = thisChat.members.find((obj) => obj.member.toString() === userDetails._id);
+        openNewMsg(thisChat, thisUser, userConv);
       }
     }
-  }, [chatId, chats, userDetails]);
+  }, [chatId, chats, contacts, user]);
 
   // Receiving message
   // Update last message in the chats array with chatId
@@ -131,13 +135,11 @@ function ChatPage() {
             let otherUser;
             if (!obj.isGroup) {
               const tmpUser = obj.members.find(
-                (chatMember) => chatMember.member.toString() !== userDetails._id,
+                (chatMember) => chatMember.toString() !== userDetails._id,
               );
-              otherUser = contacts.find((contact) => contact._id === tmpUser.member.toString());
+              otherUser = contacts.find((contact) => contact._id === tmpUser.toString());
             }
-            const currentUser = obj.members.find(
-              (user) => user.member.toString() == userDetails._id,
-            );
+            const userConv = userDetails.convData.find((conv) => conv.conv.toString() === obj._id);
             return (
               <Link to={'/chats/' + obj._id} key={obj._id}>
                 <div className="chat-preview">
@@ -169,10 +171,10 @@ function ChatPage() {
                             : 'Started new chat'}
                       </div>
                       <div className="new-msg">
-                        {(obj.lastMessage && currentUser && !currentUser.lastRead) ||
+                        {(obj.lastMessage && userConv && !userConv.lastRead) ||
                         (obj.lastMessage &&
-                          currentUser &&
-                          currentUser.lastRead < obj.lastMessage.timestamp)
+                          userConv &&
+                          userConv.lastRead < obj.lastMessage.timestamp)
                           ? '*'
                           : ''}
                       </div>
