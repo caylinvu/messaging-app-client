@@ -23,26 +23,54 @@ function Layout() {
     setContacts(updatedContacts);
   });
 
-  socket.on('createConversation', (data) => {
-    const newChats = [...chats, data.conversation];
-    const sortedChats = newChats.sort((x, y) => {
-      if (x.lastMessage && y.lastMessage) {
-        return new Date(y.lastMessage.timestamp) - new Date(x.lastMessage.timestamp);
-      } else if (x.lastMessage && !y.lastMessage) {
-        return new Date(y.timestamp) - new Date(x.lastMessage.timestamp);
-      } else if (!x.lastMessage && y.lastMessage) {
-        return new Date(y.lastMessage.timestamp) - new Date(x.timestamp);
-      } else if (!x.lastMessage && !y.lastMessage) {
-        return new Date(y.timestamp) - new Date(x.timestamp);
+  useEffect(() => {
+    socket.on('createConversation', (data) => {
+      const newChats = [...chats, data.conversation];
+      const sortedChats = newChats.sort((x, y) => {
+        if (x.lastMessage && y.lastMessage) {
+          return new Date(y.lastMessage.timestamp) - new Date(x.lastMessage.timestamp);
+        } else if (x.lastMessage && !y.lastMessage) {
+          return new Date(y.timestamp) - new Date(x.lastMessage.timestamp);
+        } else if (!x.lastMessage && y.lastMessage) {
+          return new Date(y.lastMessage.timestamp) - new Date(x.timestamp);
+        } else if (!x.lastMessage && !y.lastMessage) {
+          return new Date(y.timestamp) - new Date(x.timestamp);
+        }
+      });
+      // console.log(sortedChats);
+      setChats(sortedChats);
+
+      // Update new conversation under user also!!!!
+      const updatedConvs = [
+        ...userDetails.convData,
+        {
+          conv: data.conversation._id,
+        },
+      ];
+      const updatedUsers = contacts.map((obj) => {
+        if (obj._id === user._id) {
+          return {
+            ...obj,
+            convData: updatedConvs,
+          };
+        } else {
+          return obj;
+        }
+      });
+      console.log(updatedConvs);
+      console.log(updatedUsers);
+      setContacts(updatedUsers);
+
+      // If user created chat, navigate to new chat page
+      if (data.sender === user._id) {
+        navigate('/chats/' + data.conversation._id);
       }
     });
-    console.log(sortedChats);
-    setChats(sortedChats);
-    // If user created chat, navigate to new chat page
-    if (data.sender === user._id) {
-      navigate('/chats/' + data.conversation._id);
-    }
-  });
+
+    return () => {
+      socket.off('createConversation');
+    };
+  }, [chats, contacts, navigate, socket, user, userDetails]);
 
   useEffect(() => {
     const getContacts = async () => {

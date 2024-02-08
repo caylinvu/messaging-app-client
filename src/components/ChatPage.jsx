@@ -54,6 +54,7 @@ function ChatPage() {
   };
 
   const openNewMsg = (chat, thisUser, userConv) => {
+    console.log('newmsg ' + userConv);
     if (
       (chat.lastMessage && !userConv.lastRead) ||
       (chat.lastMessage && userConv.lastRead < chat.lastMessage.timestamp)
@@ -71,6 +72,7 @@ function ChatPage() {
       if (thisChat) {
         const thisUser = contacts.find((obj) => obj._id === user._id);
         const userConv = thisUser.convData.find((obj) => obj.conv.toString() === chatId);
+        console.log('useEffect: ' + userConv);
         // const thisUser = thisChat.members.find((obj) => obj.member.toString() === userDetails._id);
         openNewMsg(thisChat, thisUser, userConv);
       }
@@ -139,7 +141,11 @@ function ChatPage() {
               );
               otherUser = contacts.find((contact) => contact._id === tmpUser.toString());
             }
-            const userConv = userDetails.convData.find((conv) => conv.conv.toString() === obj._id);
+            let userConv;
+            if (userDetails.convData) {
+              userConv = userDetails.convData.find((conv) => conv.conv.toString() === obj._id);
+            }
+
             return (
               <Link to={'/chats/' + obj._id} key={obj._id}>
                 <div className="chat-preview">

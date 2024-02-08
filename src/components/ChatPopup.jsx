@@ -9,8 +9,8 @@ function ChatPopup({ setShowChatPopup, contacts, chats, user, socket }) {
     // Check if chat with chosen contact already exists
     const existingChat = chats.find((obj) => {
       const userExists = obj.members.find((member) => {
-        if (obj.members.length === 2 && member.member.toString() === contact._id) {
-          return member.member;
+        if (obj.members.length === 2 && member.toString() === contact._id) {
+          return member;
         }
       });
 
@@ -25,7 +25,7 @@ function ChatPopup({ setShowChatPopup, contacts, chats, user, socket }) {
       setShowChatPopup(false);
     } else {
       // Create array with member id's
-      const newMembers = [{ member: contact._id }, { member: user._id }];
+      const newMembers = [contact._id, user._id];
       // If chat does not exist, create new chat (including members array, isGroup, and groupName)
       const conv = {
         members: newMembers,
