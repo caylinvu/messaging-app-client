@@ -52,15 +52,17 @@ export default App;
 
 // TO DO NEXT:
 
-// ALL TO DO:
-
 // Sign up page
 
-// Group chat
+// ALL TO DO:
 
-// Profile info pop up
+// Create group chat
 
-// Chat info pop up
+// Profile pop up to edit info from
+
+// Chat info tab
+
+// Delete chats
 
 // Edit where login error messages are shown
 
@@ -72,23 +74,10 @@ export default App;
 
 // Show preview time instead of date if in last 24 hours
 
-// If user's last read time for a conversation is less than the conversations last message timestamp, show notification
-//-- UPDATE LAST READ TIME WHEN OPEN
-
-// Use returned login info to fetch data
-//-- If logged in, need to fetch all user data and all chats that include the current user
-//-- When clicking on an individual chat, fetch messages from that chat
-
 // Create loading screen
 
 // Create error page
 //-- either have all paths navigate back to '/chats' or have an error page
-
-// Add date bar in messages!!
-
-// figure out why eslint isn't working???
-
-// Deal with chat notifications if you already have page open when you refresh or get new message
 
 // Instead of doing a conditional statement on returned HTML, use state and useEffect to store the variable on render and then display dynamically
 
