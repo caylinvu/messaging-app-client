@@ -9,19 +9,25 @@ function Layout() {
   const { user, socket } = useOutletContext();
   const navigate = useNavigate();
 
-  socket.on('onlineStatus', (currentUser) => {
-    const updatedContacts = contacts.map((contact) => {
-      if (contact._id === currentUser._id) {
-        return {
-          ...contact,
-          isOnline: currentUser.isOnline,
-        };
-      } else {
-        return contact;
-      }
+  useEffect(() => {
+    socket.on('onlineStatus', (currentUser) => {
+      const updatedContacts = contacts.map((contact) => {
+        if (contact._id === currentUser._id) {
+          return {
+            ...contact,
+            isOnline: currentUser.isOnline,
+          };
+        } else {
+          return contact;
+        }
+      });
+      setContacts(updatedContacts);
     });
-    setContacts(updatedContacts);
-  });
+
+    return () => {
+      socket.off('onlineStatus');
+    };
+  }, [contacts, socket]);
 
   useEffect(() => {
     socket.on('receiveConversation', (data) => {
