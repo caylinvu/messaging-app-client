@@ -2,6 +2,7 @@ import { Outlet, useOutletContext, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import ChatPopup from './ChatPopup';
 import ChatList from './ChatList';
+import { sortChats } from '../helpers/chatHelpers';
 
 function ChatPage() {
   const [showChatPopup, setShowChatPopup] = useState(false);
@@ -93,17 +94,7 @@ function ChatPage() {
           return chat;
         }
       });
-      const sortedChats = newChats.sort((x, y) => {
-        if (x.lastMessage && y.lastMessage) {
-          return new Date(y.lastMessage.timestamp) - new Date(x.lastMessage.timestamp);
-        } else if (x.lastMessage && !y.lastMessage) {
-          return new Date(y.timestamp) - new Date(x.lastMessage.timestamp);
-        } else if (!x.lastMessage && y.lastMessage) {
-          return new Date(y.lastMessage.timestamp) - new Date(x.timestamp);
-        } else if (!x.lastMessage && !y.lastMessage) {
-          return new Date(y.timestamp) - new Date(x.timestamp);
-        }
-      });
+      const sortedChats = sortChats(newChats);
       setChats(sortedChats);
     });
 

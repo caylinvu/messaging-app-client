@@ -17,7 +17,6 @@ export const checkExistingChats = (contact, chats) => {
 
 // Create a new chat and send to backend via socket
 export const createNewChat = (contact, user, socket) => {
-  // Create array with member id's
   const newMembers = [contact._id, user._id];
 
   const conv = {
@@ -32,6 +31,22 @@ export const createNewChat = (contact, user, socket) => {
     receiver: contact._id,
   };
 
-  // Send 'convData' object to backend
   socket.emit('createConversation', convData);
+};
+
+// Sort chats based on lastMessage timestamp (or chat creation timestamp if no lastMessage)
+export const sortChats = (chats) => {
+  const sortedChats = chats.sort((x, y) => {
+    if (x.lastMessage && y.lastMessage) {
+      return new Date(y.lastMessage.timestamp) - new Date(x.lastMessage.timestamp);
+    } else if (x.lastMessage && !y.lastMessage) {
+      return new Date(y.timestamp) - new Date(x.lastMessage.timestamp);
+    } else if (!x.lastMessage && y.lastMessage) {
+      return new Date(y.lastMessage.timestamp) - new Date(x.timestamp);
+    } else if (!x.lastMessage && !y.lastMessage) {
+      return new Date(y.timestamp) - new Date(x.timestamp);
+    }
+  });
+
+  return sortedChats;
 };

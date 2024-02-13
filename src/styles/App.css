@@ -145,6 +145,10 @@ a {
   text-overflow: ellipsis;
 }
 
+.new-msg {
+  font-size: 15px;
+}
+
 /* ~~~~~~~~~~~~~~~INTRO PAGE~~~~~~~~~~~~~~~ */
 
 .intro-page {

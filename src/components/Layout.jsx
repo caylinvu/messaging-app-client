@@ -1,6 +1,7 @@
 import { Outlet, useOutletContext, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Sidebar from './Sidebar';
+import { sortChats } from '../helpers/chatHelpers';
 
 function Layout() {
   const [contacts, setContacts] = useState([]);
@@ -32,17 +33,7 @@ function Layout() {
   useEffect(() => {
     socket.on('receiveConversation', (data) => {
       const newChats = [...chats, data.conversation];
-      const sortedChats = newChats.sort((x, y) => {
-        if (x.lastMessage && y.lastMessage) {
-          return new Date(y.lastMessage.timestamp) - new Date(x.lastMessage.timestamp);
-        } else if (x.lastMessage && !y.lastMessage) {
-          return new Date(y.timestamp) - new Date(x.lastMessage.timestamp);
-        } else if (!x.lastMessage && y.lastMessage) {
-          return new Date(y.lastMessage.timestamp) - new Date(x.timestamp);
-        } else if (!x.lastMessage && !y.lastMessage) {
-          return new Date(y.timestamp) - new Date(x.timestamp);
-        }
-      });
+      const sortedChats = sortChats(newChats);
       // console.log(sortedChats);
       setChats(sortedChats);
 
@@ -63,8 +54,8 @@ function Layout() {
           return obj;
         }
       });
-      console.log(updatedConvs);
-      console.log(updatedUsers);
+      // console.log(updatedConvs);
+      // console.log(updatedUsers);
       setContacts(updatedUsers);
 
       // If user created chat, navigate to new chat page
@@ -119,21 +110,8 @@ function Layout() {
           throw new Error(`This is an HTTP error: The status is ${response.status}`);
         }
         const chatData = await response.json();
-        // Sort by conversation's last message timestamp, or if no last message
-        // then sort by conversation's creation timestamp
-        const sortedChats = chatData.sort((x, y) => {
-          if (x.lastMessage && y.lastMessage) {
-            return new Date(y.lastMessage.timestamp) - new Date(x.lastMessage.timestamp);
-          } else if (x.lastMessage && !y.lastMessage) {
-            return new Date(y.timestamp) - new Date(x.lastMessage.timestamp);
-          } else if (!x.lastMessage && y.lastMessage) {
-            return new Date(y.lastMessage.timestamp) - new Date(x.timestamp);
-          } else if (!x.lastMessage && !y.lastMessage) {
-            return new Date(y.timestamp) - new Date(x.timestamp);
-          }
-        });
+        const sortedChats = sortChats(chatData);
         setChats(sortedChats);
-        // console.log(sortedChats);
       } catch (err) {
         setChats([]);
         console.log(err);

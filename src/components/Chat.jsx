@@ -57,6 +57,7 @@ function Chat() {
     socket.on('receiveMessage', (message) => {
       if (chatId === message.conversation.toString()) {
         const newMessages = [...messages, message];
+        // Maybe just add message to end of array for performance???
         const sortedMessages = newMessages.sort((x, y) => {
           return new Date(x.timestamp) - new Date(y.timestamp);
         });
