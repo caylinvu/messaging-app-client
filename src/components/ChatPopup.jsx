@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import { checkExistingChats, createNewChat } from '../helpers/chatHelpers';
 
 function ChatPopup({ setShowChatPopup, contacts, chats, user, socket }) {
   const navigate = useNavigate();
@@ -7,39 +8,15 @@ function ChatPopup({ setShowChatPopup, contacts, chats, user, socket }) {
   // Handle choosing contact to start new chat
   const startChat = (contact) => {
     // Check if chat with chosen contact already exists
-    const existingChat = chats.find((obj) => {
-      const userExists = obj.members.find((member) => {
-        if (obj.members.length === 2 && member.toString() === contact._id) {
-          return member;
-        }
-      });
-
-      if (userExists) {
-        return obj;
-      }
-    });
+    const existingChat = checkExistingChats(contact, chats);
 
     // If chat already exists, navigate to existing chat
     if (existingChat) {
       navigate('/chats/' + existingChat._id);
       setShowChatPopup(false);
     } else {
-      // Create array with member id's
-      const newMembers = [contact._id, user._id];
-      // If chat does not exist, create new chat (including members array, isGroup, and groupName)
-      const conv = {
-        members: newMembers,
-        isGroup: false,
-        groupName: '',
-        timestamp: new Date().toISOString(),
-      };
-
-      const convData = {
-        conv: conv,
-        receiver: contact._id,
-      };
-      // Send 'conv' object to backend
-      socket.emit('createConversation', convData);
+      // If chat does not exist, create new chat
+      createNewChat(contact, user, socket);
       setShowChatPopup(false);
     }
   };
