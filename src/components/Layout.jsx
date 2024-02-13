@@ -24,7 +24,7 @@ function Layout() {
   });
 
   useEffect(() => {
-    socket.on('createConversation', (data) => {
+    socket.on('receiveConversation', (data) => {
       const newChats = [...chats, data.conversation];
       const sortedChats = newChats.sort((x, y) => {
         if (x.lastMessage && y.lastMessage) {
@@ -68,7 +68,7 @@ function Layout() {
     });
 
     return () => {
-      socket.off('createConversation');
+      socket.off('receiveConversation');
     };
   }, [chats, contacts, navigate, socket, user, userDetails]);
 

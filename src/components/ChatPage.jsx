@@ -54,7 +54,7 @@ function ChatPage() {
   };
 
   const openNewMsg = (chat, thisUser, userConv) => {
-    console.log('newmsg ' + userConv);
+    // console.log('newmsg ' + userConv);
     if (
       (chat.lastMessage && !userConv.lastRead) ||
       (chat.lastMessage && userConv.lastRead < chat.lastMessage.timestamp)
@@ -72,7 +72,7 @@ function ChatPage() {
       if (thisChat) {
         const thisUser = contacts.find((obj) => obj._id === user._id);
         const userConv = thisUser.convData.find((obj) => obj.conv.toString() === chatId);
-        console.log('useEffect: ' + userConv);
+        // console.log('useEffect: ' + userConv);
         // const thisUser = thisChat.members.find((obj) => obj.member.toString() === userDetails._id);
         openNewMsg(thisChat, thisUser, userConv);
       }
@@ -170,11 +170,7 @@ function ChatPage() {
                     </div>
                     <div className="preview-bottom">
                       <div className="preview-msg">
-                        {obj.lastMessage && obj.lastMessage.text.length > 25
-                          ? obj.lastMessage.text.slice(0, 25) + '...'
-                          : obj.lastMessage && obj.lastMessage.text.length <= 25
-                            ? obj.lastMessage.text.slice(0, 25)
-                            : 'Started new chat'}
+                        {obj.lastMessage ? obj.lastMessage.text : 'Started new chat'}
                       </div>
                       <div className="new-msg">
                         {(obj.lastMessage && userConv && !userConv.lastRead) ||

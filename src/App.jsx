@@ -52,8 +52,6 @@ export default App;
 
 // TO DO NEXT:
 
-// Implement sending a new message through chat
-
 // show own online status on profile button!!!
 
 // ALL TO DO:
@@ -101,6 +99,8 @@ export default App;
 // Instead of doing a conditional statement on returned HTML, use state and useEffect to store the variable on render and then display dynamically
 
 // Make login work on enter
+
+// If chat is open when receiving new message, make notification bubble not pop up
 
 // REFACTOR TO DO:
 
