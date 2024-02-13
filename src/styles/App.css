@@ -56,12 +56,14 @@ a {
 
 /* ~~~~~~~~~~~~~~~CHAT PAGE~~~~~~~~~~~~~~~ */
 
-.chat-page {
+.chat-page,
+.contact-page {
   display: flex;
   flex-grow: 1;
 }
 
-.chat-column {
+.chat-column,
+.contact-column {
   width: 321px;
   background-color: rgb(174, 174, 212);
   border-right: solid black 1px;
@@ -70,16 +72,24 @@ a {
   padding: 20px;
 }
 
-.chat-header {
+.chat-header,
+.contact-header {
   display: flex;
   justify-content: space-between;
   padding-bottom: 20px;
 }
 
-.chat-preview {
+.chat-list,
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.chat-preview,
+.contact-preview {
   border: solid black 1px;
   padding: 13px 10px;
-  margin-bottom: 5px;
   display: flex;
   gap: 10px;
   border-radius: 5px;
@@ -88,7 +98,8 @@ a {
 }
 
 .chat-img,
-.info-img {
+.info-img,
+.contact-img {
   width: 40px;
   height: 40px;
   text-align: center;
@@ -99,7 +110,8 @@ a {
 }
 
 .info-img span,
-.chat-img span {
+.chat-img span,
+.contact-img span {
   position: absolute;
   right: 5px;
   bottom: -20px;
@@ -283,34 +295,40 @@ a {
 .chat-popup {
   border-radius: 10px;
   background-color: rgb(82, 82, 114);
-  border: rgb(70, 70, 97) solid 3px;
   color: white;
-  padding: 20px;
-  text-align: center;
-  font-size: 18px;
+  padding: 20px 30px 30px;
   width: 350px;
   position: relative;
-  width: 360px;
-  height: 350px;
+}
+
+.chat-popup p {
+  text-align: center;
+  font-size: 18px;
+  padding-bottom: 5px;
 }
 
 .close-btn {
   position: absolute;
   top: 10px;
   right: 10px;
+  font-size: 16px;
 }
 
 .popup-users {
-  height: 280px;
+  display: flex;
+  flex-direction: column;
+  height: 300px;
   overflow-y: auto;
+  font-size: 16px;
 }
 
 .popup-users button {
-  width: 295px;
-  text-align: left;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 13px 10px;
   background-color: rgb(174, 174, 212);
   border: none;
-  padding: 7px 5px;
   border-bottom: #000 solid 1px;
 }
 
@@ -325,9 +343,14 @@ a {
   line-height: 40px;
   border-radius: 25px;
   background-color: white;
-  display: inline-block;
-  margin-right: 5px;
-  margin-left: 5px;
 }
 
 /* ~~~~~~~~~~~~~~~CONTACTS PAGE~~~~~~~~~~~~~~~ */
+
+.contact-preview {
+  background-color: inherit;
+}
+
+.contact-name {
+  font-size: 16px;
+}

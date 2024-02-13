@@ -52,10 +52,6 @@ export default App;
 
 // TO DO NEXT:
 
-// Contact page
-
-// New chat from contact page
-
 // ALL TO DO:
 
 // Sign up page
@@ -103,3 +99,15 @@ export default App;
 // Make a sort chat function to use in multiple places
 
 // Move socket.on('createConversation) from ChatPop component to ChatPage component
+
+// STYLING TO DO:
+
+// Pick a new font
+
+// Refine color palette
+
+// Add button hover style
+
+// Add icons for certain buttons
+
+// Style scroll bar

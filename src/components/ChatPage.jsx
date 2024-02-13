@@ -117,6 +117,14 @@ function ChatPage() {
 
   return (
     <div className="chat-page">
+      <div className="chat-column">
+        <div className="chat-header">
+          <h1>Chats</h1>
+          <button onClick={() => setShowChatPopup(true)}>New chat</button>
+        </div>
+        <ChatList chats={chats} contacts={contacts} userDetails={userDetails} />
+      </div>
+      <Outlet context={{ contacts, chats, userDetails, user, socket }} />
       {showChatPopup && (
         <ChatPopup
           setShowChatPopup={setShowChatPopup}
@@ -127,14 +135,6 @@ function ChatPage() {
           socket={socket}
         />
       )}
-      <div className="chat-column">
-        <div className="chat-header">
-          <h1>Chats</h1>
-          <button onClick={() => setShowChatPopup(true)}>New chat</button>
-        </div>
-        <ChatList chats={chats} contacts={contacts} userDetails={userDetails} />
-      </div>
-      <Outlet context={{ contacts, chats, userDetails, user, socket }} />
     </div>
   );
 }
