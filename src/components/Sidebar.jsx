@@ -12,7 +12,10 @@ function Sidebar({ userDetails }) {
         <button onClick={() => navigate('/contacts')}>Contacts</button>
         <button onClick={handleLogout}>Logout</button>
       </div>
-      <button className="profile-btn">{userDetails.firstName}</button>
+      <button className="profile-btn">
+        {userDetails.firstName}
+        {userDetails.isOnline && <span>*</span>}
+      </button>
     </div>
   );
 }

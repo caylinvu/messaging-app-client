@@ -38,6 +38,16 @@ a {
   height: 50px;
 }
 
+.profile-btn {
+  position: relative;
+}
+
+.profile-btn span {
+  position: absolute;
+  right: 5px;
+  bottom: -1px;
+}
+
 /* ~~~~~~~~~~~~~~~LOGIN FORM~~~~~~~~~~~~~~~ */
 
 .login-form button {

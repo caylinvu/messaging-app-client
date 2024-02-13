@@ -52,17 +52,15 @@ export default App;
 
 // TO DO NEXT:
 
-// show own online status on profile button!!!
+// Contact page
+
+// New chat from contact page
 
 // ALL TO DO:
 
 // Sign up page
 
-// Contact page
-
 // Group chat
-
-// New chat from contact page
 
 // Profile info pop up
 
@@ -97,8 +95,6 @@ export default App;
 // Deal with chat notifications if you already have page open when you refresh or get new message
 
 // Instead of doing a conditional statement on returned HTML, use state and useEffect to store the variable on render and then display dynamically
-
-// Make login work on enter
 
 // If chat is open when receiving new message, make notification bubble not pop up
 
