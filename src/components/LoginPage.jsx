@@ -90,10 +90,10 @@ function LoginPage() {
         </div>
         {loginError ? <p>{loginError}</p> : null}
         <button type="submit">Login</button>
-        <button type="button" onClick={demoLogin}>
-          Demo user (Jon Snow)
-        </button>
       </form>
+      <button type="button" onClick={demoLogin}>
+        Demo user (Jon Snow)
+      </button>
       <p>
         New to Cherry Chat? <a href="/sign-up">Create an account</a>
       </p>

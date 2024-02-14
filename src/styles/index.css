@@ -8,3 +8,7 @@ button {
   font-family: inherit;
   font-size: inherit;
 }
+
+button:hover {
+  cursor: pointer;
+}

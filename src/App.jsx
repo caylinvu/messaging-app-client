@@ -54,6 +54,10 @@ export default App;
 
 // Sign up page
 
+// Condense handle login into one function (with demo user creds passed through)
+
+// Auto-login when creating account
+
 // ALL TO DO:
 
 // Create group chat
@@ -73,6 +77,8 @@ export default App;
 // Send images
 
 // Show preview time instead of date if in last 24 hours
+
+// Set validation on form inputs
 
 // Create loading screen
 

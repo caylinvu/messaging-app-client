@@ -1,10 +1,14 @@
-/* ~~~~~~~~~~~~~~~MAIN APP~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~LOGIN FORM~~~~~~~~~~~~~~~ */
 
-button:hover {
-  cursor: pointer;
+.login-form button {
+  display: block;
 }
 
-a {
+/* ~~~~~~~~~~~~~~~SIGN UP FORM~~~~~~~~~~~~~~~ */
+
+/* ~~~~~~~~~~~~~~~MAIN APP (ONCE LOGGED IN)~~~~~~~~~~~~~~~ */
+
+.main-app a {
   text-decoration: none;
   color: inherit;
 }
@@ -46,12 +50,6 @@ a {
   position: absolute;
   right: 5px;
   bottom: -1px;
-}
-
-/* ~~~~~~~~~~~~~~~LOGIN FORM~~~~~~~~~~~~~~~ */
-
-.login-form button {
-  display: block;
 }
 
 /* ~~~~~~~~~~~~~~~CHAT PAGE~~~~~~~~~~~~~~~ */
