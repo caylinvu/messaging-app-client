@@ -13,7 +13,6 @@ function Layout() {
   useEffect(() => {
     socket.on('onlineStatus', (currentUser) => {
       const existingContact = contacts.find((obj) => obj._id === currentUser._id);
-      console.log(existingContact);
       if (existingContact) {
         const updatedContacts = contacts.map((contact) => {
           if (contact._id === currentUser._id) {

@@ -17,8 +17,8 @@ function App() {
   useEffect(() => {
     if (user) {
       socket.connect();
-      console.log('User connected');
-      console.log(socket);
+      // console.log('User connected');
+      // console.log(socket);
     }
   }, [socket, user]);
 
@@ -52,12 +52,6 @@ export default App;
 
 // TO DO NEXT:
 
-// Sign up page
-
-// Condense handle login into one function (with demo user creds passed through)
-
-// Auto-login when creating account
-
 // ALL TO DO:
 
 // Maybe change so that you fetch contacts every time you click on the contact page????
@@ -81,6 +75,11 @@ export default App;
 // Show preview time instead of date if in last 24 hours
 
 // Set validation on form inputs
+//-- Add body & validationResult on backend to make sure no username is used twice
+//-- Make sure backend errors are displayed correctly on frontend
+//-- Make sure backend errors are display in correct spot
+//-- Also add frontend validation where needed
+//-- Maybe add password confirmation????
 
 // Create loading screen
 
