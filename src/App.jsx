@@ -52,11 +52,9 @@ export default App;
 
 // TO DO NEXT:
 
-// ALL TO DO:
-
-// Maybe change so that you fetch contacts every time you click on the contact page????
-
 // Create group chat
+
+// ALL TO DO:
 
 // Profile pop up to edit info from
 
@@ -90,13 +88,27 @@ export default App;
 
 // If chat is open when receiving new message, make notification bubble not pop up
 
+// Add notification on chats button for new messages so u can see if new message is received while on the contact page
+
 // REFACTOR TO DO:
 
-// Make a sort chat function to use in multiple places
-
-// Move socket.on('createConversation) from ChatPop component to ChatPage component
+// Make more helper files (fetching, socket, etc)
 
 // STYLING TO DO:
+
+// Style login page
+
+// Style sign up page
+
+// Style chat page
+
+// Style contact page
+
+// Style new chat popup
+
+// Style edit profile popup
+
+// Style chat info tab
 
 // Pick a new font
 

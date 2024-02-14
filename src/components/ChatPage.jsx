@@ -2,13 +2,13 @@ import { Outlet, useOutletContext, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import ChatPopup from './ChatPopup';
 import ChatList from './ChatList';
-import { sortChats } from '../helpers/chatHelpers';
 
 function ChatPage() {
   const [showChatPopup, setShowChatPopup] = useState(false);
   const { contacts, setContacts, chats, setChats, userDetails, user, socket } = useOutletContext();
   const { chatId } = useParams();
 
+  // Update chat's lastRead time for current user in the database
   const updateDbUser = async (chat, thisUser) => {
     try {
       const response = await fetch(
@@ -29,6 +29,7 @@ function ChatPage() {
     }
   };
 
+  // Update chat's lastRead time for current user locally
   const updateLocalUser = (chat, thisUser) => {
     const updatedConvs = thisUser.convData.map((obj) => {
       if (obj.conv.toString() === chat._id) {
@@ -54,6 +55,7 @@ function ChatPage() {
     setContacts(updatedUsers);
   };
 
+  // Update database when new message is opened
   const openNewMsg = (chat, thisUser, userConv) => {
     // console.log('newmsg ' + userConv);
     if (
@@ -64,8 +66,6 @@ function ChatPage() {
     }
   };
 
-  // FIX THIS
-  // ALL ARE TRYING TO UPDATE AT THE SAME TIME SO ONLY ONE IS GOING THROUGH
   // Handle opening new chat notications
   useEffect(() => {
     if (chatId && chats) {
@@ -79,32 +79,6 @@ function ChatPage() {
       }
     }
   }, [chatId, chats, contacts, user]);
-
-  // Receiving message
-  // Update last message in the chats array with chatId
-  useEffect(() => {
-    socket.on('receiveMessagePrev', (message) => {
-      const newChats = chats.map((chat) => {
-        if (message.conversation.toString() === chat._id) {
-          return {
-            ...chat,
-            lastMessage: message,
-          };
-        } else {
-          return chat;
-        }
-      });
-      const sortedChats = sortChats(newChats);
-      setChats(sortedChats);
-    });
-
-    return () => {
-      socket.off('receiveMessagePrev');
-    };
-  }, [chats, socket]);
-
-  // CHANGE ALL OF THIS TO GET ALL USER INFO FROM CONTACTS
-  // SO THAT WHEN CONTACTS IS UPDATED WITH ONLINE/OFFLINE STATUS IT WILL SHOW
 
   return (
     <div className="chat-page">

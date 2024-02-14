@@ -80,6 +80,28 @@ function Layout() {
     };
   }, [chats, contacts, navigate, socket, user, userDetails]);
 
+  // Receiving message
+  useEffect(() => {
+    socket.on('receiveMessagePrev', (message) => {
+      const newChats = chats.map((chat) => {
+        if (message.conversation.toString() === chat._id) {
+          return {
+            ...chat,
+            lastMessage: message,
+          };
+        } else {
+          return chat;
+        }
+      });
+      const sortedChats = sortChats(newChats);
+      setChats(sortedChats);
+    });
+
+    return () => {
+      socket.off('receiveMessagePrev');
+    };
+  }, [chats, socket]);
+
   useEffect(() => {
     const getContacts = async () => {
       try {
