@@ -12,17 +12,29 @@ function Layout() {
 
   useEffect(() => {
     socket.on('onlineStatus', (currentUser) => {
-      const updatedContacts = contacts.map((contact) => {
-        if (contact._id === currentUser._id) {
-          return {
-            ...contact,
-            isOnline: currentUser.isOnline,
-          };
-        } else {
-          return contact;
-        }
-      });
-      setContacts(updatedContacts);
+      const existingContact = contacts.find((obj) => obj._id === currentUser._id);
+      console.log(existingContact);
+      if (existingContact) {
+        const updatedContacts = contacts.map((contact) => {
+          if (contact._id === currentUser._id) {
+            return {
+              ...contact,
+              isOnline: currentUser.isOnline,
+            };
+          } else {
+            return contact;
+          }
+        });
+        setContacts(updatedContacts);
+      } else if (!existingContact) {
+        const newContacts = [...contacts, currentUser];
+        const sortedContacts = newContacts.sort((a, b) => {
+          let textA = a.firstName.toLowerCase();
+          let textB = b.firstName.toLowerCase();
+          return textA < textB ? -1 : textA > textB ? 1 : 0;
+        });
+        setContacts(sortedContacts);
+      }
     });
 
     return () => {

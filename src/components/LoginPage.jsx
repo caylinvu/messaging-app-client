@@ -63,9 +63,9 @@ function LoginPage() {
   };
 
   return (
-    <div onSubmit={handleLogin} className="login-page">
+    <div className="login-page">
       <h1>Login to your account</h1>
-      <form action="" className="login-form">
+      <form action="" onSubmit={handleLogin} className="login-form">
         <div className="form-group">
           <label htmlFor="email">Email address</label>
           <input

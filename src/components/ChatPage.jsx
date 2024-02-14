@@ -113,7 +113,11 @@ function ChatPage() {
           <h1>Chats</h1>
           <button onClick={() => setShowChatPopup(true)}>New chat</button>
         </div>
-        <ChatList chats={chats} contacts={contacts} userDetails={userDetails} />
+        {chats.length > 0 ? (
+          <ChatList chats={chats} contacts={contacts} userDetails={userDetails} />
+        ) : (
+          <div>You currently have no chats open. Choose a contact to get started!</div>
+        )}
       </div>
       <Outlet context={{ contacts, chats, userDetails, user, socket }} />
       {showChatPopup && (

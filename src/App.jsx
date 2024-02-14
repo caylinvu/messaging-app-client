@@ -60,6 +60,8 @@ export default App;
 
 // ALL TO DO:
 
+// Maybe change so that you fetch contacts every time you click on the contact page????
+
 // Create group chat
 
 // Profile pop up to edit info from

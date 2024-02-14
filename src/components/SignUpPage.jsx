@@ -10,10 +10,44 @@ function SignUpPage() {
   const [signUpError, setSignUpError] = useState(null);
   const { setUser } = useOutletContext();
 
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:3000/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          password: password,
+          timestamp: new Date().toISOString(),
+        }),
+      });
+      const responseData = await response.json();
+      console.log(responseData);
+      if (response.status === 200) {
+        setSignUpError(null);
+        setUser(responseData.user);
+        setFirstName('');
+        setLastName('');
+        setEmail('');
+        setPassword('');
+        localStorage.setItem('user', JSON.stringify(responseData.user));
+        // localStorage.setItem('createdAt', new Date().getTime());
+      } else if (!response.ok) {
+        console.log(responseData.message);
+        setSignUpError(responseData.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="sign-up-page">
       <h1>Create a new account</h1>
-      <form action="" className="sign-up-form">
+      <form action="" onSubmit={handleSignUp} className="sign-up-form">
         <div className="form-group">
           <label htmlFor="firstName">First name</label>
           <input
@@ -59,7 +93,7 @@ function SignUpPage() {
           />
         </div>
         {signUpError ? <p>{signUpError}</p> : null}
-        <button type="submit">Login</button>
+        <button type="submit">Sign up</button>
       </form>
       <p>
         Already have an account? <a href="/login">Please login here</a>
