@@ -52,6 +52,7 @@ function ChatPage() {
         return obj;
       }
     });
+    console.log('Updated local user lastRead');
     setContacts(updatedUsers);
   };
 

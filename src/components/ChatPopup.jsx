@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { checkExistingChats, createNewChat } from '../helpers/chatHelpers';
 
 function ChatPopup({ setShowChatPopup, contacts, chats, user, socket }) {
+  const [isGroup, setIsGroup] = useState(false);
   const navigate = useNavigate();
 
   // Handle choosing contact to start new chat
@@ -28,19 +30,35 @@ function ChatPopup({ setShowChatPopup, contacts, chats, user, socket }) {
           <button className="close-btn" onClick={() => setShowChatPopup(false)}>
             X
           </button>
-          <p>Create a new chat</p>
-          <div className="popup-users">
-            {contacts.map((contact) => {
-              if (contact._id !== user._id) {
-                return (
-                  <button onClick={() => startChat(contact)} key={contact._id}>
-                    <div className="btn-img">{contact.firstName.slice(0, 1)}</div>
-                    {contact.firstName + ' ' + contact.lastName}
-                  </button>
-                );
-              }
-            })}
-          </div>
+          {!isGroup ? (
+            <>
+              <p>Create a new chat</p>
+              <div className="non-group-users">
+                <button className="grp-btn" onClick={() => setIsGroup(true)}>
+                  <div className="btn-img">+</div>
+                  New group
+                </button>
+                {contacts.map((contact) => {
+                  if (contact._id !== user._id) {
+                    return (
+                      <button onClick={() => startChat(contact)} key={contact._id}>
+                        <div className="btn-img">{contact.firstName.slice(0, 1)}</div>
+                        {contact.firstName + ' ' + contact.lastName}
+                      </button>
+                    );
+                  }
+                })}
+              </div>
+            </>
+          ) : (
+            <>
+              <button className="back-btn" onClick={() => setIsGroup(false)}>
+                &lt;
+              </button>
+              <p>Select group members</p>
+              <div className="group-users"></div>
+            </>
+          )}
         </div>
       </div>
     </div>

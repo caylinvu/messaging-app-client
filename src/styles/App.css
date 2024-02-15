@@ -316,7 +316,14 @@
   font-size: 16px;
 }
 
-.popup-users {
+.back-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 16px;
+}
+
+.non-group-users {
   display: flex;
   flex-direction: column;
   height: 300px;
@@ -324,17 +331,22 @@
   font-size: 16px;
 }
 
-.popup-users button {
+.grp-btn {
+  margin-bottom: 7px;
+}
+
+.non-group-users button {
   display: flex;
   gap: 10px;
   align-items: center;
   padding: 13px 10px;
   background-color: rgb(174, 174, 212);
   border: none;
-  border-bottom: #000 solid 1px;
+  border-bottom: rgb(82, 82, 114) solid 1px;
 }
 
-.popup-users button:last-child {
+.non-group-users button:first-child,
+.non-group-users button:last-child {
   border-bottom: none;
 }
 

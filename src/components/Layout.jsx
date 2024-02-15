@@ -45,7 +45,6 @@ function Layout() {
     socket.on('receiveConversation', (data) => {
       const newChats = [...chats, data.conversation];
       const sortedChats = sortChats(newChats);
-      // console.log(sortedChats);
       setChats(sortedChats);
 
       // Update new conversation under user also!!!!
@@ -65,8 +64,7 @@ function Layout() {
           return obj;
         }
       });
-      // console.log(updatedConvs);
-      // console.log(updatedUsers);
+      // console.log('Received conversation');
       setContacts(updatedUsers);
 
       // If user created chat, navigate to new chat page
@@ -112,9 +110,11 @@ function Layout() {
           throw new Error(`This is an HTTP error: The status is ${response.status}`);
         }
         const contactData = await response.json();
+        // console.log('Contacts fetched');
         setContacts(contactData);
         // console.log(contactData);
       } catch (err) {
+        // console.log('Contacts failed to fetch');
         setContacts([]);
         console.log(err);
       }
@@ -123,12 +123,6 @@ function Layout() {
       getContacts();
     }
   }, [user]);
-
-  useEffect(() => {
-    if (contacts.length > 0) {
-      setUserDetails(contacts.find((obj) => obj._id === user._id));
-    }
-  }, [contacts, user]);
 
   useEffect(() => {
     const getChats = async () => {
@@ -144,6 +138,7 @@ function Layout() {
         }
         const chatData = await response.json();
         const sortedChats = sortChats(chatData);
+        // console.log('Chats fetched');
         setChats(sortedChats);
       } catch (err) {
         setChats([]);
@@ -155,9 +150,18 @@ function Layout() {
     }
   }, [user]);
 
+  useEffect(() => {
+    if (contacts.length > 0) {
+      const currentUser = contacts.find((obj) => obj._id === user._id);
+      // console.log(socket.connected);
+      // currentUser.isOnline = socket.connected;
+      setUserDetails(currentUser);
+    }
+  }, [contacts, user]);
+
   return (
     <div className="main-app">
-      <Sidebar userDetails={userDetails} />
+      <Sidebar userDetails={userDetails} socket={socket} />
       <Outlet context={{ contacts, setContacts, chats, setChats, userDetails, user, socket }} />
     </div>
   );

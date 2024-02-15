@@ -1,7 +1,7 @@
 import { useOutletContext, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-function Sidebar({ userDetails }) {
+function Sidebar({ userDetails, socket }) {
   const { handleLogout } = useOutletContext();
   const navigate = useNavigate();
 
@@ -14,7 +14,7 @@ function Sidebar({ userDetails }) {
       </div>
       <button className="profile-btn">
         {userDetails.firstName}
-        {userDetails.isOnline && <span>*</span>}
+        {socket.connected && <span>*</span>}
       </button>
     </div>
   );
@@ -22,6 +22,7 @@ function Sidebar({ userDetails }) {
 
 Sidebar.propTypes = {
   userDetails: PropTypes.object,
+  socket: PropTypes.object,
 };
 
 export default Sidebar;

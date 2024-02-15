@@ -29,18 +29,6 @@ function App() {
     console.log('User disconnected');
   };
 
-  // Log user out if token is older than 24 hours
-  // useEffect(() => {
-  //   if (localStorage.getItem('user')) {
-  //     const hours = 24;
-  //     const createdAt = JSON.parse(localStorage.getItem('createdAt'));
-  //     if (new Date().getTime() - createdAt > hours * 60 * 60 * 1000) {
-  //       handleLogout();
-  //       return;
-  //     }
-  //   }
-  // }, []);
-
   return (
     <>
       <Outlet context={{ user, setUser, handleLogout, socket }} />
@@ -52,15 +40,22 @@ export default App;
 
 // TO DO NEXT:
 
+// Figure out how to make socket event wait until fetch contacts happens
+// Or just manually change current user's online status to true???
+
 // Create group chat
 
 // ALL TO DO:
+
+// Maybe need to get rid of userDetails and just pull from contacts every time???
 
 // Profile pop up to edit info from
 
 // Chat info tab
 
 // Delete chats
+
+// Add ability to send images in chat
 
 // Edit where login error messages are shown
 
@@ -90,9 +85,19 @@ export default App;
 
 // Add notification on chats button for new messages so u can see if new message is received while on the contact page
 
+// Figure out how to refresh page if it was left open while computer went to sleep
+
+// Add search bar for contacts/new chat popup???
+
 // REFACTOR TO DO:
 
 // Make more helper files (fetching, socket, etc)
+
+// Figure out what to do about user vs userDetails
+
+// Use socket.connected or update userDetails for current user's online status???
+
+// Can I manipulate current contacts to update local user's online status while mapping over the contacts??
 
 // STYLING TO DO:
 

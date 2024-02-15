@@ -76,9 +76,7 @@ function Chat() {
         if (obj._id === chatId) {
           let otherUser;
           if (!obj.isGroup) {
-            const tmpUser = obj.members.find(
-              (chatMember) => chatMember.toString() !== userDetails._id,
-            );
+            const tmpUser = obj.members.find((chatMember) => chatMember.toString() !== user._id);
             otherUser = contacts.find((contact) => contact._id === tmpUser.toString());
           }
           return (
