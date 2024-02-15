@@ -28,7 +28,26 @@ export const createNewChat = (contact, user, socket) => {
 
   const convData = {
     conv: conv,
-    receiver: contact._id,
+    receivers: [contact._id],
+  };
+
+  socket.emit('createConversation', convData);
+};
+
+// Create new group chat and send to backend via socket
+export const createNewGroup = (groupName, groupUsers, user, socket) => {
+  const newMembers = [...groupUsers, user._id];
+
+  const conv = {
+    members: newMembers,
+    isGroup: true,
+    groupName: groupName,
+    timestamp: new Date().toISOString(),
+  };
+
+  const convData = {
+    conv: conv,
+    receivers: groupUsers,
   };
 
   socket.emit('createConversation', convData);

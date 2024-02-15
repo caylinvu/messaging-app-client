@@ -298,8 +298,9 @@
   border-radius: 10px;
   background-color: rgb(82, 82, 114);
   color: white;
-  padding: 20px 30px 30px;
+  padding: 20px 30px 40px;
   width: 350px;
+  max-height: 400px;
   position: relative;
 }
 
@@ -314,6 +315,7 @@
   top: 10px;
   right: 10px;
   font-size: 16px;
+  width: 22px;
 }
 
 .back-btn {
@@ -321,12 +323,22 @@
   top: 10px;
   left: 10px;
   font-size: 16px;
+  width: 22px;
 }
 
-.non-group-users {
+.non-group-users,
+.group-users {
   display: flex;
   flex-direction: column;
-  height: 300px;
+  max-height: 300px;
+  overflow-y: auto;
+  font-size: 16px;
+}
+
+.added-users {
+  display: flex;
+  flex-direction: column;
+  max-height: 242px;
   overflow-y: auto;
   font-size: 16px;
 }
@@ -335,7 +347,9 @@
   margin-bottom: 7px;
 }
 
-.non-group-users button {
+.non-group-users button,
+.user-select,
+.added-users > div {
   display: flex;
   gap: 10px;
   align-items: center;
@@ -346,7 +360,9 @@
 }
 
 .non-group-users button:first-child,
-.non-group-users button:last-child {
+.non-group-users button:last-child,
+.user-select:last-child,
+.added-users > div:last-child {
   border-bottom: none;
 }
 
@@ -357,6 +373,47 @@
   line-height: 40px;
   border-radius: 25px;
   background-color: white;
+}
+
+.user-select {
+  justify-content: space-between;
+  color: black;
+}
+
+.label-info {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.next-btn {
+  float: right;
+}
+
+.group-err {
+  float: left;
+}
+
+.next-btn,
+.group-err,
+.create-btn {
+  margin-top: 7px;
+}
+
+.create-btn {
+  float: right;
+}
+
+.group-form input {
+  width: 100%;
+}
+
+.members-title {
+  margin-top: 10px;
+}
+
+.added-users > div {
+  color: black;
 }
 
 /* ~~~~~~~~~~~~~~~CONTACTS PAGE~~~~~~~~~~~~~~~ */

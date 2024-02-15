@@ -40,10 +40,9 @@ export default App;
 
 // TO DO NEXT:
 
-// Figure out how to make socket event wait until fetch contacts happens
-// Or just manually change current user's online status to true???
-
 // Create group chat
+
+// Group chat max??
 
 // ALL TO DO:
 
@@ -96,6 +95,7 @@ export default App;
 // Figure out what to do about user vs userDetails
 
 // Use socket.connected or update userDetails for current user's online status???
+//-- Figure out if there is a way to make socket event happen AFTER chats and contacts are fetched
 
 // Can I manipulate current contacts to update local user's online status while mapping over the contacts??
 

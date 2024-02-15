@@ -40,7 +40,11 @@ function ChatList({ chats, contacts, userDetails }) {
                 </div>
                 <div className="preview-bottom">
                   <div className="preview-msg">
-                    {obj.lastMessage ? obj.lastMessage.text : 'Started new chat'}
+                    {obj.lastMessage
+                      ? obj.lastMessage.text
+                      : obj.isGroup
+                        ? 'Started new group chat'
+                        : 'Started new chat'}
                   </div>
                   <div className="new-msg">
                     {(obj.lastMessage && userConv && !userConv.lastRead) ||
