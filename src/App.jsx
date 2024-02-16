@@ -40,23 +40,32 @@ export default App;
 
 // TO DO NEXT:
 
-// Create group chat
-
-// Group chat max??
+// Chat info tab
 
 // ALL TO DO:
 
-// Maybe need to get rid of userDetails and just pull from contacts every time???
+// Delete chats
+//--Whenever a user deletes a chat, add them to exclusions array on chat
+//--Frontend: send request to backend to update exclusions and also update locally
+//--Frontend: only display the chats that a user is not excluded from
+//--Backend: when sending a message, set exclusions back to []
+//--Frontend: when receiving message preview, update exclusions array to empty (IF exclusions)
+//--Frontend: when starting new non-group chat with existing user, set exclusions to [] before navigating to chat and update exclusions in database (IF there are exclusions)
 
 // Profile pop up to edit info from
 
-// Chat info tab
-
-// Delete chats
-
-// Add ability to send images in chat
+// Images
+//--Add some user images to backend
+//--Add way to fetch images from backend
+//--If user has profile pic, display instead of first letter of name
+//--Add a way to change your profile picture
+//--Add a way to change a group picture
+//--Maybe add a way to upload group image on creation???
+//--Add ability to send images in chat
 
 // Edit where login error messages are shown
+
+// Contact page - show online users at top
 
 // Do we want to keep logout after 24 hours????
 
@@ -88,16 +97,24 @@ export default App;
 
 // Add search bar for contacts/new chat popup???
 
+// Group chat max????
+
 // REFACTOR TO DO:
 
 // Make more helper files (fetching, socket, etc)
 
 // Figure out what to do about user vs userDetails
 
+// Maybe need to get rid of userDetails and just pull from contacts every time???
+
 // Use socket.connected or update userDetails for current user's online status???
 //-- Figure out if there is a way to make socket event happen AFTER chats and contacts are fetched
 
 // Can I manipulate current contacts to update local user's online status while mapping over the contacts??
+
+// Make components or factory function or helper functions or SOMETHING for repeat code when display user info between group or other user
+
+// Clean up class names???
 
 // STYLING TO DO:
 
@@ -124,3 +141,5 @@ export default App;
 // Add icons for certain buttons
 
 // Style scroll bar
+
+// Add animations for popups

@@ -1,9 +1,11 @@
 import { useParams, useOutletContext } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import MessageContainer from './MessageContainer';
+import ChatInfo from './ChatInfo';
 
 function Chat() {
   const [messages, setMessages] = useState([]);
+  const [showChatInfo, setShowChatInfo] = useState(false);
   const [text, setText] = useState('');
   const { chatId } = useParams();
   const { contacts, chats, userDetails, user, socket } = useOutletContext();
@@ -100,11 +102,10 @@ function Chat() {
                   </div>
                 </div>
                 <div className="info-right">
-                  <button>Menu</button>
+                  <button onClick={() => setShowChatInfo(true)}>Info</button>
                 </div>
               </div>
               <MessageContainer messages={messages} userDetails={userDetails} contacts={contacts} />
-              {/* maybe need contacts, currentChat, and otherUser */}
               <div onSubmit={handleSend} className="send-bar">
                 <form action="" className="msg-form">
                   <input
@@ -117,6 +118,16 @@ function Chat() {
                   <button type="submit">Send</button>
                 </form>
               </div>
+              {showChatInfo && (
+                <ChatInfo
+                  setShowChatInfo={setShowChatInfo}
+                  chat={obj}
+                  otherUser={otherUser}
+                  contacts={contacts}
+                  socket={socket}
+                  userDetails={userDetails}
+                />
+              )}
             </div>
           );
         }
