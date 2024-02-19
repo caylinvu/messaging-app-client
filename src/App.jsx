@@ -38,11 +38,7 @@ function App() {
 
 export default App;
 
-// TO DO NEXT:
-
-// ALL TO DO:
-
-// Profile pop up to edit info from
+// ~~~~~~~~~~ TO DO NEXT ~~~~~~~~~~
 
 // Images
 //--Add some user images to backend
@@ -52,18 +48,23 @@ export default App;
 //--Add a way to change a group picture
 //--Maybe add a way to upload group image on creation???
 //--Add ability to send images in chat
+//--Add images to messages????
+
+// ~~~~~~~~~~ ALL TO DO ~~~~~~~~~~
 
 // Edit where login error messages are shown
 
 // Contact page - show online users at top
 
+// Profile updates
+//--Maybe do new contact fetch when clicking on contacts???
+//--Maybe make profile updates in real time through socket???
+
 // Do we want to keep logout after 24 hours????
 
-// Add ability to fetch images from backend
-
-// Send images
-
 // Show preview time instead of date if in last 24 hours
+
+// Exit all popups when clicking on blocker??
 
 // Set validation on form inputs
 //-- Add body & validationResult on backend to make sure no username is used twice
@@ -89,7 +90,7 @@ export default App;
 
 // Group chat max????
 
-// REFACTOR TO DO:
+// ~~~~~~~~~~ REFACTOR TO DO ~~~~~~~~~~
 
 // Make more helper files (fetching, socket, etc)
 
@@ -106,7 +107,7 @@ export default App;
 
 // Clean up class names???
 
-// STYLING TO DO:
+// ~~~~~~~~~~ STYLING TO DO ~~~~~~~~~~
 
 // Style login page
 

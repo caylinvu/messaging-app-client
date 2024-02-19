@@ -1,12 +1,14 @@
 import { Outlet, useOutletContext, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Sidebar from './Sidebar';
+import ProfilePopup from './ProfilePopup';
 import { sortChats } from '../helpers/chatHelpers';
 
 function Layout() {
   const [contacts, setContacts] = useState([]);
   const [chats, setChats] = useState([]);
   const [userDetails, setUserDetails] = useState({});
+  const [showProfilePopup, setShowProfilePopup] = useState(false);
   const { user, socket } = useOutletContext();
   const navigate = useNavigate();
 
@@ -162,8 +164,20 @@ function Layout() {
 
   return (
     <div className="main-app">
-      <Sidebar userDetails={userDetails} socket={socket} />
+      <Sidebar
+        userDetails={userDetails}
+        socket={socket}
+        setShowProfilePopup={setShowProfilePopup}
+      />
       <Outlet context={{ contacts, setContacts, chats, setChats, userDetails, user, socket }} />
+      {showProfilePopup && (
+        <ProfilePopup
+          setShowProfilePopup={setShowProfilePopup}
+          contacts={contacts}
+          setContacts={setContacts}
+          user={user}
+        />
+      )}
     </div>
   );
 }

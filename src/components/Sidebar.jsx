@@ -1,7 +1,7 @@
 import { useOutletContext, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-function Sidebar({ userDetails, socket }) {
+function Sidebar({ userDetails, socket, setShowProfilePopup }) {
   const { handleLogout } = useOutletContext();
   const navigate = useNavigate();
 
@@ -12,7 +12,7 @@ function Sidebar({ userDetails, socket }) {
         <button onClick={() => navigate('/contacts')}>Contacts</button>
         <button onClick={handleLogout}>Logout</button>
       </div>
-      <button className="profile-btn">
+      <button className="profile-btn" onClick={() => setShowProfilePopup(true)}>
         {userDetails.firstName}
         {socket.connected && <span>*</span>}
       </button>
@@ -23,6 +23,7 @@ function Sidebar({ userDetails, socket }) {
 Sidebar.propTypes = {
   userDetails: PropTypes.object,
   socket: PropTypes.object,
+  setShowProfilePopup: PropTypes.func,
 };
 
 export default Sidebar;

@@ -520,3 +520,36 @@
 .contact-name {
   font-size: 16px;
 }
+
+/* ~~~~~~~~~~~~~~~PROFILE PAGE~~~~~~~~~~~~~~~ */
+
+.profile-popup {
+  border-radius: 10px;
+  background-color: rgb(82, 82, 114);
+  color: white;
+  padding: 20px 30px;
+  width: 350px;
+  max-height: 400px;
+  position: relative;
+}
+
+.profile-popup > p {
+  margin-bottom: 20px;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.save-btn {
+  align-self: flex-end;
+  margin-top: 10px;
+}
+
+.profile-form > .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
