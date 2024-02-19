@@ -1,9 +1,15 @@
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { checkExistingChats, createNewChat, createNewGroup } from '../helpers/chatHelpers';
+import {
+  checkExistingChats,
+  createNewChat,
+  createNewGroup,
+  handleExclusions,
+} from '../helpers/chatHelpers';
+import { removeExclusion } from '../helpers/fetchHelpers';
 
-function ChatPopup({ setShowChatPopup, contacts, chats, user, socket }) {
+function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }) {
   const [isGroup, setIsGroup] = useState(false);
   const [isFinal, setIsFinal] = useState(false);
   const [groupUsers, setGroupUsers] = useState([]);
@@ -18,8 +24,15 @@ function ChatPopup({ setShowChatPopup, contacts, chats, user, socket }) {
 
     // If chat already exists, navigate to existing chat
     if (existingChat) {
-      navigate('/chats/' + existingChat._id);
-      setShowChatPopup(false);
+      if (existingChat.exclude.includes(user._id)) {
+        console.log('User is included in exclusion');
+        const updatedChats = handleExclusions(existingChat, chats, user);
+        removeExclusion(setChats, updatedChats, existingChat, user, navigate, setShowChatPopup);
+      } else {
+        console.log('User is not included in exclusion');
+        navigate('/chats/' + existingChat._id);
+        setShowChatPopup(false);
+      }
     } else {
       // If chat does not exist, create new chat
       createNewChat(contact, user, socket);

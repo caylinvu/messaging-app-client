@@ -69,3 +69,21 @@ export const sortChats = (chats) => {
 
   return sortedChats;
 };
+
+// Handle removing exclusions locally
+export const handleExclusions = (chat, chats, user) => {
+  const exclusions = chat.exclude.filter((obj) => obj !== user._id);
+
+  const updatedChats = chats.map((obj) => {
+    if (obj._id === chat._id) {
+      return {
+        ...obj,
+        exclude: exclusions,
+      };
+    } else {
+      return obj;
+    }
+  });
+
+  return updatedChats;
+};

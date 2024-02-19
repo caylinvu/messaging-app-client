@@ -94,7 +94,7 @@ function ChatPage() {
           <div>You currently have no chats open. Choose a contact to get started!</div>
         )}
       </div>
-      <Outlet context={{ contacts, chats, userDetails, user, socket }} />
+      <Outlet context={{ contacts, chats, setChats, userDetails, user, socket }} />
       {showChatPopup && (
         <ChatPopup
           setShowChatPopup={setShowChatPopup}

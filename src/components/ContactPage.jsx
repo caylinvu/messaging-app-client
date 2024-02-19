@@ -1,9 +1,10 @@
 import { useOutletContext, useNavigate } from 'react-router-dom';
 import Intro from './Intro';
-import { checkExistingChats, createNewChat } from '../helpers/chatHelpers';
+import { checkExistingChats, createNewChat, handleExclusions } from '../helpers/chatHelpers';
+import { removeExclusion } from '../helpers/fetchHelpers';
 
 function ContactPage() {
-  const { contacts, chats, user, socket } = useOutletContext();
+  const { contacts, chats, setChats, user, socket } = useOutletContext();
   const navigate = useNavigate();
 
   // Handle choosing contact to start new chat
@@ -13,7 +14,14 @@ function ContactPage() {
 
     // If chat already exists, navigate to existing chat
     if (existingChat) {
-      navigate('/chats/' + existingChat._id);
+      if (existingChat.exclude.includes(user._id)) {
+        console.log('User is included in exclusion');
+        const updatedChats = handleExclusions(existingChat, chats, user);
+        removeExclusion(setChats, updatedChats, existingChat, user, navigate);
+      } else {
+        console.log('User is not included in exclusion');
+        navigate('/chats/' + existingChat._id);
+      }
     } else {
       // If chat does not exist, create new chat
       createNewChat(contact, user, socket);

@@ -40,17 +40,7 @@ export default App;
 
 // TO DO NEXT:
 
-// Chat info tab
-
 // ALL TO DO:
-
-// Delete chats
-//--Whenever a user deletes a chat, add them to exclusions array on chat
-//--Frontend: send request to backend to update exclusions and also update locally
-//--Frontend: only display the chats that a user is not excluded from
-//--Backend: when sending a message, set exclusions back to []
-//--Frontend: when receiving message preview, update exclusions array to empty (IF exclusions)
-//--Frontend: when starting new non-group chat with existing user, set exclusions to [] before navigating to chat and update exclusions in database (IF there are exclusions)
 
 // Profile pop up to edit info from
 

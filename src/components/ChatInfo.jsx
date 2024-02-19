@@ -1,9 +1,60 @@
 import PropTypes from 'prop-types';
 import { DateTime } from 'luxon';
+import { useNavigate } from 'react-router-dom';
 
-function ChatInfo({ setShowChatInfo, chat, otherUser, contacts, socket, userDetails }) {
+function ChatInfo({
+  setShowChatInfo,
+  chat,
+  otherUser,
+  contacts,
+  socket,
+  userDetails,
+  chats,
+  setChats,
+  user,
+}) {
+  const navigate = useNavigate();
+
   const stopPropagation = (e) => {
     e.stopPropagation();
+  };
+
+  const updateExclusions = async (updatedChats) => {
+    try {
+      const response = await fetch(
+        'http://localhost:3000/api/conversations/' + chat._id + '/exclude/' + userDetails._id,
+        {
+          method: 'PUT',
+          headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' },
+        },
+      );
+      if (response.status === 200) {
+        setChats(updatedChats);
+        navigate('/chats');
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const deleteChat = () => {
+    // Add current user to exclusions array on current chat and setChats() locally
+    const exclusions = [...chat.exclude, userDetails._id];
+    console.log(exclusions);
+
+    const updatedChats = chats.map((obj) => {
+      if (obj._id === chat._id) {
+        return {
+          ...obj,
+          exclude: exclusions,
+        };
+      } else {
+        return obj;
+      }
+    });
+
+    // Send PUT request to backend to update the exclusions
+    updateExclusions(updatedChats);
   };
 
   return (
@@ -25,7 +76,9 @@ function ChatInfo({ setShowChatInfo, chat, otherUser, contacts, socket, userDeta
               {!chat.isGroup && otherUser && (otherUser.isOnline ? 'Online' : 'Offline')}
             </div>
           </div>
-          <button className="delete-btn">Delete chat</button>
+          <button className="delete-btn" onClick={() => deleteChat()}>
+            Delete chat
+          </button>
           {chat.isGroup ? (
             <div className="tab-members">
               <h3>Members</h3>
@@ -80,6 +133,9 @@ ChatInfo.propTypes = {
   contacts: PropTypes.array,
   socket: PropTypes.object,
   userDetails: PropTypes.object,
+  chats: PropTypes.array,
+  setChats: PropTypes.func,
+  user: PropTypes.object,
 };
 
 export default ChatInfo;

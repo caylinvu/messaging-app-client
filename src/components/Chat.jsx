@@ -1,4 +1,4 @@
-import { useParams, useOutletContext } from 'react-router-dom';
+import { useParams, useOutletContext, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import MessageContainer from './MessageContainer';
 import ChatInfo from './ChatInfo';
@@ -8,7 +8,8 @@ function Chat() {
   const [showChatInfo, setShowChatInfo] = useState(false);
   const [text, setText] = useState('');
   const { chatId } = useParams();
-  const { contacts, chats, userDetails, user, socket } = useOutletContext();
+  const { contacts, chats, setChats, userDetails, user, socket } = useOutletContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getMessages = async () => {
@@ -72,10 +73,17 @@ function Chat() {
     };
   }, [chatId, messages, socket]);
 
+  useEffect(() => {
+    const currentChat = chats.find((obj) => obj._id === chatId);
+    if (currentChat && currentChat.exclude.includes(user._id)) {
+      navigate('/chats');
+    }
+  }, [chatId, chats, navigate, user]);
+
   return (
     <>
       {chats.map((obj) => {
-        if (obj._id === chatId) {
+        if (obj._id === chatId && !obj.exclude.includes(user._id)) {
           let otherUser;
           if (!obj.isGroup) {
             const tmpUser = obj.members.find((chatMember) => chatMember.toString() !== user._id);
@@ -126,6 +134,9 @@ function Chat() {
                   contacts={contacts}
                   socket={socket}
                   userDetails={userDetails}
+                  chats={chats}
+                  setChats={setChats}
+                  user={user}
                 />
               )}
             </div>

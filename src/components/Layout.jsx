@@ -86,6 +86,7 @@ function Layout() {
           return {
             ...chat,
             lastMessage: message,
+            exclude: [],
           };
         } else {
           return chat;
