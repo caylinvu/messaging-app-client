@@ -41,12 +41,11 @@ export default App;
 // ~~~~~~~~~~ TO DO NEXT ~~~~~~~~~~
 
 // Images
-//--Add a way to change your profile picture
-//----Limit upload file size
 //--Add a way to change a group picture
 //--Maybe add a way to remove photos??
 //--Maybe add a way to upload group image on creation???
 //--Add ability to send images in chat
+//----Where to store so they aren't public??
 //--When changing profile pic, delete image too
 //--When permanently deleting conv, delete image too
 

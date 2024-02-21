@@ -9,6 +9,7 @@ function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user }) {
   const [lastImage, setLastImage] = useState(currentUser.image);
   const [newImage, setNewImage] = useState('');
   const [bio, setBio] = useState(currentUser.bio);
+  const [imageError, setImageError] = useState('');
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -53,6 +54,24 @@ function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user }) {
     setContacts(updatedContacts);
   };
 
+  const handleFileChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      if (e.target.files[0].size > 1024 * 1024 * 1) {
+        setImageError('*Max file size of 1MB');
+        return;
+      } else if (
+        e.target.files[0].type !== 'image/png' &&
+        e.target.files[0].type !== 'image/jpg' &&
+        e.target.files[0].type !== 'image/jpeg'
+      ) {
+        setImageError('*Only png, jpg, and jpeg files allowed');
+        return;
+      }
+    }
+    setImageError('');
+    setNewImage(e.target.files[0]);
+  };
+
   return (
     <div className="blocker">
       <div className="popup-container">
@@ -90,21 +109,28 @@ function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user }) {
               <textarea name="bio" id="bio" value={bio} onChange={(e) => setBio(e.target.value)} />
             </div>
             <div className="form-group">
-              <label htmlFor="image">Photo</label>
-              {!newImage ? (
-                <ProfileImage contact={currentUser} imgClass="profile-img" />
-              ) : (
-                <div className="profile-img">
-                  <img src={URL.createObjectURL(newImage)} alt="" draggable={false} />
-                </div>
-              )}
+              <p>Photo</p>
+              <div className="file-display">
+                {!newImage ? (
+                  <ProfileImage contact={currentUser} imgClass="profile-img" />
+                ) : (
+                  <div className="profile-img">
+                    <img src={URL.createObjectURL(newImage)} alt="" draggable={false} />
+                  </div>
+                )}
+                <label htmlFor="image" className="file-change">
+                  Change photo
+                </label>
+              </div>
               <input
                 type="file"
                 name="image"
                 id="image"
                 accept="image/png,image/jpg,image/jpeg"
-                onChange={(e) => setNewImage(e.target.files[0])}
+                onChange={handleFileChange}
+                className="file-input"
               />
+              <span>{imageError}</span>
             </div>
             <button type="submit" className="save-btn">
               Save

@@ -601,3 +601,31 @@
   flex-direction: column;
   gap: 3px;
 }
+
+.form-group {
+  position: relative;
+}
+
+.form-group span {
+  font-size: 15px;
+  position: absolute;
+  bottom: -19px;
+}
+
+.file-input {
+  display: none;
+}
+
+.file-display {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.file-change {
+  padding: 10px 20px;
+  background-color: rgb(174, 174, 212);
+  color: black;
+  border-radius: 5px;
+  cursor: pointer;
+}
