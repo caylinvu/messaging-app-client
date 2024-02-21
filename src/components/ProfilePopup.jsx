@@ -1,28 +1,34 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import ProfileImage from './ProfileImage';
 
 function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user }) {
   const [currentUser, setCurrentUser] = useState(contacts.find((obj) => obj._id === user._id));
   const [firstName, setFirstName] = useState(currentUser.firstName);
   const [lastName, setLastName] = useState(currentUser.lastName);
-  const [image, setImage] = useState(currentUser.image);
+  const [lastImage, setLastImage] = useState(currentUser.image);
+  const [newImage, setNewImage] = useState('');
   const [bio, setBio] = useState(currentUser.bio);
 
   const handleSave = async (e) => {
     e.preventDefault();
+
+    const formData = new FormData();
+    formData.set('firstName', firstName);
+    formData.set('lastName', lastName);
+    formData.set('lastImage', lastImage ? lastImage : '');
+    formData.append('image', newImage);
+    formData.set('bio', bio ? bio : '');
+
     try {
       const response = await fetch('http://localhost:3000/api/users/' + user._id, {
         method: 'PUT',
-        headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          firstName: firstName,
-          lastName: lastName,
-          image: image,
-          bio: bio,
-        }),
+        headers: { Authorization: `Bearer ${user.token}` },
+        body: formData,
       });
+      const responseData = await response.json();
       if (response.status === 200) {
-        updateLocalUser();
+        updateLocalUser(responseData);
         setShowProfilePopup(false);
       }
     } catch (err) {
@@ -30,15 +36,15 @@ function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user }) {
     }
   };
 
-  const updateLocalUser = () => {
+  const updateLocalUser = (data) => {
     const updatedContacts = contacts.map((obj) => {
       if (obj._id === user._id) {
         return {
           ...obj,
-          firstName: firstName,
-          lastName: lastName,
-          image: image,
-          bio: bio,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          image: data.image,
+          bio: data.bio,
         };
       } else {
         return obj;
@@ -82,6 +88,23 @@ function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user }) {
             <div className="form-group">
               <label htmlFor="bio">Bio</label>
               <textarea name="bio" id="bio" value={bio} onChange={(e) => setBio(e.target.value)} />
+            </div>
+            <div className="form-group">
+              <label htmlFor="image">Photo</label>
+              {!newImage ? (
+                <ProfileImage contact={currentUser} imgClass="profile-img" />
+              ) : (
+                <div className="profile-img">
+                  <img src={URL.createObjectURL(newImage)} alt="" draggable={false} />
+                </div>
+              )}
+              <input
+                type="file"
+                name="image"
+                id="image"
+                accept="image/png,image/jpg,image/jpeg"
+                onChange={(e) => setNewImage(e.target.files[0])}
+              />
             </div>
             <button type="submit" className="save-btn">
               Save

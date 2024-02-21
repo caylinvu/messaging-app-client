@@ -41,13 +41,14 @@ export default App;
 // ~~~~~~~~~~ TO DO NEXT ~~~~~~~~~~
 
 // Images
-//--If user has profile pic, display instead of first letter of name
-//----Function to display group vs solo pic and pic vs first letter of name
 //--Add a way to change your profile picture
+//----Limit upload file size
 //--Add a way to change a group picture
+//--Maybe add a way to remove photos??
 //--Maybe add a way to upload group image on creation???
 //--Add ability to send images in chat
-//--Add images to messages????
+//--When changing profile pic, delete image too
+//--When permanently deleting conv, delete image too
 
 // ~~~~~~~~~~ ALL TO DO ~~~~~~~~~~
 
@@ -77,6 +78,7 @@ export default App;
 //-- Make sure backend errors are display in correct spot
 //-- Also add frontend validation where needed
 //-- Maybe add password confirmation????
+//-- Server side validation
 
 // Create loading screen
 
