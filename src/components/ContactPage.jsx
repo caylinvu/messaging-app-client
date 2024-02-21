@@ -2,6 +2,7 @@ import { useOutletContext, useNavigate } from 'react-router-dom';
 import Intro from './Intro';
 import { checkExistingChats, createNewChat, handleExclusions } from '../helpers/chatHelpers';
 import { removeExclusion } from '../helpers/fetchHelpers';
+import ProfileImage from './ProfileImage';
 
 function ContactPage() {
   const { contacts, chats, setChats, user, socket } = useOutletContext();
@@ -43,10 +44,7 @@ function ContactPage() {
                   className="contact-preview"
                   key={contact._id}
                 >
-                  <div className="contact-img">
-                    {contact.firstName.slice(0, 1)}
-                    {contact.isOnline && <span>*</span>}
-                  </div>
+                  <ProfileImage contact={contact} showOnlineStatus={true} imgClass="contact-img" />
                   <div className="contact-name">{contact.firstName + ' ' + contact.lastName}</div>
                 </button>
               );

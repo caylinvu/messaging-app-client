@@ -2,6 +2,7 @@ import { useParams, useOutletContext, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import MessageContainer from './MessageContainer';
 import ChatInfo from './ChatInfo';
+import ProfileImage from './ProfileImage';
 
 function Chat() {
   const [messages, setMessages] = useState([]);
@@ -93,11 +94,12 @@ function Chat() {
             <div className="chat" key={obj._id}>
               <div className="info-bar">
                 <div className="info-left">
-                  <div className="info-img">
-                    {obj.isGroup && obj.groupName.slice(0, 1)}
-                    {!obj.isGroup && otherUser && otherUser.firstName.slice(0, 1)}
-                    {!obj.isGroup && otherUser && otherUser.isOnline && <span>*</span>}
-                  </div>
+                  <ProfileImage
+                    chat={obj}
+                    contact={otherUser}
+                    showOnlineStatus={true}
+                    imgClass="info-img"
+                  />
                   <div className="details">
                     <div>
                       {obj.isGroup && obj.groupName}

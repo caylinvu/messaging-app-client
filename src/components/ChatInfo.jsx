@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { DateTime } from 'luxon';
 import { useNavigate } from 'react-router-dom';
+import ProfileImage from './ProfileImage';
 
 function ChatInfo({
   setShowChatInfo,
@@ -62,11 +63,12 @@ function ChatInfo({
       <div className="info-container" onClick={stopPropagation}>
         <div className="chat-info">
           <div className="tab-top">
-            <div className="tab-img">
-              {chat.isGroup && chat.groupName.slice(0, 1)}
-              {!chat.isGroup && otherUser && otherUser.firstName.slice(0, 1)}
-              {!chat.isGroup && otherUser && otherUser.isOnline && <span>*</span>}
-            </div>
+            <ProfileImage
+              chat={chat}
+              contact={otherUser}
+              showOnlineStatus={true}
+              imgClass="tab-img"
+            />
             <div className="tab-name">
               {chat.isGroup && chat.groupName}
               {!chat.isGroup && otherUser && otherUser.firstName + ' ' + otherUser.lastName}
@@ -83,20 +85,23 @@ function ChatInfo({
             <div className="tab-members">
               <h3>Members</h3>
               <div>
-                <div className="tab-members-img">
-                  {userDetails.firstName.slice(0, 1)}
-                  {socket.connected && <span>*</span>}
-                </div>
+                <ProfileImage
+                  contact={userDetails}
+                  showOnlineStatus={true}
+                  imgClass="tab-members-img"
+                  socket={socket}
+                />
                 <div className="tab-members-name">You</div>
               </div>
               {contacts.map((contact) => {
                 if (chat.members.includes(contact._id) && contact._id !== userDetails._id) {
                   return (
                     <div key={contact._id}>
-                      <div className="tab-members-img">
-                        {contact.firstName.slice(0, 1)}
-                        {contact.isOnline && <span>*</span>}
-                      </div>
+                      <ProfileImage
+                        contact={contact}
+                        showOnlineStatus={true}
+                        imgClass="tab-members-img"
+                      />
                       <div className="tab-members-name">
                         {contact.firstName + ' ' + contact.lastName}
                       </div>

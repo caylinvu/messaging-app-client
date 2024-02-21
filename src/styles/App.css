@@ -99,7 +99,8 @@
 .info-img,
 .contact-img,
 .tab-img,
-.tab-members-img {
+.tab-members-img,
+.msg-img {
   width: 40px;
   height: 40px;
   text-align: center;
@@ -119,6 +120,22 @@
 
 .tab-members-img {
   color: black;
+}
+
+.chat-img img,
+.info-img img,
+.contact-img img,
+.tab-members-img img,
+.msg-img img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.tab-img img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
 }
 
 .info-img span,
@@ -210,7 +227,7 @@
 
 #msg-container {
   flex-grow: 1;
-  padding: 20px;
+  padding: 20px 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -218,6 +235,28 @@
 }
 
 .msg {
+  display: flex;
+  gap: 5px;
+}
+
+.sent {
+  flex-direction: row-reverse;
+}
+
+/* .msg:has(> .msg-space) {
+  margin-bottom: -10px;
+} */
+
+.msg-img {
+  align-self: end;
+  background-color: rgb(174, 174, 212);
+}
+
+.msg-space {
+  width: 40px;
+}
+
+.msg-inner {
   border: solid black 1px;
   max-width: 250px;
   min-width: 125px;
@@ -392,8 +431,14 @@
   height: 40px;
   text-align: center;
   line-height: 40px;
-  border-radius: 25px;
+  border-radius: 50%;
   background-color: white;
+}
+
+.btn-img img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 .user-select {

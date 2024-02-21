@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import PropTypes from 'prop-types';
+import ProfileImage from './ProfileImage';
 
 function ChatList({ chats, contacts, userDetails }) {
   return (
@@ -22,11 +23,12 @@ function ChatList({ chats, contacts, userDetails }) {
           return (
             <Link to={'/chats/' + obj._id} key={obj._id}>
               <div className="chat-preview">
-                <div className="chat-img">
-                  {obj.isGroup && obj.groupName.slice(0, 1)}
-                  {!obj.isGroup && otherUser && otherUser.firstName.slice(0, 1)}
-                  {!obj.isGroup && otherUser && otherUser.isOnline && <span>*</span>}
-                </div>
+                <ProfileImage
+                  chat={obj}
+                  contact={otherUser}
+                  showOnlineStatus={true}
+                  imgClass="chat-img"
+                />
                 <div className="chat-details">
                   <div className="preview-top">
                     <div>

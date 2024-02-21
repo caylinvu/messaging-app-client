@@ -8,6 +8,7 @@ import {
   handleExclusions,
 } from '../helpers/chatHelpers';
 import { removeExclusion } from '../helpers/fetchHelpers';
+import ProfileImage from './ProfileImage';
 
 function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }) {
   const [isGroup, setIsGroup] = useState(false);
@@ -95,7 +96,7 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
                   if (contact._id !== user._id) {
                     return (
                       <button onClick={() => startChat(contact)} key={contact._id}>
-                        <div className="btn-img">{contact.firstName.slice(0, 1)}</div>
+                        <ProfileImage contact={contact} imgClass="btn-img" />
                         {contact.firstName + ' ' + contact.lastName}
                       </button>
                     );
@@ -115,7 +116,7 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
                     return (
                       <label htmlFor={contact._id} key={contact._id} className="user-select">
                         <div className="label-info">
-                          <div className="btn-img">{contact.firstName.slice(0, 1)}</div>
+                          <ProfileImage contact={contact} imgClass="btn-img" />
                           <div>{contact.firstName + ' ' + contact.lastName}</div>
                         </div>
                         <input
@@ -158,7 +159,7 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
                     if (groupUsers.includes(contact._id)) {
                       return (
                         <div key={contact._id}>
-                          <div className="btn-img">{contact.firstName.slice(0, 1)}</div>
+                          <ProfileImage contact={contact} imgClass="btn-img" />
                           {contact.firstName + ' ' + contact.lastName}
                         </div>
                       );

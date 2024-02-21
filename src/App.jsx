@@ -41,9 +41,8 @@ export default App;
 // ~~~~~~~~~~ TO DO NEXT ~~~~~~~~~~
 
 // Images
-//--Add some user images to backend
-//--Add way to fetch images from backend
 //--If user has profile pic, display instead of first letter of name
+//----Function to display group vs solo pic and pic vs first letter of name
 //--Add a way to change your profile picture
 //--Add a way to change a group picture
 //--Maybe add a way to upload group image on creation???
@@ -51,6 +50,12 @@ export default App;
 //--Add images to messages????
 
 // ~~~~~~~~~~ ALL TO DO ~~~~~~~~~~
+
+// messages: get rid of msg-outer div
+
+// SIDEBAR FIRST NAME BUG (USERDETAILS)
+
+// Add profile image to profile button
 
 // Edit where login error messages are shown
 
@@ -89,6 +94,8 @@ export default App;
 // Add search bar for contacts/new chat popup???
 
 // Group chat max????
+
+// Figure out how to disconnect from socket when computer goes to sleep??
 
 // ~~~~~~~~~~ REFACTOR TO DO ~~~~~~~~~~
 
@@ -130,6 +137,7 @@ export default App;
 // Add button hover style
 
 // Add icons for certain buttons
+//--Maybe add group icon for group messages without an image???
 
 // Style scroll bar
 
