@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 function ProfileImage({ chat, contact, showOnlineStatus, imgClass, socket }) {
   if (chat && chat.isGroup) {

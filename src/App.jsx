@@ -41,17 +41,18 @@ export default App;
 // ~~~~~~~~~~ TO DO NEXT ~~~~~~~~~~
 
 // Images
+//--Figure out how to display profile/group pic update immediately (refetch)
 //--Add a way to change a group picture
-//--Maybe add a way to remove photos??
+//----When permanently deleting conv, delete image too (test this)
 //--Maybe add a way to upload group image on creation???
 //--Add ability to send images in chat
 //----Where to store so they aren't public??
-//--When changing profile pic, delete image too
-//--When permanently deleting conv, delete image too
 
 // ~~~~~~~~~~ ALL TO DO ~~~~~~~~~~
 
 // messages: get rid of msg-outer div
+
+// Add confirmation for deleting chat
 
 // SIDEBAR FIRST NAME BUG (USERDETAILS)
 
@@ -63,6 +64,7 @@ export default App;
 
 // Profile updates
 //--Maybe do new contact fetch when clicking on contacts???
+//--Maybe do new chat fetch when clicking on chats????
 //--Maybe make profile updates in real time through socket???
 
 // Do we want to keep logout after 24 hours????

@@ -5,6 +5,7 @@ import ProfileImage from './ProfileImage';
 
 function ChatInfo({
   setShowChatInfo,
+  setShowGroupPopup,
   chat,
   otherUser,
   contacts,
@@ -58,6 +59,11 @@ function ChatInfo({
     updateExclusions(updatedChats);
   };
 
+  const clickEdit = () => {
+    // setShowChatInfo(false);
+    setShowGroupPopup(true);
+  };
+
   return (
     <div className="blocker" onClick={() => setShowChatInfo(false)}>
       <div className="info-container" onClick={stopPropagation}>
@@ -78,6 +84,11 @@ function ChatInfo({
               {!chat.isGroup && otherUser && (otherUser.isOnline ? 'Online' : 'Offline')}
             </div>
           </div>
+          {chat.isGroup && (
+            <button className="edit-chat-btn" onClick={clickEdit}>
+              Edit chat
+            </button>
+          )}
           <button className="delete-btn" onClick={() => deleteChat()}>
             Delete chat
           </button>
@@ -133,6 +144,7 @@ function ChatInfo({
 
 ChatInfo.propTypes = {
   setShowChatInfo: PropTypes.func,
+  setShowGroupPopup: PropTypes.func,
   chat: PropTypes.object,
   otherUser: PropTypes.object,
   contacts: PropTypes.array,

@@ -2,11 +2,13 @@ import { useParams, useOutletContext, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import MessageContainer from './MessageContainer';
 import ChatInfo from './ChatInfo';
+import GroupPopup from './GroupPopup';
 import ProfileImage from './ProfileImage';
 
 function Chat() {
   const [messages, setMessages] = useState([]);
   const [showChatInfo, setShowChatInfo] = useState(false);
+  const [showGroupPopup, setShowGroupPopup] = useState(false);
   const [text, setText] = useState('');
   const { chatId } = useParams();
   const { contacts, chats, setChats, userDetails, user, socket } = useOutletContext();
@@ -131,11 +133,21 @@ function Chat() {
               {showChatInfo && (
                 <ChatInfo
                   setShowChatInfo={setShowChatInfo}
+                  setShowGroupPopup={setShowGroupPopup}
                   chat={obj}
                   otherUser={otherUser}
                   contacts={contacts}
                   socket={socket}
                   userDetails={userDetails}
+                  chats={chats}
+                  setChats={setChats}
+                  user={user}
+                />
+              )}
+              {showGroupPopup && (
+                <GroupPopup
+                  setShowGroupPopup={setShowGroupPopup}
+                  chat={obj}
                   chats={chats}
                   setChats={setChats}
                   user={user}

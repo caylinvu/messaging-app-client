@@ -101,7 +101,8 @@
 .tab-img,
 .tab-members-img,
 .msg-img,
-.profile-img {
+.profile-img,
+.group-img {
   width: 40px;
   height: 40px;
   text-align: center;
@@ -112,7 +113,8 @@
 }
 
 .tab-img,
-.profile-img {
+.profile-img,
+.group-img {
   width: 60px;
   height: 60px;
   line-height: 60px;
@@ -135,7 +137,8 @@
 }
 
 .tab-img img,
-.profile-img img {
+.profile-img img,
+.group-img img {
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -501,6 +504,9 @@
   width: 300px;
   height: 100%;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .tab-top {
@@ -512,11 +518,14 @@
 .tab-name {
   margin: 10px 0 3px;
   font-size: 22px;
-  /* font-weight: bold; */
+}
+
+.edit-chat-btn {
+  margin-bottom: -10px;
+  width: 100%;
 }
 
 .delete-btn {
-  margin: 20px 0;
   width: 100%;
 }
 
@@ -585,7 +594,8 @@
   margin-bottom: 20px;
 }
 
-.profile-form {
+.profile-form,
+.group-form {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -596,7 +606,8 @@
   margin-top: 10px;
 }
 
-.profile-form > .form-group {
+.profile-form > .form-group,
+.group-form > .form-group {
   display: flex;
   flex-direction: column;
   gap: 3px;
@@ -628,4 +639,20 @@
   color: black;
   border-radius: 5px;
   cursor: pointer;
+}
+
+/* ~~~~~~~~~~~~~~~GROUP POPUP~~~~~~~~~~~~~~~ */
+
+.group-popup {
+  border-radius: 10px;
+  background-color: rgb(82, 82, 114);
+  color: white;
+  padding: 20px 30px;
+  width: 350px;
+  max-height: 450px;
+  position: relative;
+}
+
+.group-popup > p {
+  margin-bottom: 20px;
 }
