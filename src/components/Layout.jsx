@@ -9,6 +9,8 @@ function Layout() {
   const [chats, setChats] = useState([]);
   const [userDetails, setUserDetails] = useState({});
   const [showProfilePopup, setShowProfilePopup] = useState(false);
+  const [userHash, setUserHash] = useState(Math.random().toString(36));
+  const [groupHash, setGroupHash] = useState(Math.random().toString(36));
   const { user, socket } = useOutletContext();
   const navigate = useNavigate();
 
@@ -168,14 +170,30 @@ function Layout() {
         userDetails={userDetails}
         socket={socket}
         setShowProfilePopup={setShowProfilePopup}
+        userHash={userHash}
       />
-      <Outlet context={{ contacts, setContacts, chats, setChats, userDetails, user, socket }} />
+      <Outlet
+        context={{
+          contacts,
+          setContacts,
+          chats,
+          setChats,
+          userDetails,
+          user,
+          socket,
+          userHash,
+          groupHash,
+          setGroupHash,
+        }}
+      />
       {showProfilePopup && (
         <ProfilePopup
           setShowProfilePopup={setShowProfilePopup}
           contacts={contacts}
           setContacts={setContacts}
           user={user}
+          userHash={userHash}
+          setUserHash={setUserHash}
         />
       )}
     </div>

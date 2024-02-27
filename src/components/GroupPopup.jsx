@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import ProfileImage from './ProfileImage';
 
-function GroupPopup({ setShowGroupPopup, chat, chats, setChats, user }) {
+function GroupPopup({ setShowGroupPopup, chat, chats, setChats, user, groupHash, setGroupHash }) {
   const [groupName, setGroupName] = useState(chat.groupName);
   const [lastImage, setLastImage] = useState(chat.image);
   const [newImage, setNewImage] = useState('');
@@ -24,6 +24,9 @@ function GroupPopup({ setShowGroupPopup, chat, chats, setChats, user }) {
       });
       const responseData = await response.json();
       if (response.status === 200) {
+        if (newImage) {
+          setGroupHash(Math.random().toString(36));
+        }
         updateLocalChat(responseData);
         setShowGroupPopup(false);
       }
@@ -44,7 +47,6 @@ function GroupPopup({ setShowGroupPopup, chat, chats, setChats, user }) {
         return obj;
       }
     });
-    console.log(updatedChats);
     setChats(updatedChats);
   };
 
@@ -91,7 +93,7 @@ function GroupPopup({ setShowGroupPopup, chat, chats, setChats, user }) {
               <p>Photo</p>
               <div className="file-display">
                 {!newImage ? (
-                  <ProfileImage chat={chat} imgClass="group-img" />
+                  <ProfileImage chat={chat} imgClass="group-img" groupHash={groupHash} />
                 ) : (
                   <div className="group-img">
                     <img src={URL.createObjectURL(newImage)} alt="" draggable={false} />
@@ -127,6 +129,8 @@ GroupPopup.propTypes = {
   chats: PropTypes.array,
   setChats: PropTypes.func,
   user: PropTypes.object,
+  groupHash: PropTypes.string,
+  setGroupHash: PropTypes.func,
 };
 
 export default GroupPopup;

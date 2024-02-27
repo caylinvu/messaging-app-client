@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import { useEffect } from 'react';
 import ProfileImage from './ProfileImage';
 
-function MessageContainer({ messages, userDetails, contacts }) {
+function MessageContainer({ messages, userDetails, contacts, userHash }) {
   // Scroll to bottom of messages
   useEffect(() => {
     let msgContainer = document.getElementById('msg-container');
@@ -40,7 +40,11 @@ function MessageContainer({ messages, userDetails, contacts }) {
               nextMsg.author !== msg.author ||
               DateTime.fromISO(nextMsg.timestamp).toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY) !==
                 DateTime.fromISO(msg.timestamp).toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY) ? (
-                <ProfileImage contact={author} imgClass="msg-img" />
+                <ProfileImage
+                  contact={author}
+                  imgClass="msg-img"
+                  userHash={msg.author.toString() === userDetails._id ? userHash : ''}
+                />
               ) : (
                 <div className="msg-space"></div>
               )}
@@ -65,4 +69,5 @@ MessageContainer.propTypes = {
   messages: PropTypes.array,
   userDetails: PropTypes.object,
   contacts: PropTypes.array,
+  userHash: PropTypes.string,
 };

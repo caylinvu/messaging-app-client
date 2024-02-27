@@ -1,15 +1,10 @@
 import { useOutletContext, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ProfileImage from './ProfileImage';
 
-function Sidebar({ userDetails, socket, setShowProfilePopup }) {
+function Sidebar({ userDetails, socket, setShowProfilePopup, userHash }) {
   const { handleLogout } = useOutletContext();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log(userDetails);
-  }, [userDetails]);
 
   return (
     <div className="sidebar">
@@ -24,6 +19,7 @@ function Sidebar({ userDetails, socket, setShowProfilePopup }) {
           showOnlineStatus={true}
           imgClass="sidebar-img"
           socket={socket}
+          userHash={userHash}
         />
       </button>
     </div>
@@ -34,6 +30,7 @@ Sidebar.propTypes = {
   userDetails: PropTypes.object,
   socket: PropTypes.object,
   setShowProfilePopup: PropTypes.func,
+  userHash: PropTypes.string,
 };
 
 export default Sidebar;

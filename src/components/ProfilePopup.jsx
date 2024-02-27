@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import ProfileImage from './ProfileImage';
 
-function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user }) {
+function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user, userHash, setUserHash }) {
   const [currentUser, setCurrentUser] = useState(contacts.find((obj) => obj._id === user._id));
   const [firstName, setFirstName] = useState(currentUser.firstName);
   const [lastName, setLastName] = useState(currentUser.lastName);
@@ -29,6 +29,9 @@ function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user }) {
       });
       const responseData = await response.json();
       if (response.status === 200) {
+        if (newImage) {
+          setUserHash(Math.random().toString(36));
+        }
         updateLocalUser(responseData);
         setShowProfilePopup(false);
       }
@@ -112,7 +115,7 @@ function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user }) {
               <p>Photo</p>
               <div className="file-display">
                 {!newImage ? (
-                  <ProfileImage contact={currentUser} imgClass="profile-img" />
+                  <ProfileImage contact={currentUser} imgClass="profile-img" userHash={userHash} />
                 ) : (
                   <div className="profile-img">
                     <img src={URL.createObjectURL(newImage)} alt="" draggable={false} />
@@ -149,4 +152,6 @@ ProfilePopup.propTypes = {
   contacts: PropTypes.array,
   setContacts: PropTypes.func,
   user: PropTypes.object,
+  userHash: PropTypes.string,
+  setUserHash: PropTypes.func,
 };

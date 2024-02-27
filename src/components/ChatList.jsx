@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import PropTypes from 'prop-types';
 import ProfileImage from './ProfileImage';
 
-function ChatList({ chats, contacts, userDetails }) {
+function ChatList({ chats, contacts, userDetails, groupHash }) {
   return (
     <div className="chat-list">
       {chats.map((obj) => {
@@ -28,6 +28,7 @@ function ChatList({ chats, contacts, userDetails }) {
                   contact={otherUser}
                   showOnlineStatus={true}
                   imgClass="chat-img"
+                  groupHash={obj.isGroup ? groupHash : ''}
                 />
                 <div className="chat-details">
                   <div className="preview-top">
@@ -70,6 +71,7 @@ ChatList.propTypes = {
   chats: PropTypes.array,
   contacts: PropTypes.array,
   userDetails: PropTypes.object,
+  groupHash: PropTypes.string,
 };
 
 export default ChatList;

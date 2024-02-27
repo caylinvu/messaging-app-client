@@ -14,6 +14,8 @@ function ChatInfo({
   chats,
   setChats,
   user,
+  userHash,
+  groupHash,
 }) {
   const navigate = useNavigate();
 
@@ -74,6 +76,7 @@ function ChatInfo({
               contact={otherUser}
               showOnlineStatus={true}
               imgClass="tab-img"
+              groupHash={chat.isGroup ? groupHash : ''}
             />
             <div className="tab-name">
               {chat.isGroup && chat.groupName}
@@ -101,6 +104,7 @@ function ChatInfo({
                   showOnlineStatus={true}
                   imgClass="tab-members-img"
                   socket={socket}
+                  userHash={userHash}
                 />
                 <div className="tab-members-name">You</div>
               </div>
@@ -153,6 +157,8 @@ ChatInfo.propTypes = {
   chats: PropTypes.array,
   setChats: PropTypes.func,
   user: PropTypes.object,
+  userHash: PropTypes.string,
+  groupHash: PropTypes.string,
 };
 
 export default ChatInfo;

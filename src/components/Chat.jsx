@@ -11,7 +11,17 @@ function Chat() {
   const [showGroupPopup, setShowGroupPopup] = useState(false);
   const [text, setText] = useState('');
   const { chatId } = useParams();
-  const { contacts, chats, setChats, userDetails, user, socket } = useOutletContext();
+  const {
+    contacts,
+    chats,
+    setChats,
+    userDetails,
+    user,
+    socket,
+    userHash,
+    groupHash,
+    setGroupHash,
+  } = useOutletContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -101,6 +111,7 @@ function Chat() {
                     contact={otherUser}
                     showOnlineStatus={true}
                     imgClass="info-img"
+                    groupHash={obj.isGroup ? groupHash : ''}
                   />
                   <div className="details">
                     <div>
@@ -117,7 +128,12 @@ function Chat() {
                   <button onClick={() => setShowChatInfo(true)}>Info</button>
                 </div>
               </div>
-              <MessageContainer messages={messages} userDetails={userDetails} contacts={contacts} />
+              <MessageContainer
+                messages={messages}
+                userDetails={userDetails}
+                contacts={contacts}
+                userHash={userHash}
+              />
               <div onSubmit={handleSend} className="send-bar">
                 <form action="" className="msg-form">
                   <input
@@ -142,6 +158,8 @@ function Chat() {
                   chats={chats}
                   setChats={setChats}
                   user={user}
+                  userHash={userHash}
+                  groupHash={groupHash}
                 />
               )}
               {showGroupPopup && (
@@ -151,6 +169,8 @@ function Chat() {
                   chats={chats}
                   setChats={setChats}
                   user={user}
+                  groupHash={groupHash}
+                  setGroupHash={setGroupHash}
                 />
               )}
             </div>

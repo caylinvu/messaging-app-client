@@ -5,7 +5,18 @@ import ChatList from './ChatList';
 
 function ChatPage() {
   const [showChatPopup, setShowChatPopup] = useState(false);
-  const { contacts, setContacts, chats, setChats, userDetails, user, socket } = useOutletContext();
+  const {
+    contacts,
+    setContacts,
+    chats,
+    setChats,
+    userDetails,
+    user,
+    socket,
+    userHash,
+    groupHash,
+    setGroupHash,
+  } = useOutletContext();
   const { chatId } = useParams();
 
   // Update chat's lastRead time for current user in the database
@@ -74,8 +85,6 @@ function ChatPage() {
       if (thisChat) {
         const thisUser = contacts.find((obj) => obj._id === user._id);
         const userConv = thisUser.convData.find((obj) => obj.conv.toString() === chatId);
-        // console.log('useEffect: ' + userConv);
-        // const thisUser = thisChat.members.find((obj) => obj.member.toString() === userDetails._id);
         openNewMsg(thisChat, thisUser, userConv);
       }
     }
@@ -89,12 +98,29 @@ function ChatPage() {
           <button onClick={() => setShowChatPopup(true)}>New chat</button>
         </div>
         {chats.length > 0 ? (
-          <ChatList chats={chats} contacts={contacts} userDetails={userDetails} />
+          <ChatList
+            chats={chats}
+            contacts={contacts}
+            userDetails={userDetails}
+            groupHash={groupHash}
+          />
         ) : (
           <div>You currently have no chats open. Choose a contact to get started!</div>
         )}
       </div>
-      <Outlet context={{ contacts, chats, setChats, userDetails, user, socket }} />
+      <Outlet
+        context={{
+          contacts,
+          chats,
+          setChats,
+          userDetails,
+          user,
+          socket,
+          userHash,
+          groupHash,
+          setGroupHash,
+        }}
+      />
       {showChatPopup && (
         <ChatPopup
           setShowChatPopup={setShowChatPopup}
