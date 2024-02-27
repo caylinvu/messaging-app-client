@@ -25,6 +25,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   width: 100px;
   padding: 10px 5px;
   background-color: rgb(82, 82, 114);
@@ -37,19 +38,16 @@
   gap: 5px;
 }
 
-.nav-btns button,
-.profile-btn {
+.nav-btns button {
   height: 50px;
+  padding: 0 10px;
 }
 
 .profile-btn {
-  position: relative;
-}
-
-.profile-btn span {
-  position: absolute;
-  right: 5px;
-  bottom: -1px;
+  border-radius: 50%;
+  border: none;
+  background-color: inherit;
+  /* overflow: overflow; */
 }
 
 /* ~~~~~~~~~~~~~~~CHAT PAGE~~~~~~~~~~~~~~~ */
@@ -102,7 +100,8 @@
 .tab-members-img,
 .msg-img,
 .profile-img,
-.group-img {
+.group-img,
+.sidebar-img {
   width: 40px;
   height: 40px;
   text-align: center;
@@ -112,14 +111,23 @@
   background-color: white;
 }
 
+.has-img {
+  background-color: inherit;
+}
+
 .tab-img,
 .profile-img,
-.group-img {
+.group-img,
+.sidebar-img {
   width: 60px;
   height: 60px;
   line-height: 60px;
   color: black;
   font-size: 24px;
+}
+
+.sidebar-img img {
+  display: block;
 }
 
 .tab-members-img {
@@ -138,7 +146,8 @@
 
 .tab-img img,
 .profile-img img,
-.group-img img {
+.group-img img,
+.sidebar-img img {
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -149,14 +158,29 @@
 .contact-img span,
 .tab-members-img span {
   position: absolute;
-  right: 5px;
-  bottom: -20px;
+  right: 4px;
+  bottom: -1px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgb(96, 197, 96);
+  border: rgb(155, 155, 206) solid 2px;
 }
 
-.tab-img span {
+.tab-members-img span {
+  border: rgb(82, 82, 114) solid 2px;
+}
+
+.tab-img span,
+.sidebar-img span {
   position: absolute;
-  right: 8px;
-  bottom: -28px;
+  right: 7px;
+  bottom: -1px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgb(96, 197, 96);
+  border: rgb(82, 82, 114) solid 2px;
 }
 
 .chat-details {

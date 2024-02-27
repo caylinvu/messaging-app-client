@@ -7,7 +7,7 @@ function ProfileImage({ chat, contact, showOnlineStatus, imgClass, socket }) {
     if (chat.image) {
       // if group has image
       return (
-        <div className={imgClass}>
+        <div className={imgClass + ' has-img'}>
           <img
             src={'http://localhost:3000/api/img/conversation/' + chat._id}
             alt=""
@@ -24,19 +24,19 @@ function ProfileImage({ chat, contact, showOnlineStatus, imgClass, socket }) {
     if (contact.image) {
       // if user has image
       return (
-        <div className={imgClass}>
+        <div className={imgClass + ' has-img'}>
           <img src={'http://localhost:3000/api/img/user/' + contact._id} alt="" draggable={false} />
           {showOnlineStatus &&
-            ((socket && socket.connected) || (!socket && contact.isOnline) ? <span>*</span> : '')}
+            ((socket && socket.connected) || (!socket && contact.isOnline) ? <span></span> : '')}
         </div>
       );
-    } else {
+    } else if (contact.firstName) {
       // if user has no image
       return (
         <div className={imgClass}>
           {contact.firstName.slice(0, 1).toUpperCase()}
           {showOnlineStatus &&
-            ((socket && socket.connected) || (!socket && contact.isOnline) ? <span>*</span> : '')}
+            ((socket && socket.connected) || (!socket && contact.isOnline) ? <span></span> : '')}
         </div>
       );
     }
