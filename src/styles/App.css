@@ -262,6 +262,7 @@
   padding: 20px 10px;
   display: flex;
   flex-direction: column;
+  /* flex-direction: column-reverse; */
   gap: 10px;
   overflow-y: auto;
 }
@@ -372,16 +373,21 @@
 
 .img-display {
   background-color: rgb(82, 82, 114);
-  padding: 20px;
+  padding: 0 20px;
   display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 5px;
   position: relative;
+  min-width: 265px;
+  height: 265px;
 }
 
 .img-display img {
   border-radius: 5px;
-  max-width: 225px;
-  min-width: 125px;
+  max-width: 300px;
+  max-height: 230px;
+  min-height: 125px;
 }
 
 .img-close {

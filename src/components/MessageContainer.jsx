@@ -12,14 +12,15 @@ function MessageContainer({ messages, userDetails, contacts, userHash, image }) 
 
   useEffect(() => {
     if (msgRef.current) {
-      // console.log('hello');
+      console.log(messages[0].conversation);
       // console.log(msgRef);
       scrollToBottom();
     }
-  }, [messages, image]);
+  }, [msgRef, messages, image]);
 
   // Scroll to bottom of messages
   // useEffect(() => {
+  //   console.log('scrolling');
   //   let msgContainer = document.getElementById('msg-container');
   //   msgContainer.scrollTop = msgContainer.scrollHeight;
   // }, [messages, image]);
