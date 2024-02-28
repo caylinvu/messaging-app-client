@@ -11,19 +11,13 @@ function MessageContainer({ messages, userDetails, contacts, userHash, image }) 
   };
 
   useEffect(() => {
+    // console.log(messages[0].conversation);
+    // console.log(msgRef);
+    // console.log(messages);
     if (msgRef.current) {
-      console.log(messages[0].conversation);
-      // console.log(msgRef);
       scrollToBottom();
     }
-  }, [msgRef, messages, image]);
-
-  // Scroll to bottom of messages
-  // useEffect(() => {
-  //   console.log('scrolling');
-  //   let msgContainer = document.getElementById('msg-container');
-  //   msgContainer.scrollTop = msgContainer.scrollHeight;
-  // }, [messages, image]);
+  }, [messages, image]);
 
   return (
     <div id="msg-container">
@@ -71,6 +65,9 @@ function MessageContainer({ messages, userDetails, contacts, userHash, image }) 
                       src={'http://localhost:3000/api/img/message/' + msg._id}
                       alt=""
                       draggable={false}
+                      onLoad={() => {
+                        if (msgRef.current) scrollToBottom();
+                      }}
                     />
                   </div>
                 )}

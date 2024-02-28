@@ -41,7 +41,6 @@ export default App;
 // ~~~~~~~~~~ TO DO NEXT ~~~~~~~~~~
 
 // Images
-//--Figure out how to make message container scroll to bottom when loading images
 //--Figure out how to make scroll bar not show up when switching between scrollable and non-scrollable chats
 //--Style image error to be a popup that goes away
 
