@@ -142,6 +142,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .tab-img img,
@@ -151,6 +152,7 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .info-img span,
@@ -279,6 +281,9 @@
 
 .msg-img {
   align-self: end;
+}
+
+.msg-img.no-img {
   background-color: rgb(174, 174, 212);
 }
 
@@ -297,6 +302,15 @@
 .msg .author {
   font-size: 15px;
   margin-bottom: 3px;
+}
+
+.inner-img {
+  text-align: center;
+}
+
+.inner-img img {
+  max-width: 225px;
+  min-width: 125px;
 }
 
 .msg .text {
@@ -349,14 +363,58 @@
   align-self: end;
 }
 
+.img-container {
+  background-color: rgb(140, 140, 184);
+  padding: 20px 10px 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.img-display {
+  background-color: rgb(82, 82, 114);
+  padding: 20px;
+  display: flex;
+  border-radius: 5px;
+  position: relative;
+}
+
+.img-display img {
+  border-radius: 5px;
+  max-width: 225px;
+  min-width: 125px;
+}
+
+.img-close {
+  position: absolute;
+  top: -8px;
+  right: -6px;
+  font-size: 16px;
+  width: 22px;
+}
+
 .send-bar {
   background-color: rgb(140, 140, 184);
   padding: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.img-upload {
+  cursor: pointer;
+}
+
+.img-upload:hover {
+  filter: brightness(95%);
+}
+
+.img-upload button {
+  pointer-events: none;
 }
 
 .msg-form {
   display: flex;
   gap: 10px;
+  flex-grow: 1;
 }
 
 .msg-form input {

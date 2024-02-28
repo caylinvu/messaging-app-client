@@ -28,7 +28,7 @@ function ProfileImage({ chat, contact, showOnlineStatus, imgClass, socket, userH
       );
     } else {
       // if group has no image
-      return <div className={imgClass}>{chat.groupName.slice(0, 1).toUpperCase()}</div>;
+      return <div className={imgClass + ' no-img'}>{chat.groupName.slice(0, 1).toUpperCase()}</div>;
     }
   } else if (contact) {
     // if representing single user
@@ -48,7 +48,7 @@ function ProfileImage({ chat, contact, showOnlineStatus, imgClass, socket, userH
     } else if (contact.firstName) {
       // if user has no image
       return (
-        <div className={imgClass}>
+        <div className={imgClass + ' no-img'}>
           {contact.firstName.slice(0, 1).toUpperCase()}
           {showOnlineStatus &&
             ((socket && socket.connected) || (!socket && contact.isOnline) ? <span></span> : '')}

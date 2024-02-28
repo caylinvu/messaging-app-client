@@ -45,7 +45,9 @@ function ChatList({ chats, contacts, userDetails, groupHash }) {
                   <div className="preview-bottom">
                     <div className="preview-msg">
                       {obj.lastMessage
-                        ? obj.lastMessage.text
+                        ? obj.lastMessage.image
+                          ? 'Sent an image'
+                          : obj.lastMessage.text
                         : obj.isGroup
                           ? 'Started new group chat'
                           : 'Started new chat'}

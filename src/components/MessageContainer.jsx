@@ -1,14 +1,28 @@
 import PropTypes from 'prop-types';
 import { DateTime } from 'luxon';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import ProfileImage from './ProfileImage';
 
-function MessageContainer({ messages, userDetails, contacts, userHash }) {
-  // Scroll to bottom of messages
+function MessageContainer({ messages, userDetails, contacts, userHash, image }) {
+  const msgRef = useRef(null);
+
+  const scrollToBottom = () => {
+    msgRef.current.scrollIntoView({ behavior: 'smooth' });
+  };
+
   useEffect(() => {
-    let msgContainer = document.getElementById('msg-container');
-    msgContainer.scrollTop = msgContainer.scrollHeight;
-  }, [messages]);
+    if (msgRef.current) {
+      // console.log('hello');
+      // console.log(msgRef);
+      scrollToBottom();
+    }
+  }, [messages, image]);
+
+  // Scroll to bottom of messages
+  // useEffect(() => {
+  //   let msgContainer = document.getElementById('msg-container');
+  //   msgContainer.scrollTop = msgContainer.scrollHeight;
+  // }, [messages, image]);
 
   return (
     <div id="msg-container">
@@ -50,6 +64,15 @@ function MessageContainer({ messages, userDetails, contacts, userHash }) {
               )}
               <div className="msg-inner">
                 <p className="author">{author.firstName}</p>
+                {msg.image && (
+                  <div className="inner-img">
+                    <img
+                      src={'http://localhost:3000/api/img/message/' + msg._id}
+                      alt=""
+                      draggable={false}
+                    />
+                  </div>
+                )}
                 <p className="text">{msg.text}</p>
                 <p className="time">
                   {DateTime.fromISO(msg.timestamp).toLocaleString(DateTime.TIME_SIMPLE)}
@@ -59,6 +82,7 @@ function MessageContainer({ messages, userDetails, contacts, userHash }) {
           </div>
         );
       })}
+      <div ref={msgRef}></div>
     </div>
   );
 }
@@ -70,4 +94,5 @@ MessageContainer.propTypes = {
   userDetails: PropTypes.object,
   contacts: PropTypes.array,
   userHash: PropTypes.string,
+  image: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 };

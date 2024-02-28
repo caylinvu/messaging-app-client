@@ -10,6 +10,8 @@ function Chat() {
   const [showChatInfo, setShowChatInfo] = useState(false);
   const [showGroupPopup, setShowGroupPopup] = useState(false);
   const [text, setText] = useState('');
+  const [image, setImage] = useState('');
+  const [imageError, setImageError] = useState('');
   const { chatId } = useParams();
   const {
     contacts,
@@ -49,21 +51,82 @@ function Chat() {
     }
   }, [chatId, user.token]);
 
-  // Emitting message
+  // Handle selecting file
+  const handleFileChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      if (e.target.files[0].size > 1024 * 1024 * 2) {
+        setImageError('*Max file size of 2MB');
+        return;
+      } else if (
+        e.target.files[0].type !== 'image/png' &&
+        e.target.files[0].type !== 'image/jpg' &&
+        e.target.files[0].type !== 'image/jpeg'
+      ) {
+        setImageError('*Only png, jpg, and jpeg files allowed');
+        return;
+      }
+    }
+    setImageError('');
+    setImage(e.target.files[0]);
+    console.log(e.target.files[0]);
+  };
+
+  // Handle cancelling an input image
+  const cancelImage = () => {
+    setImage('');
+    const form = document.querySelector('.msg-form');
+    form.reset();
+  };
+
+  // Handle file upload
+  const handleUpload = async () => {
+    const formData = new FormData();
+    formData.append('image', image);
+
+    try {
+      const response = await fetch('http://localhost:3000/api/messages/send-img', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${user.token}` },
+        body: formData,
+      });
+      const responseData = await response.json();
+      console.log(responseData);
+      if (response.status === 200) {
+        console.log(responseData);
+        emitMessage(responseData.image);
+        setText('');
+        setImage('');
+        setImageError('');
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // Handle emitting message
+  const emitMessage = (img) => {
+    const msg = {
+      text: text,
+      author: user._id,
+      conversation: chatId,
+      image: img,
+      timestamp: new Date().toISOString(),
+    };
+    socket.emit('sendMessage', msg);
+  };
+
   // Send new message with msg object (including text, author, conversation, image, and timestamp)
   // Save new message to local messages state and broadcast OR just emit to all including sender
   const handleSend = (e) => {
     e.preventDefault();
-    if (text) {
-      const msg = {
-        text: text,
-        author: user._id,
-        conversation: chatId,
-        image: '',
-        timestamp: new Date().toISOString(),
-      };
-      socket.emit('sendMessage', msg);
+    if (text && !image) {
+      console.log('text only');
+      emitMessage('');
       setText('');
+      setImageError('');
+    } else if (image) {
+      console.log('image uploaded');
+      handleUpload();
     }
   };
 
@@ -133,9 +196,35 @@ function Chat() {
                 userDetails={userDetails}
                 contacts={contacts}
                 userHash={userHash}
+                image={image}
               />
+              {image && (
+                <div className="img-container">
+                  <div className="img-display">
+                    <img src={URL.createObjectURL(image)} alt="" draggable={false} />
+                    <button className="img-close" onClick={cancelImage}>
+                      X
+                    </button>
+                  </div>
+                </div>
+              )}
+              <span>{imageError}</span>
               <div onSubmit={handleSend} className="send-bar">
                 <form action="" className="msg-form">
+                  <div className="form-group">
+                    {/* UPDATE THIS TO PUT BUTTON INSIDE OF LABEL */}
+                    <label htmlFor="send-image" className="img-upload">
+                      <button type="button">Image</button>
+                    </label>
+                    <input
+                      type="file"
+                      name="send-image"
+                      id="send-image"
+                      accept="image/png,image/jpg,image/jpeg"
+                      onChange={handleFileChange}
+                      className="file-input"
+                    />
+                  </div>
                   <input
                     type="text"
                     name="text"

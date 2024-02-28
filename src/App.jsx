@@ -41,12 +41,9 @@ export default App;
 // ~~~~~~~~~~ TO DO NEXT ~~~~~~~~~~
 
 // Images
-//--Figure out how to display profile/group pic update immediately (refetch)
-//--Add a way to change a group picture
-//----When permanently deleting conv, delete image too (test this)
-//--Maybe add a way to upload group image on creation???
-//--Add ability to send images in chat
-//----Where to store so they aren't public??
+//--Figure out how to make message container scroll to bottom when loading images
+//--Figure out how to make scroll bar not show up when switching between scrollable and non-scrollable chats
+//--Style image error to be a popup that goes away
 
 // ~~~~~~~~~~ ALL TO DO ~~~~~~~~~~
 
@@ -145,3 +142,7 @@ export default App;
 // Style scroll bar
 
 // Add animations for popups
+
+// ~~~~~~~~~~ CAN ADD LATER BUT UNNECESSARY FOR NOW ~~~~~~~~~~
+
+// Add way to upload group image on creation
