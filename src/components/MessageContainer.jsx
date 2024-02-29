@@ -1,23 +1,23 @@
 import PropTypes from 'prop-types';
 import { DateTime } from 'luxon';
 import { useEffect, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 import ProfileImage from './ProfileImage';
 
 function MessageContainer({ messages, userDetails, contacts, userHash, image }) {
+  const { chatId } = useParams();
   const msgRef = useRef(null);
 
   const scrollToBottom = () => {
-    msgRef.current.scrollIntoView({ behavior: 'smooth' });
+    msgRef.current.scrollIntoView({ behavior: 'instant' });
   };
 
   useEffect(() => {
-    // console.log(messages[0].conversation);
-    // console.log(msgRef);
-    // console.log(messages);
-    if (msgRef.current) {
+    if (msgRef.current && messages.length > 0 && chatId === messages[0].conversation.toString()) {
+      // console.log(messages);
       scrollToBottom();
     }
-  }, [messages, image]);
+  }, [messages, image, chatId]);
 
   return (
     <div id="msg-container">

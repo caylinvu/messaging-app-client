@@ -43,6 +43,7 @@ export default App;
 // Images
 //--Figure out how to make scroll bar not show up when switching between scrollable and non-scrollable chats
 //--Style image error to be a popup that goes away
+//--Look into not scrolling when you receive a message and ur at top of chat???
 
 // ~~~~~~~~~~ ALL TO DO ~~~~~~~~~~
 
@@ -95,6 +96,9 @@ export default App;
 // Group chat max????
 
 // Figure out how to disconnect from socket when computer goes to sleep??
+
+//Figure out how to make scroll bar not show up when switching between scrollable and non-scrollable chats
+//--(maybe fixed after adding loading screen??)
 
 // ~~~~~~~~~~ REFACTOR TO DO ~~~~~~~~~~
 
