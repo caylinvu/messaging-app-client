@@ -11,6 +11,10 @@ function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user, userHa
   const [bio, setBio] = useState(currentUser.bio);
   const [imageError, setImageError] = useState('');
 
+  const stopPropagation = (e) => {
+    e.stopPropagation();
+  };
+
   const handleSave = async (e) => {
     e.preventDefault();
 
@@ -76,8 +80,8 @@ function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user, userHa
   };
 
   return (
-    <div className="blocker">
-      <div className="popup-container">
+    <div className="blocker" onClick={() => setShowProfilePopup(false)}>
+      <div className="popup-container" onClick={stopPropagation}>
         <div className="profile-popup">
           <button className="close-btn" onClick={() => setShowProfilePopup(false)}>
             X

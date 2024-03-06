@@ -40,10 +40,6 @@ export default App;
 
 // ~~~~~~~~~~ TO DO NEXT ~~~~~~~~~~
 
-// Show preview time instead of date if in last 24 hours
-
-// Exit all popups when clicking on blocker??
-
 // ~~~~~~~~~~ ALL TO DO ~~~~~~~~~~
 
 // Profile updates

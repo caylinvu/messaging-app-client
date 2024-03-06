@@ -1,9 +1,13 @@
 import PropTypes from 'prop-types';
 
 function DeletePopup({ setShowDeletePopup, deleteChat }) {
+  const stopPropagation = (e) => {
+    e.stopPropagation();
+  };
+
   return (
-    <div className="blocker">
-      <div className="popup-container">
+    <div className="blocker" onClick={() => setShowDeletePopup(false)}>
+      <div className="popup-container" onClick={stopPropagation}>
         <div className="delete-popup">
           <button className="close-btn" onClick={() => setShowDeletePopup(false)}>
             X

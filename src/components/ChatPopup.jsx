@@ -18,6 +18,10 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
   const [groupError, setGroupError] = useState(null);
   const navigate = useNavigate();
 
+  const stopPropagation = (e) => {
+    e.stopPropagation();
+  };
+
   // Handle choosing contact to start new non-group chat
   const startChat = (contact) => {
     // Check if chat with chosen contact already exists
@@ -78,8 +82,8 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
   };
 
   return (
-    <div className="blocker">
-      <div className="popup-container">
+    <div className="blocker" onClick={() => setShowChatPopup(false)}>
+      <div className="popup-container" onClick={stopPropagation}>
         <div className="chat-popup">
           <button className="close-btn" onClick={() => setShowChatPopup(false)}>
             X
