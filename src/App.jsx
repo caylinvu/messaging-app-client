@@ -40,35 +40,19 @@ export default App;
 
 // ~~~~~~~~~~ TO DO NEXT ~~~~~~~~~~
 
-// Images
-//--Figure out how to make scroll bar not show up when switching between scrollable and non-scrollable chats
-//--Style image error to be a popup that goes away
-//--Look into not scrolling when you receive a message and ur at top of chat???
-
-// ~~~~~~~~~~ ALL TO DO ~~~~~~~~~~
-
-// messages: get rid of msg-outer div
-
 // Add confirmation for deleting chat
 
-// SIDEBAR FIRST NAME BUG (USERDETAILS)
-
-// Add profile image to profile button
-
-// Edit where login error messages are shown
-
-// Contact page - show online users at top
-
-// Profile updates
-//--Maybe do new contact fetch when clicking on contacts???
-//--Maybe do new chat fetch when clicking on chats????
-//--Maybe make profile updates in real time through socket???
-
-// Do we want to keep logout after 24 hours????
+// Remove logout after 24 hour stuff
 
 // Show preview time instead of date if in last 24 hours
 
 // Exit all popups when clicking on blocker??
+
+// ~~~~~~~~~~ ALL TO DO ~~~~~~~~~~
+
+// Profile updates
+//--Maybe do new contact fetch when clicking on contacts???
+//--Maybe do new chat fetch when clicking on chats????
 
 // Set validation on form inputs
 //-- Add body & validationResult on backend to make sure no username is used twice
@@ -77,6 +61,8 @@ export default App;
 //-- Also add frontend validation where needed
 //-- Maybe add password confirmation????
 //-- Server side validation
+//---- Edit where login error messages are shown
+//---- Style image error to be a popup that goes away
 
 // Create loading screen
 
@@ -93,9 +79,12 @@ export default App;
 
 // Add search bar for contacts/new chat popup???
 
+// Add token back
+
 // Group chat max????
 
 // Figure out how to disconnect from socket when computer goes to sleep??
+// How to make socket reconnect when waking computer up??
 
 //Figure out how to make scroll bar not show up when switching between scrollable and non-scrollable chats
 //--(maybe fixed after adding loading screen??)
@@ -116,6 +105,10 @@ export default App;
 // Make components or factory function or helper functions or SOMETHING for repeat code when display user info between group or other user
 
 // Clean up class names???
+
+// messages: get rid of msg-outer div
+
+// Create routes folder
 
 // ~~~~~~~~~~ STYLING TO DO ~~~~~~~~~~
 
@@ -149,3 +142,5 @@ export default App;
 // ~~~~~~~~~~ CAN ADD LATER BUT UNNECESSARY FOR NOW ~~~~~~~~~~
 
 // Add way to upload group image on creation
+
+// Look into not scrolling when you receive a message and ur at top of chat???

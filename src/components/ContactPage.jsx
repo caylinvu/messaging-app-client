@@ -36,7 +36,49 @@ function ContactPage() {
           <h1>Contacts</h1>
         </div>
         <div className="contact-list">
-          {contacts.map((contact) => {
+          <div className="online-contacts">
+            <h3>Online - {contacts.filter((obj) => obj.isOnline).length}</h3>
+            {contacts.map((contact) => {
+              if (contact._id !== user._id && contact.isOnline) {
+                return (
+                  <button
+                    onClick={() => startChat(contact)}
+                    className="contact-preview"
+                    key={contact._id}
+                  >
+                    <ProfileImage
+                      contact={contact}
+                      showOnlineStatus={true}
+                      imgClass="contact-img"
+                    />
+                    <div className="contact-name">{contact.firstName + ' ' + contact.lastName}</div>
+                  </button>
+                );
+              }
+            })}
+          </div>
+          <div className="offline-contacts">
+            <h3>Offline - {contacts.filter((obj) => !obj.isOnline).length}</h3>
+            {contacts.map((contact) => {
+              if (contact._id !== user._id && !contact.isOnline) {
+                return (
+                  <button
+                    onClick={() => startChat(contact)}
+                    className="contact-preview"
+                    key={contact._id}
+                  >
+                    <ProfileImage
+                      contact={contact}
+                      showOnlineStatus={true}
+                      imgClass="contact-img"
+                    />
+                    <div className="contact-name">{contact.firstName + ' ' + contact.lastName}</div>
+                  </button>
+                );
+              }
+            })}
+          </div>
+          {/* {contacts.map((contact) => {
             if (contact._id !== user._id) {
               return (
                 <button
@@ -49,7 +91,7 @@ function ContactPage() {
                 </button>
               );
             }
-          })}
+          })} */}
         </div>
       </div>
       <Intro isContactPage={true} />

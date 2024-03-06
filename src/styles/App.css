@@ -76,10 +76,16 @@
 }
 
 .chat-list,
-.contact-list {
+.contact-list,
+.online-contacts,
+.offline-contacts {
   display: flex;
   flex-direction: column;
   gap: 5px;
+}
+
+.contact-list {
+  gap: 20px;
 }
 
 .chat-preview,
