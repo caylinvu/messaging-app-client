@@ -40,10 +40,6 @@ export default App;
 
 // ~~~~~~~~~~ TO DO NEXT ~~~~~~~~~~
 
-// Add confirmation for deleting chat
-
-// Remove logout after 24 hour stuff
-
 // Show preview time instead of date if in last 24 hours
 
 // Exit all popups when clicking on blocker??
@@ -109,6 +105,8 @@ export default App;
 // messages: get rid of msg-outer div
 
 // Create routes folder
+
+// Remove logout after 24 hour stuff
 
 // ~~~~~~~~~~ STYLING TO DO ~~~~~~~~~~
 

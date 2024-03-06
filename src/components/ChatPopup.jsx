@@ -143,7 +143,7 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
                 &lt;
               </button>
               <p>Name group</p>
-              <form action="" className="group-form" onSubmit={startGroup}>
+              <form action="" className="create-group-form" onSubmit={startGroup}>
                 <input
                   type="text"
                   name="groupName"

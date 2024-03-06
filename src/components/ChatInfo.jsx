@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import { DateTime } from 'luxon';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import ProfileImage from './ProfileImage';
+import DeletePopup from './DeletePopup';
 
 function ChatInfo({
   setShowChatInfo,
@@ -17,6 +19,7 @@ function ChatInfo({
   userHash,
   groupHash,
 }) {
+  const [showDeletePopup, setShowDeletePopup] = useState(false);
   const navigate = useNavigate();
 
   const stopPropagation = (e) => {
@@ -67,82 +70,87 @@ function ChatInfo({
   };
 
   return (
-    <div className="blocker" onClick={() => setShowChatInfo(false)}>
-      <div className="info-container" onClick={stopPropagation}>
-        <div className="chat-info">
-          <div className="tab-top">
-            <ProfileImage
-              chat={chat}
-              contact={otherUser}
-              showOnlineStatus={true}
-              imgClass="tab-img"
-              groupHash={chat.isGroup ? groupHash : ''}
-            />
-            <div className="tab-name">
-              {chat.isGroup && chat.groupName}
-              {!chat.isGroup && otherUser && otherUser.firstName + ' ' + otherUser.lastName}
+    <>
+      <div className="blocker" onClick={() => setShowChatInfo(false)}>
+        <div className="info-container" onClick={stopPropagation}>
+          <div className="chat-info">
+            <div className="tab-top">
+              <ProfileImage
+                chat={chat}
+                contact={otherUser}
+                showOnlineStatus={true}
+                imgClass="tab-img"
+                groupHash={chat.isGroup ? groupHash : ''}
+              />
+              <div className="tab-name">
+                {chat.isGroup && chat.groupName}
+                {!chat.isGroup && otherUser && otherUser.firstName + ' ' + otherUser.lastName}
+              </div>
+              <div className="tab-status">
+                {chat.isGroup && chat.members.length + ' members'}
+                {!chat.isGroup && otherUser && (otherUser.isOnline ? 'Online' : 'Offline')}
+              </div>
             </div>
-            <div className="tab-status">
-              {chat.isGroup && chat.members.length + ' members'}
-              {!chat.isGroup && otherUser && (otherUser.isOnline ? 'Online' : 'Offline')}
-            </div>
-          </div>
-          {chat.isGroup && (
-            <button className="edit-chat-btn" onClick={clickEdit}>
-              Edit chat
+            {chat.isGroup && (
+              <button className="edit-chat-btn" onClick={clickEdit}>
+                Edit chat
+              </button>
+            )}
+            <button className="delete-btn" onClick={() => setShowDeletePopup(true)}>
+              Delete chat
             </button>
-          )}
-          <button className="delete-btn" onClick={() => deleteChat()}>
-            Delete chat
-          </button>
-          {chat.isGroup ? (
-            <div className="tab-members">
-              <h3>Members</h3>
-              <div>
-                <ProfileImage
-                  contact={userDetails}
-                  showOnlineStatus={true}
-                  imgClass="tab-members-img"
-                  socket={socket}
-                  userHash={userHash}
-                />
-                <div className="tab-members-name">You</div>
-              </div>
-              {contacts.map((contact) => {
-                if (chat.members.includes(contact._id) && contact._id !== userDetails._id) {
-                  return (
-                    <div key={contact._id}>
-                      <ProfileImage
-                        contact={contact}
-                        showOnlineStatus={true}
-                        imgClass="tab-members-img"
-                      />
-                      <div className="tab-members-name">
-                        {contact.firstName + ' ' + contact.lastName}
+            {chat.isGroup ? (
+              <div className="tab-members">
+                <h3>Members</h3>
+                <div>
+                  <ProfileImage
+                    contact={userDetails}
+                    showOnlineStatus={true}
+                    imgClass="tab-members-img"
+                    socket={socket}
+                    userHash={userHash}
+                  />
+                  <div className="tab-members-name">You</div>
+                </div>
+                {contacts.map((contact) => {
+                  if (chat.members.includes(contact._id) && contact._id !== userDetails._id) {
+                    return (
+                      <div key={contact._id}>
+                        <ProfileImage
+                          contact={contact}
+                          showOnlineStatus={true}
+                          imgClass="tab-members-img"
+                        />
+                        <div className="tab-members-name">
+                          {contact.firstName + ' ' + contact.lastName}
+                        </div>
                       </div>
-                    </div>
-                  );
-                }
-              })}
-            </div>
-          ) : (
-            <div className="tab-user-info">
-              <div className="tab-bio">
-                <p>Bio</p>
-                <p>{otherUser.bio ? otherUser.bio : '(No bio available)'}</p>
+                    );
+                  }
+                })}
               </div>
-              <div className="tab-joined">
-                <p>Joined</p>
-                <p>{DateTime.fromISO(otherUser.timestamp).toLocaleString(DateTime.DATE_MED)}</p>
+            ) : (
+              <div className="tab-user-info">
+                <div className="tab-bio">
+                  <p>Bio</p>
+                  <p>{otherUser.bio ? otherUser.bio : '(No bio available)'}</p>
+                </div>
+                <div className="tab-joined">
+                  <p>Joined</p>
+                  <p>{DateTime.fromISO(otherUser.timestamp).toLocaleString(DateTime.DATE_MED)}</p>
+                </div>
               </div>
-            </div>
-          )}
-          <button className="close-btn" onClick={() => setShowChatInfo(false)}>
-            X
-          </button>
+            )}
+            <button className="close-btn" onClick={() => setShowChatInfo(false)}>
+              X
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+      {showDeletePopup && (
+        <DeletePopup setShowDeletePopup={setShowDeletePopup} deleteChat={deleteChat} />
+      )}
+    </>
   );
 }
 

@@ -570,7 +570,7 @@
   float: right;
 }
 
-.group-form input {
+.create-group-form input {
   width: 100%;
 }
 
@@ -749,4 +749,26 @@
 
 .group-popup > p {
   margin-bottom: 20px;
+}
+
+/* ~~~~~~~~~~~~~~~DELETE POPUP~~~~~~~~~~~~~~~ */
+
+.delete-popup {
+  border-radius: 10px;
+  background-color: rgb(82, 82, 114);
+  color: white;
+  padding: 20px 30px;
+  width: 350px;
+  max-height: 450px;
+  position: relative;
+}
+
+.delete-popup > p {
+  margin-bottom: 20px;
+}
+
+.delete-popup > div {
+  display: flex;
+  gap: 5px;
+  justify-content: end;
 }
