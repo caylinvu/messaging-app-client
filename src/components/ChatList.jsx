@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { DateTime } from 'luxon';
 import PropTypes from 'prop-types';
 import ProfileImage from './ProfileImage';
+import DatePreview from './DatePreview';
 
 function ChatList({ chats, contacts, userDetails, groupHash }) {
   return (
@@ -37,9 +37,11 @@ function ChatList({ chats, contacts, userDetails, groupHash }) {
                       {!obj.isGroup && otherUser && otherUser.firstName + ' ' + otherUser.lastName}
                     </div>
                     <div className="preview-time">
-                      {obj.lastMessage
-                        ? DateTime.fromISO(obj.lastMessage.timestamp).toLocaleString(DateTime)
-                        : DateTime.fromISO(obj.timestamp).toLocaleString(DateTime)}
+                      {obj.lastMessage ? (
+                        <DatePreview timestamp={obj.lastMessage.timestamp} />
+                      ) : (
+                        <DatePreview timestamp={obj.timestamp} />
+                      )}
                     </div>
                   </div>
                   <div className="preview-bottom">
