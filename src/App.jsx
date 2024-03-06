@@ -40,6 +40,8 @@ export default App;
 
 // ~~~~~~~~~~ TO DO NEXT ~~~~~~~~~~
 
+// Add notification on chats button for new messages so u can see if new message is received while on the contact page
+
 // ~~~~~~~~~~ ALL TO DO ~~~~~~~~~~
 
 // Profile updates
@@ -55,31 +57,24 @@ export default App;
 //-- Server side validation
 //---- Edit where login error messages are shown
 //---- Style image error to be a popup that goes away
+//--NO AUTOFILL ON FORMS!!!
 
 // Create loading screen
+//--Figure out how to make scroll bar not show up when switching between scrollable and non-scrollable chats
+//--(maybe fixed after adding loading screen??)
 
 // Create error page
 //-- either have all paths navigate back to '/chats' or have an error page
 
-// Instead of doing a conditional statement on returned HTML, use state and useEffect to store the variable on render and then display dynamically
+// JWT
+//--Make sure token is sent in all HTTP requests
+//--Add verifyToken to routes on backend
+//--Possibly add token verification on some socket requests?
 
-// If chat is open when receiving new message, make notification bubble not pop up
-
-// Add notification on chats button for new messages so u can see if new message is received while on the contact page
-
-// Figure out how to refresh page if it was left open while computer went to sleep
-
-// Add search bar for contacts/new chat popup???
-
-// Add token back
-
-// Group chat max????
-
-// Figure out how to disconnect from socket when computer goes to sleep??
-// How to make socket reconnect when waking computer up??
-
-//Figure out how to make scroll bar not show up when switching between scrollable and non-scrollable chats
-//--(maybe fixed after adding loading screen??)
+// Socket/Computer going to sleep
+//--Figure out how to refresh page if it was left open while computer went to sleep
+//--Figure out how to disconnect from socket when computer goes to sleep??
+//--How to make socket reconnect when waking computer up??
 
 // ~~~~~~~~~~ REFACTOR TO DO ~~~~~~~~~~
 
@@ -103,6 +98,12 @@ export default App;
 // Create routes folder
 
 // Remove logout after 24 hour stuff
+
+// Instead of doing a conditional statement on returned HTML, use state and useEffect to store the variable on render and then display dynamically
+
+// Is there a better way to implement opening messages?
+
+// Check all eslint warnings
 
 // ~~~~~~~~~~ STYLING TO DO ~~~~~~~~~~
 
@@ -137,4 +138,6 @@ export default App;
 
 // Add way to upload group image on creation
 
-// Look into not scrolling when you receive a message and ur at top of chat???
+// Look into not scrolling when you receive a message and ur at top of chat
+
+// Add search bar for contacts/new chat popup

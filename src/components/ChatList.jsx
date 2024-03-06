@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ProfileImage from './ProfileImage';
 import DatePreview from './DatePreview';
 
-function ChatList({ chats, contacts, userDetails, groupHash }) {
+function ChatList({ chats, contacts, userDetails, groupHash, chatId }) {
   return (
     <div className="chat-list">
       {chats.map((obj) => {
@@ -55,10 +55,14 @@ function ChatList({ chats, contacts, userDetails, groupHash }) {
                           : 'Started new chat'}
                     </div>
                     <div className="new-msg">
-                      {(obj.lastMessage && userConv && !userConv.lastRead) ||
-                      (obj.lastMessage && userConv && userConv.lastRead < obj.lastMessage.timestamp)
-                        ? '*'
-                        : ''}
+                      {obj._id === chatId
+                        ? ''
+                        : (obj.lastMessage && userConv && !userConv.lastRead) ||
+                            (obj.lastMessage &&
+                              userConv &&
+                              userConv.lastRead < obj.lastMessage.timestamp)
+                          ? '*'
+                          : ''}
                     </div>
                   </div>
                 </div>
@@ -76,6 +80,7 @@ ChatList.propTypes = {
   contacts: PropTypes.array,
   userDetails: PropTypes.object,
   groupHash: PropTypes.string,
+  chatId: PropTypes.string,
 };
 
 export default ChatList;

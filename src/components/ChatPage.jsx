@@ -103,6 +103,7 @@ function ChatPage() {
             contacts={contacts}
             userDetails={userDetails}
             groupHash={groupHash}
+            chatId={chatId}
           />
         ) : (
           <div>You currently have no chats open. Choose a contact to get started!</div>
