@@ -17,7 +17,7 @@ function App() {
   useEffect(() => {
     if (user) {
       socket.connect();
-      // console.log('User connected');
+      console.log('User connected');
       // console.log(socket);
     }
   }, [socket, user]);
@@ -42,20 +42,7 @@ export default App;
 
 // ~~~~~~~~~~ ALL TO DO ~~~~~~~~~~
 
-// Profile updates
-//--Maybe do new contact fetch when clicking on contacts???
-//--Maybe do new chat fetch when clicking on chats????
-
-// Set validation on form inputs
-//-- Add body & validationResult on backend to make sure no username is used twice
-//-- Make sure backend errors are displayed correctly on frontend
-//-- Make sure backend errors are display in correct spot
-//-- Also add frontend validation where needed
-//-- Maybe add password confirmation????
-//-- Server side validation
-//---- Edit where login error messages are shown
-//---- Style image error to be a popup that goes away
-//--NO AUTOFILL ON FORMS!!!
+// MAKE POPUPS WITH EDITABLE INPUTS NOT EXIT WHEN U CLICK BLOCKER
 
 // Create loading screen
 //--Figure out how to make scroll bar not show up when switching between scrollable and non-scrollable chats
@@ -74,7 +61,13 @@ export default App;
 //--Figure out how to disconnect from socket when computer goes to sleep??
 //--How to make socket reconnect when waking computer up??
 
+// Refine demo user
+
 // ~~~~~~~~~~ REFACTOR TO DO ~~~~~~~~~~
+
+// Add better comments throughout all files!!!
+
+// Put socket creation in useEffect???
 
 // Make more helper files (fetching, socket, etc)
 
@@ -125,6 +118,8 @@ export default App;
 
 // Add button hover style
 
+//---- Style image error to be a popup that goes away
+
 // Add icons for certain buttons
 //--Maybe add group icon for group messages without an image???
 
@@ -139,3 +134,9 @@ export default App;
 // Look into not scrolling when you receive a message and ur at top of chat
 
 // Add search bar for contacts/new chat popup
+
+// Send profile/group profile changes through socket so they are automatically displayed
+
+// Look into validating form data through socket (new group & sending message)
+
+// Add drafs to keep unsent text when switching between chats

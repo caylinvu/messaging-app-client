@@ -10,6 +10,7 @@ function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user, userHa
   const [newImage, setNewImage] = useState('');
   const [bio, setBio] = useState(currentUser.bio);
   const [imageError, setImageError] = useState('');
+  const [errors, setErrors] = useState([]);
 
   const stopPropagation = (e) => {
     e.stopPropagation();
@@ -36,8 +37,12 @@ function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user, userHa
         if (newImage) {
           setUserHash(Math.random().toString(36));
         }
+        setErrors([]);
         updateLocalUser(responseData);
         setShowProfilePopup(false);
+      } else if (!response.ok) {
+        setImageError('');
+        setErrors(responseData);
       }
     } catch (err) {
       console.log(err);
@@ -63,8 +68,8 @@ function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user, userHa
 
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
-      if (e.target.files[0].size > 1024 * 1024 * 1) {
-        setImageError('*Max file size of 1MB');
+      if (e.target.files[0].size > 1024 * 1024 * 2) {
+        setImageError('*Max file size of 2MB');
         return;
       } else if (
         e.target.files[0].type !== 'image/png' &&
@@ -88,7 +93,7 @@ function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user, userHa
           </button>
           <h3>Profile</h3>
           <p>Edit your public information</p>
-          <form action="" className="profile-form" onSubmit={handleSave}>
+          <form action="" className="profile-form" onSubmit={handleSave} autoComplete="off">
             <div className="form-group">
               <label htmlFor="firstName">First name</label>
               <input
@@ -99,6 +104,11 @@ function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user, userHa
                 onChange={(e) => setFirstName(e.target.value)}
                 required
               />
+              {errors.map((error) => {
+                if (error.path === 'firstName') {
+                  return <span key={error.path}>{error.msg}</span>;
+                }
+              })}
             </div>
             <div className="form-group">
               <label htmlFor="lastName">Last name</label>
@@ -110,6 +120,11 @@ function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user, userHa
                 onChange={(e) => setLastName(e.target.value)}
                 required
               />
+              {errors.map((error) => {
+                if (error.path === 'lastName') {
+                  return <span key={error.path}>{error.msg}</span>;
+                }
+              })}
             </div>
             <div className="form-group">
               <label htmlFor="bio">Bio</label>
@@ -137,7 +152,12 @@ function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user, userHa
                 onChange={handleFileChange}
                 className="file-input"
               />
-              <span>{imageError}</span>
+              {errors.map((error) => {
+                if (error.path === 'image') {
+                  return <span key={error.path}>{error.msg}</span>;
+                }
+              })}
+              <span className="profile-img-err">{imageError}</span>
             </div>
             <button type="submit" className="save-btn">
               Save

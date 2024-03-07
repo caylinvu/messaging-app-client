@@ -77,8 +77,10 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
 
   const startGroup = (e) => {
     e.preventDefault();
-    createNewGroup(groupName, groupUsers, user, socket);
-    setShowChatPopup(false);
+    if (groupName && groupUsers) {
+      createNewGroup(groupName, groupUsers, user, socket);
+      setShowChatPopup(false);
+    }
   };
 
   return (
@@ -147,7 +149,12 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
                 &lt;
               </button>
               <p>Name group</p>
-              <form action="" className="create-group-form" onSubmit={startGroup}>
+              <form
+                action=""
+                className="create-group-form"
+                onSubmit={startGroup}
+                autoComplete="off"
+              >
                 <input
                   type="text"
                   name="groupName"

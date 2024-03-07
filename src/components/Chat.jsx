@@ -27,6 +27,12 @@ function Chat() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    setText('');
+    setImage('');
+    setImageError('');
+  }, [chatId]);
+
+  useEffect(() => {
     const getMessages = async () => {
       try {
         const response = await fetch(
@@ -208,11 +214,10 @@ function Chat() {
                   </div>
                 </div>
               )}
-              <span>{imageError}</span>
+              <span className="img-err">{imageError}</span>
               <div onSubmit={handleSend} className="send-bar">
-                <form action="" className="msg-form">
+                <form action="" className="msg-form" autoComplete="off">
                   <div className="form-group">
-                    {/* UPDATE THIS TO PUT BUTTON INSIDE OF LABEL */}
                     <label htmlFor="send-image" className="img-upload">
                       <button type="button">Image</button>
                     </label>

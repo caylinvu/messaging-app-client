@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
 function SignUpPage() {
-  // Need firstName, lastName, email, password, timestamp
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [signUpError, setSignUpError] = useState(null);
+  const [passwordConf, setPasswordConf] = useState('');
+  const [errors, setErrors] = useState([]);
   const { setUser } = useOutletContext();
 
   const handleSignUp = async (e) => {
@@ -21,23 +21,22 @@ function SignUpPage() {
           lastName: lastName,
           email: email,
           password: password,
+          passwordConf: passwordConf,
           timestamp: new Date().toISOString(),
         }),
       });
       const responseData = await response.json();
       console.log(responseData);
       if (response.status === 200) {
-        setSignUpError(null);
+        setErrors([]);
         setUser(responseData.user);
         setFirstName('');
         setLastName('');
         setEmail('');
         setPassword('');
         localStorage.setItem('user', JSON.stringify(responseData.user));
-        // localStorage.setItem('createdAt', new Date().getTime());
       } else if (!response.ok) {
-        console.log(responseData.message);
-        setSignUpError(responseData.message);
+        setErrors(responseData);
       }
     } catch (err) {
       console.log(err);
@@ -47,7 +46,7 @@ function SignUpPage() {
   return (
     <div className="sign-up-page">
       <h1>Create a new account</h1>
-      <form action="" onSubmit={handleSignUp} className="sign-up-form">
+      <form action="" onSubmit={handleSignUp} className="sign-up-form" autoComplete="off">
         <div className="form-group">
           <label htmlFor="firstName">First name</label>
           <input
@@ -58,6 +57,11 @@ function SignUpPage() {
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
+          {errors.map((error) => {
+            if (error.path === 'firstName') {
+              return <span key={error.path}>{error.msg}</span>;
+            }
+          })}
         </div>
         <div className="form-group">
           <label htmlFor="lastName">Last name</label>
@@ -69,6 +73,11 @@ function SignUpPage() {
             onChange={(e) => setLastName(e.target.value)}
             required
           />
+          {errors.map((error) => {
+            if (error.path === 'lastName') {
+              return <span key={error.path}>{error.msg}</span>;
+            }
+          })}
         </div>
         <div className="form-group">
           <label htmlFor="email">Email address</label>
@@ -80,6 +89,11 @@ function SignUpPage() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
+          {errors.map((error) => {
+            if (error.path === 'email') {
+              return <span key={error.path}>{error.msg}</span>;
+            }
+          })}
         </div>
         <div className="form-group">
           <label htmlFor="password">Password</label>
@@ -91,8 +105,28 @@ function SignUpPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          {errors.map((error) => {
+            if (error.path === 'password') {
+              return <span key={error.path}>{error.msg}</span>;
+            }
+          })}
         </div>
-        {signUpError ? <p>{signUpError}</p> : null}
+        <div className="form-group">
+          <label htmlFor="passwordConf">Password confirmation</label>
+          <input
+            type="password"
+            name="passwordConf"
+            id="passwordConf"
+            value={passwordConf}
+            onChange={(e) => setPasswordConf(e.target.value)}
+            required
+          />
+          {errors.map((error) => {
+            if (error.path === 'passwordConf') {
+              return <span key={error.path}>{error.msg}</span>;
+            }
+          })}
+        </div>
         <button type="submit">Sign up</button>
       </form>
       <p>

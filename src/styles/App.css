@@ -721,7 +721,7 @@
   position: relative;
 }
 
-.form-group span {
+.profile-img-err {
   font-size: 15px;
   position: absolute;
   bottom: -19px;
@@ -782,3 +782,13 @@
   gap: 5px;
   justify-content: end;
 }
+
+/* ~~~~~~~~~~~~~~~FORM INPUT VALIDATION~~~~~~~~~~~~~~~ */
+
+/* .login-form input:invalid {
+  border: 2px solid red;
+}
+
+.login-form input:focus {
+  outline: none;
+} */

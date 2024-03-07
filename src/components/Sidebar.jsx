@@ -9,6 +9,7 @@ function Sidebar({ userDetails, socket, setShowProfilePopup, userHash, chats }) 
   const { handleLogout } = useOutletContext();
   const navigate = useNavigate();
 
+  // Check to see if there are any new messages to show alert on 'Chats' button on sidebar
   useEffect(() => {
     const notifications = chats.filter((obj) => {
       let userConv;

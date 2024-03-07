@@ -7,6 +7,7 @@ function GroupPopup({ setShowGroupPopup, chat, chats, setChats, user, groupHash,
   const [lastImage, setLastImage] = useState(chat.image);
   const [newImage, setNewImage] = useState('');
   const [imageError, setImageError] = useState('');
+  const [errors, setErrors] = useState([]);
 
   const stopPropagation = (e) => {
     e.stopPropagation();
@@ -31,8 +32,12 @@ function GroupPopup({ setShowGroupPopup, chat, chats, setChats, user, groupHash,
         if (newImage) {
           setGroupHash(Math.random().toString(36));
         }
+        setErrors([]);
         updateLocalChat(responseData);
         setShowGroupPopup(false);
+      } else if (!response.ok) {
+        setImageError('');
+        setErrors(responseData);
       }
     } catch (err) {
       console.log(err);
@@ -56,8 +61,8 @@ function GroupPopup({ setShowGroupPopup, chat, chats, setChats, user, groupHash,
 
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
-      if (e.target.files[0].size > 1024 * 1024 * 1) {
-        setImageError('*Max file size of 1MB');
+      if (e.target.files[0].size > 1024 * 1024 * 2) {
+        setImageError('*Max file size of 2MB');
         return;
       } else if (
         e.target.files[0].type !== 'image/png' &&
@@ -81,7 +86,7 @@ function GroupPopup({ setShowGroupPopup, chat, chats, setChats, user, groupHash,
           </button>
           <h3>Group Profile</h3>
           <p>Edit your group information</p>
-          <form action="" className="group-form" onSubmit={handleSave}>
+          <form action="" className="group-form" onSubmit={handleSave} autoComplete="off">
             <div className="form-group">
               <label htmlFor="groupName">Group name</label>
               <input
@@ -92,6 +97,11 @@ function GroupPopup({ setShowGroupPopup, chat, chats, setChats, user, groupHash,
                 onChange={(e) => setGroupName(e.target.value)}
                 required
               />
+              {errors.map((error) => {
+                if (error.path === 'groupName') {
+                  return <span key={error.path}>{error.msg}</span>;
+                }
+              })}
             </div>
             <div className="form-group">
               <p>Photo</p>
@@ -115,7 +125,12 @@ function GroupPopup({ setShowGroupPopup, chat, chats, setChats, user, groupHash,
                 onChange={handleFileChange}
                 className="file-input"
               />
-              <span>{imageError}</span>
+              {errors.map((error) => {
+                if (error.path === 'image') {
+                  return <span key={error.path}>{error.msg}</span>;
+                }
+              })}
+              <span className="profile-img-err">{imageError}</span>
             </div>
             <button type="submit" className="save-btn">
               Save

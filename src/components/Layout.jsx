@@ -1,5 +1,5 @@
 import { Outlet, useOutletContext, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Sidebar from './Sidebar';
 import ProfilePopup from './ProfilePopup';
 import { sortChats } from '../helpers/chatHelpers';
@@ -105,55 +105,52 @@ function Layout() {
     };
   }, [chats, socket]);
 
-  useEffect(() => {
-    const getContacts = async () => {
-      try {
-        const response = await fetch('http://localhost:3000/api/users', {
-          headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' },
-        });
-        if (!response.ok) {
-          throw new Error(`This is an HTTP error: The status is ${response.status}`);
-        }
-        const contactData = await response.json();
-        // console.log('Contacts fetched');
-        setContacts(contactData);
-        // console.log(contactData);
-      } catch (err) {
-        // console.log('Contacts failed to fetch');
-        setContacts([]);
-        console.log(err);
+  const getContacts = useCallback(async () => {
+    try {
+      const response = await fetch('http://localhost:3000/api/users', {
+        headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' },
+      });
+      if (!response.ok) {
+        throw new Error(`This is an HTTP error: The status is ${response.status}`);
       }
-    };
-    if (user) {
-      getContacts();
+      const contactData = await response.json();
+      // console.log('Contacts fetched');
+      setContacts(contactData);
+      // console.log(contactData);
+    } catch (err) {
+      // console.log('Contacts failed to fetch');
+      setContacts([]);
+      console.log(err);
+    }
+  }, [user]);
+
+  const getChats = useCallback(async () => {
+    try {
+      const response = await fetch(
+        'http://localhost:3000/api/users/' + user._id + '/conversations',
+        {
+          headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' },
+        },
+      );
+      if (!response.ok) {
+        throw new Error(`This is an HTTP error: The status is ${response.status}`);
+      }
+      const chatData = await response.json();
+      const sortedChats = sortChats(chatData);
+      // console.log('Chats fetched');
+      setChats(sortedChats);
+    } catch (err) {
+      setChats([]);
+      console.log(err);
     }
   }, [user]);
 
   useEffect(() => {
-    const getChats = async () => {
-      try {
-        const response = await fetch(
-          'http://localhost:3000/api/users/' + user._id + '/conversations',
-          {
-            headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' },
-          },
-        );
-        if (!response.ok) {
-          throw new Error(`This is an HTTP error: The status is ${response.status}`);
-        }
-        const chatData = await response.json();
-        const sortedChats = sortChats(chatData);
-        // console.log('Chats fetched');
-        setChats(sortedChats);
-      } catch (err) {
-        setChats([]);
-        console.log(err);
-      }
-    };
     if (user) {
+      getContacts();
       getChats();
     }
-  }, [user]);
+  }, [user, getContacts, getChats]);
 
   useEffect(() => {
     if (contacts.length > 0) {

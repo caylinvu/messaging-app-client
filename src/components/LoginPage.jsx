@@ -37,7 +37,12 @@ function LoginPage() {
   return (
     <div className="login-page">
       <h1>Login to your account</h1>
-      <form action="" onSubmit={(e) => handleLogin(e, email, password)} className="login-form">
+      <form
+        action=""
+        onSubmit={(e) => handleLogin(e, email, password)}
+        className="login-form"
+        autoComplete="off"
+      >
         <div className="form-group">
           <label htmlFor="email">Email address</label>
           <input
