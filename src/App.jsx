@@ -42,7 +42,7 @@ export default App;
 
 // ~~~~~~~~~~ ALL TO DO ~~~~~~~~~~
 
-// MAKE POPUPS WITH EDITABLE INPUTS NOT EXIT WHEN U CLICK BLOCKER
+// MAKE POPUPS WITH EDITABLE INPUTS NOT EXIT WHEN U CLICK BLOCKER AND ADD CANCEL BUTTON
 
 // Create loading screen
 //--Figure out how to make scroll bar not show up when switching between scrollable and non-scrollable chats

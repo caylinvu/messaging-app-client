@@ -9,10 +9,6 @@ function GroupPopup({ setShowGroupPopup, chat, chats, setChats, user, groupHash,
   const [imageError, setImageError] = useState('');
   const [errors, setErrors] = useState([]);
 
-  const stopPropagation = (e) => {
-    e.stopPropagation();
-  };
-
   const handleSave = async (e) => {
     e.preventDefault();
 
@@ -78,8 +74,8 @@ function GroupPopup({ setShowGroupPopup, chat, chats, setChats, user, groupHash,
   };
 
   return (
-    <div className="blocker" onClick={() => setShowGroupPopup(false)}>
-      <div className="popup-container" onClick={stopPropagation}>
+    <div className="blocker">
+      <div className="popup-container">
         <div className="group-popup">
           <button className="close-btn" onClick={() => setShowGroupPopup(false)}>
             X
