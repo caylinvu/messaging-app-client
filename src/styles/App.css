@@ -43,6 +43,16 @@
   padding: 0 10px;
 }
 
+.chats-btn {
+  position: relative;
+}
+
+.chats-btn span {
+  position: absolute;
+  top: 0px;
+  right: 1px;
+}
+
 .profile-btn {
   border-radius: 50%;
   border: none;

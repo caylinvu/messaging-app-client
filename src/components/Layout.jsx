@@ -171,6 +171,7 @@ function Layout() {
         socket={socket}
         setShowProfilePopup={setShowProfilePopup}
         userHash={userHash}
+        chats={chats}
       />
       <Outlet
         context={{

@@ -40,8 +40,6 @@ export default App;
 
 // ~~~~~~~~~~ TO DO NEXT ~~~~~~~~~~
 
-// Add notification on chats button for new messages so u can see if new message is received while on the contact page
-
 // ~~~~~~~~~~ ALL TO DO ~~~~~~~~~~
 
 // Profile updates
