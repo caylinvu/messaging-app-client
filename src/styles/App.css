@@ -273,14 +273,18 @@
   align-items: center;
 }
 
-#msg-container {
+.reverse-container {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column-reverse;
+  overflow-y: auto;
+}
+
+#msg-container {
   padding: 20px 10px;
   display: flex;
   flex-direction: column;
-  /* flex-direction: column-reverse; */
   gap: 10px;
-  overflow-y: auto;
 }
 
 .msg {
@@ -792,3 +796,31 @@
 .login-form input:focus {
   outline: none;
 } */
+
+/* ~~~~~~~~~~~~~~~ERROR PAGES & LOADING~~~~~~~~~~~~~~~ */
+
+.message-error {
+  background-color: rgb(174, 174, 212);
+  flex-grow: 1;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.loading img {
+  width: 100px;
+  animation: animate 1s linear infinite;
+}
+
+@keyframes animate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

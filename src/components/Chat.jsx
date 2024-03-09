@@ -4,8 +4,12 @@ import MessageContainer from './MessageContainer';
 import ChatInfo from './ChatInfo';
 import GroupPopup from './GroupPopup';
 import ProfileImage from './ProfileImage';
+import FetchError from './FetchError';
+import Loading from './Loading';
 
 function Chat() {
+  const [messageLoading, setMessageLoading] = useState(true);
+  const [messageError, setMessageError] = useState(null);
   const [messages, setMessages] = useState([]);
   const [showChatInfo, setShowChatInfo] = useState(false);
   const [showGroupPopup, setShowGroupPopup] = useState(false);
@@ -30,6 +34,8 @@ function Chat() {
     setText('');
     setImage('');
     setImageError('');
+    setMessageError(null);
+    setMessageLoading(true);
   }, [chatId]);
 
   useEffect(() => {
@@ -42,14 +48,22 @@ function Chat() {
           },
         );
         if (!response.ok) {
-          throw new Error(`This is an HTTP error: The status is ${response.status}`);
+          // console.log(response);
+          const error = await response.json();
+          // console.log(error);
+          throw { message: error.message || response.statusText, status: response.status };
+          // throw new Error(`This is an HTTP error: The status is ${response.status}`);
         }
         const messageData = await response.json();
         setMessages(messageData);
-        // console.log(messageData);
+        setMessageError(null);
       } catch (err) {
         setMessages([]);
+        setMessageError(err);
         console.log(err);
+        // throw new Error('Failed to fetch messages');
+      } finally {
+        setMessageLoading(false);
       }
     };
     if (chatId) {
@@ -157,6 +171,7 @@ function Chat() {
 
   useEffect(() => {
     const currentChat = chats.find((obj) => obj._id === chatId);
+    // if (!currentChat || (currentChat && currentChat.exclude.includes(user._id))) {
     if (currentChat && currentChat.exclude.includes(user._id)) {
       navigate('/chats');
     }
@@ -164,113 +179,124 @@ function Chat() {
 
   return (
     <>
-      {chats.map((obj) => {
-        if (obj._id === chatId && !obj.exclude.includes(user._id)) {
-          let otherUser;
-          if (!obj.isGroup) {
-            const tmpUser = obj.members.find((chatMember) => chatMember.toString() !== user._id);
-            otherUser = contacts.find((contact) => contact._id === tmpUser.toString());
-          }
-          return (
-            <div className="chat" key={obj._id}>
-              <div className="info-bar">
-                <div className="info-left">
-                  <ProfileImage
-                    chat={obj}
-                    contact={otherUser}
-                    showOnlineStatus={true}
-                    imgClass="info-img"
-                    groupHash={obj.isGroup ? groupHash : ''}
+      {messageLoading ? (
+        <Loading />
+      ) : messageError ? (
+        <FetchError error={messageError} fetchType="message" />
+      ) : (
+        <>
+          {chats.map((obj) => {
+            if (obj._id === chatId && !obj.exclude.includes(user._id)) {
+              let otherUser;
+              if (!obj.isGroup) {
+                const tmpUser = obj.members.find(
+                  (chatMember) => chatMember.toString() !== user._id,
+                );
+                otherUser = contacts.find((contact) => contact._id === tmpUser.toString());
+              }
+              return (
+                <div className="chat" key={obj._id}>
+                  <div className="info-bar">
+                    <div className="info-left">
+                      <ProfileImage
+                        chat={obj}
+                        contact={otherUser}
+                        showOnlineStatus={true}
+                        imgClass="info-img"
+                        groupHash={obj.isGroup ? groupHash : ''}
+                      />
+                      <div className="details">
+                        <div>
+                          {obj.isGroup && obj.groupName}
+                          {!obj.isGroup &&
+                            otherUser &&
+                            otherUser.firstName + ' ' + otherUser.lastName}
+                        </div>
+                        <div>
+                          {obj.isGroup && obj.members.length + ' members'}
+                          {!obj.isGroup && otherUser && (otherUser.isOnline ? 'Online' : 'Offline')}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="info-right">
+                      <button onClick={() => setShowChatInfo(true)}>Info</button>
+                    </div>
+                  </div>
+                  <MessageContainer
+                    messages={messages}
+                    userDetails={userDetails}
+                    contacts={contacts}
+                    userHash={userHash}
                   />
-                  <div className="details">
-                    <div>
-                      {obj.isGroup && obj.groupName}
-                      {!obj.isGroup && otherUser && otherUser.firstName + ' ' + otherUser.lastName}
+                  {image && (
+                    <div className="img-container">
+                      <div className="img-display">
+                        <img src={URL.createObjectURL(image)} alt="" draggable={false} />
+                        <button className="img-close" onClick={cancelImage}>
+                          X
+                        </button>
+                      </div>
                     </div>
-                    <div>
-                      {obj.isGroup && obj.members.length + ' members'}
-                      {!obj.isGroup && otherUser && (otherUser.isOnline ? 'Online' : 'Offline')}
-                    </div>
+                  )}
+                  <span className="img-err">{imageError}</span>
+                  <div onSubmit={handleSend} className="send-bar">
+                    <form action="" className="msg-form" autoComplete="off">
+                      <div className="form-group">
+                        <label htmlFor="send-image" className="img-upload">
+                          <button type="button">Image</button>
+                        </label>
+                        <input
+                          type="file"
+                          name="send-image"
+                          id="send-image"
+                          accept="image/png,image/jpg,image/jpeg"
+                          onChange={handleFileChange}
+                          className="file-input"
+                        />
+                      </div>
+                      <input
+                        type="text"
+                        name="text"
+                        id="text"
+                        value={text}
+                        onChange={(e) => setText(e.target.value)}
+                      />
+                      <button type="submit">Send</button>
+                    </form>
                   </div>
-                </div>
-                <div className="info-right">
-                  <button onClick={() => setShowChatInfo(true)}>Info</button>
-                </div>
-              </div>
-              <MessageContainer
-                messages={messages}
-                userDetails={userDetails}
-                contacts={contacts}
-                userHash={userHash}
-                image={image}
-              />
-              {image && (
-                <div className="img-container">
-                  <div className="img-display">
-                    <img src={URL.createObjectURL(image)} alt="" draggable={false} />
-                    <button className="img-close" onClick={cancelImage}>
-                      X
-                    </button>
-                  </div>
-                </div>
-              )}
-              <span className="img-err">{imageError}</span>
-              <div onSubmit={handleSend} className="send-bar">
-                <form action="" className="msg-form" autoComplete="off">
-                  <div className="form-group">
-                    <label htmlFor="send-image" className="img-upload">
-                      <button type="button">Image</button>
-                    </label>
-                    <input
-                      type="file"
-                      name="send-image"
-                      id="send-image"
-                      accept="image/png,image/jpg,image/jpeg"
-                      onChange={handleFileChange}
-                      className="file-input"
+                  {showChatInfo && (
+                    <ChatInfo
+                      setShowChatInfo={setShowChatInfo}
+                      setShowGroupPopup={setShowGroupPopup}
+                      chat={obj}
+                      otherUser={otherUser}
+                      contacts={contacts}
+                      socket={socket}
+                      userDetails={userDetails}
+                      chats={chats}
+                      setChats={setChats}
+                      user={user}
+                      userHash={userHash}
+                      groupHash={groupHash}
                     />
-                  </div>
-                  <input
-                    type="text"
-                    name="text"
-                    id="text"
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
-                  />
-                  <button type="submit">Send</button>
-                </form>
-              </div>
-              {showChatInfo && (
-                <ChatInfo
-                  setShowChatInfo={setShowChatInfo}
-                  setShowGroupPopup={setShowGroupPopup}
-                  chat={obj}
-                  otherUser={otherUser}
-                  contacts={contacts}
-                  socket={socket}
-                  userDetails={userDetails}
-                  chats={chats}
-                  setChats={setChats}
-                  user={user}
-                  userHash={userHash}
-                  groupHash={groupHash}
-                />
-              )}
-              {showGroupPopup && (
-                <GroupPopup
-                  setShowGroupPopup={setShowGroupPopup}
-                  chat={obj}
-                  chats={chats}
-                  setChats={setChats}
-                  user={user}
-                  groupHash={groupHash}
-                  setGroupHash={setGroupHash}
-                />
-              )}
-            </div>
-          );
-        }
-      })}
+                  )}
+                  {showGroupPopup && (
+                    <GroupPopup
+                      setShowGroupPopup={setShowGroupPopup}
+                      chat={obj}
+                      chats={chats}
+                      setChats={setChats}
+                      user={user}
+                      groupHash={groupHash}
+                      setGroupHash={setGroupHash}
+                    />
+                  )}
+                </div>
+              );
+            }
+          })}
+        </>
+      )}
     </>
   );
 }

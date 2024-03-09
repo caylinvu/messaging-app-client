@@ -40,14 +40,20 @@ export default App;
 
 // ~~~~~~~~~~ TO DO NEXT ~~~~~~~~~~
 
-// ~~~~~~~~~~ ALL TO DO ~~~~~~~~~~
-
 // Create loading screen
-//--Figure out how to make scroll bar not show up when switching between scrollable and non-scrollable chats
-//--(maybe fixed after adding loading screen??)
+//--When logging in and fetching contacts/chats
+//--When clicking on an individual chat and fetching messages
+
+//--Maybe fixed after adding loading screen:
+//----Scroll bar showing up when switching between scrollable and non-scrollable chats
 
 // Create error page
 //-- either have all paths navigate back to '/chats' or have an error page
+//-- figure out why errorElement is working on failed fetches
+//-- navigate to 404 page if incorrect id is entered (or incorrect link)
+//Handle failed image fetches
+
+// ~~~~~~~~~~ ALL TO DO ~~~~~~~~~~
 
 // JWT
 //--Make sure token is sent in all HTTP requests
@@ -125,11 +131,14 @@ export default App;
 
 // Add animations for popups
 
+// Styling validation
+//--On certain forms, maybe add input border styling if invalid after submission
+
 // ~~~~~~~~~~ CAN ADD LATER BUT UNNECESSARY FOR NOW ~~~~~~~~~~
 
 // Add way to upload group image on creation
 
-// Look into not scrolling when you receive a message and ur at top of chat
+// If scrolled to top and get new message, show new message notification and jump to bottom button??
 
 // Add search bar for contacts/new chat popup
 
