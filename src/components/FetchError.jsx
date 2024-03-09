@@ -6,9 +6,7 @@ function FetchError({ error, fetchType }) {
       <h1>Oops!</h1>
       <p>Sorry, an unexpected error has occured.</p>
       <p>
-        <i>
-          {error.status} - {error.message}
-        </i>
+        <i>{error.status ? error.status + ' - ' + error.message : error.message}</i>
       </p>
     </div>
   );

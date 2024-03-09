@@ -13,7 +13,7 @@ function MessageContainer({ messages, userDetails, contacts, userHash }) {
   };
 
   useEffect(() => {
-    console.log(msgRef);
+    // console.log(msgRef);
     if (msgRef.current && messages.length > 0 && chatId === messages[0].conversation.toString()) {
       scrollToBottom();
     }

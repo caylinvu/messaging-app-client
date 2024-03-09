@@ -180,7 +180,7 @@ function Chat() {
   return (
     <>
       {messageLoading ? (
-        <Loading />
+        <Loading loadType="message" />
       ) : messageError ? (
         <FetchError error={messageError} fetchType="message" />
       ) : (

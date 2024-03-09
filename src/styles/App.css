@@ -804,13 +804,19 @@
   flex-grow: 1;
 }
 
-.loading {
+.loading,
+.msg-loading {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-grow: 1;
 }
 
+.loading {
+  background-color: rgb(174, 174, 212);
+}
+
+.msg-loading img,
 .loading img {
   width: 100px;
   animation: animate 1s linear infinite;

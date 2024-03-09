@@ -40,19 +40,6 @@ export default App;
 
 // ~~~~~~~~~~ TO DO NEXT ~~~~~~~~~~
 
-// Create loading screen
-//--When logging in and fetching contacts/chats
-//--When clicking on an individual chat and fetching messages
-
-//--Maybe fixed after adding loading screen:
-//----Scroll bar showing up when switching between scrollable and non-scrollable chats
-
-// Create error page
-//-- either have all paths navigate back to '/chats' or have an error page
-//-- figure out why errorElement is working on failed fetches
-//-- navigate to 404 page if incorrect id is entered (or incorrect link)
-//Handle failed image fetches
-
 // ~~~~~~~~~~ ALL TO DO ~~~~~~~~~~
 
 // JWT
@@ -146,4 +133,8 @@ export default App;
 
 // Look into validating form data through socket (new group & sending message)
 
-// Add drafs to keep unsent text when switching between chats
+// Also validate image uploads on frontend/backend (message images)
+
+// Add better error handling (images/other http requests besides fetching data)
+
+// Add drafts to keep unsent text when switching between chats

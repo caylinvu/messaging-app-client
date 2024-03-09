@@ -3,6 +3,8 @@ import { useState, useEffect, useCallback } from 'react';
 import Sidebar from './Sidebar';
 import ProfilePopup from './ProfilePopup';
 import { sortChats } from '../helpers/chatHelpers';
+import Loading from './Loading';
+import FetchError from './FetchError';
 
 function Layout() {
   const [contacts, setContacts] = useState([]);
@@ -11,6 +13,10 @@ function Layout() {
   const [showProfilePopup, setShowProfilePopup] = useState(false);
   const [userHash, setUserHash] = useState(Math.random().toString(36));
   const [groupHash, setGroupHash] = useState(Math.random().toString(36));
+  const [contactLoading, setContactLoading] = useState(true);
+  const [contactError, setContactError] = useState(null);
+  const [chatLoading, setChatLoading] = useState(true);
+  const [chatError, setChatError] = useState(null);
   const { user, socket } = useOutletContext();
   const navigate = useNavigate();
 
@@ -111,16 +117,21 @@ function Layout() {
         headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' },
       });
       if (!response.ok) {
-        throw new Error(`This is an HTTP error: The status is ${response.status}`);
+        const error = await response.json();
+        throw { message: error.message || response.statusText, status: response.status };
       }
       const contactData = await response.json();
       // console.log('Contacts fetched');
       setContacts(contactData);
+      setContactError(null);
       // console.log(contactData);
     } catch (err) {
       // console.log('Contacts failed to fetch');
       setContacts([]);
+      setContactError(err);
       console.log(err);
+    } finally {
+      setContactLoading(false);
     }
   }, [user]);
 
@@ -133,15 +144,21 @@ function Layout() {
         },
       );
       if (!response.ok) {
-        throw new Error(`This is an HTTP error: The status is ${response.status}`);
+        const error = await response.json();
+        throw { message: error.message || response.statusText, status: response.status };
+        // throw new Error(`This is an HTTP error: The status is ${response.status}`);
       }
       const chatData = await response.json();
       const sortedChats = sortChats(chatData);
       // console.log('Chats fetched');
       setChats(sortedChats);
+      setChatError(null);
     } catch (err) {
       setChats([]);
+      setChatError(err);
       console.log(err);
+    } finally {
+      setChatLoading(false);
     }
   }, [user]);
 
@@ -163,36 +180,44 @@ function Layout() {
 
   return (
     <div className="main-app">
-      <Sidebar
-        userDetails={userDetails}
-        socket={socket}
-        setShowProfilePopup={setShowProfilePopup}
-        userHash={userHash}
-        chats={chats}
-      />
-      <Outlet
-        context={{
-          contacts,
-          setContacts,
-          chats,
-          setChats,
-          userDetails,
-          user,
-          socket,
-          userHash,
-          groupHash,
-          setGroupHash,
-        }}
-      />
-      {showProfilePopup && (
-        <ProfilePopup
-          setShowProfilePopup={setShowProfilePopup}
-          contacts={contacts}
-          setContacts={setContacts}
-          user={user}
-          userHash={userHash}
-          setUserHash={setUserHash}
-        />
+      {contactLoading || chatLoading ? (
+        <Loading />
+      ) : contactError || chatError ? (
+        <FetchError error={contactError || chatError} />
+      ) : (
+        <>
+          <Sidebar
+            userDetails={userDetails}
+            socket={socket}
+            setShowProfilePopup={setShowProfilePopup}
+            userHash={userHash}
+            chats={chats}
+          />
+          <Outlet
+            context={{
+              contacts,
+              setContacts,
+              chats,
+              setChats,
+              userDetails,
+              user,
+              socket,
+              userHash,
+              groupHash,
+              setGroupHash,
+            }}
+          />
+          {showProfilePopup && (
+            <ProfilePopup
+              setShowProfilePopup={setShowProfilePopup}
+              contacts={contacts}
+              setContacts={setContacts}
+              user={user}
+              userHash={userHash}
+              setUserHash={setUserHash}
+            />
+          )}
+        </>
       )}
     </div>
   );
