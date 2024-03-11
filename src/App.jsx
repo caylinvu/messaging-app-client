@@ -42,11 +42,6 @@ export default App;
 
 // ~~~~~~~~~~ ALL TO DO ~~~~~~~~~~
 
-// JWT
-//--Make sure token is sent in all HTTP requests
-//--Add verifyToken to routes on backend
-//--Possibly add token verification on some socket requests?
-
 // Socket/Computer going to sleep
 //--Figure out how to refresh page if it was left open while computer went to sleep
 //--Figure out how to disconnect from socket when computer goes to sleep??
@@ -138,3 +133,8 @@ export default App;
 // Add better error handling (images/other http requests besides fetching data)
 
 // Add drafts to keep unsent text when switching between chats
+
+// Maybe update to get all messages from current user on login so that we don't have to fetch
+//--every time a message is clicked on
+
+// Figure out JWT verification on socket requests

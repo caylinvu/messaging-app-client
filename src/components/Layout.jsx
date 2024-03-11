@@ -114,10 +114,20 @@ function Layout() {
   const getContacts = useCallback(async () => {
     try {
       const response = await fetch('http://localhost:3000/api/users', {
-        headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' },
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          'Content-Type': 'application/json',
+        },
       });
+      console.log(response);
       if (!response.ok) {
+        if (response.status === 403) {
+          console.log('forbidden');
+          throw { message: response.statusText, status: response.status };
+        }
+        console.log('response is not okay');
         const error = await response.json();
+        console.log(error);
         throw { message: error.message || response.statusText, status: response.status };
       }
       const contactData = await response.json();
@@ -126,7 +136,7 @@ function Layout() {
       setContactError(null);
       // console.log(contactData);
     } catch (err) {
-      // console.log('Contacts failed to fetch');
+      console.log('Contacts failed to fetch');
       setContacts([]);
       setContactError(err);
       console.log(err);
@@ -144,6 +154,10 @@ function Layout() {
         },
       );
       if (!response.ok) {
+        if (response.status === 403) {
+          console.log('forbidden');
+          throw { message: response.statusText, status: response.status };
+        }
         const error = await response.json();
         throw { message: error.message || response.statusText, status: response.status };
         // throw new Error(`This is an HTTP error: The status is ${response.status}`);

@@ -48,6 +48,10 @@ function Chat() {
           },
         );
         if (!response.ok) {
+          if (response.status === 403) {
+            console.log('forbidden');
+            throw { message: response.statusText, status: response.status };
+          }
           // console.log(response);
           const error = await response.json();
           // console.log(error);
