@@ -42,33 +42,23 @@ export default App;
 
 // ~~~~~~~~~~ STYLING TO DO ~~~~~~~~~~
 
-// Hover on profile button styling
-
 // Style login page
 
 // Style sign up page
 
-// Style chat page
+// Style all inputs
 
-// Style contact page
+// Style all buttons
 
-// Style new chat popup
-
-// Style edit profile popup
-
-// Style chat info tab
-
-// Pick a new font
-
-// Refine color palette
+// Style all popups
 
 // Add button hover style
 
 //---- Style image error to be a popup that goes away
 
-// Style scroll bar
-
 // Add animations for popups
+
+// Add animation for hover
 
 // Styling validation
 //--On certain forms, maybe add input border styling if invalid after submission

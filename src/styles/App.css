@@ -448,7 +448,7 @@
 
 .msg .author {
   font-size: 15px;
-  margin-bottom: 3px;
+  margin-bottom: 5px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -456,6 +456,7 @@
 
 .inner-img {
   text-align: center;
+  margin-bottom: 5px;
 }
 
 .inner-img img {
@@ -464,7 +465,7 @@
 }
 
 .msg .text {
-  margin-bottom: 3px;
+  margin-bottom: 5px;
   word-wrap: break-word;
 }
 
