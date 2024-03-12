@@ -6,7 +6,7 @@ function DeletePopup({ setShowDeletePopup, deleteChat }) {
       <div className="popup-container">
         <div className="delete-popup">
           <button className="close-btn" onClick={() => setShowDeletePopup(false)}>
-            X
+            <img src="/close.svg" alt="" />
           </button>
           <h3>Delete chat</h3>
           <p>Are you sure you want to delete this chat?</p>

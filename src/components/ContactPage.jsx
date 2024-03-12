@@ -37,7 +37,9 @@ function ContactPage() {
         </div>
         <div className="contact-list">
           <div className="online-contacts">
-            <h3>Online - {contacts.filter((obj) => obj.isOnline).length}</h3>
+            <h3>
+              Online - {contacts.filter((obj) => obj._id !== user._id && obj.isOnline).length}
+            </h3>
             {contacts.map((contact) => {
               if (contact._id !== user._id && contact.isOnline) {
                 return (
@@ -58,7 +60,9 @@ function ContactPage() {
             })}
           </div>
           <div className="offline-contacts">
-            <h3>Offline - {contacts.filter((obj) => !obj.isOnline).length}</h3>
+            <h3>
+              Offline - {contacts.filter((obj) => obj._id !== user._id && !obj.isOnline).length}
+            </h3>
             {contacts.map((contact) => {
               if (contact._id !== user._id && !contact.isOnline) {
                 return (

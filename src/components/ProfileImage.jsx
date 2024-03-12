@@ -28,7 +28,13 @@ function ProfileImage({ chat, contact, showOnlineStatus, imgClass, socket, userH
       );
     } else {
       // if group has no image
-      return <div className={imgClass + ' no-img'}>{chat.groupName.slice(0, 1).toUpperCase()}</div>;
+      // return <div className={imgClass + ' no-img'}>{chat.groupName.slice(0, 1).toUpperCase()}</div>;
+      return (
+        <div className={imgClass + ' group-icon'}>
+          {' '}
+          <img src="/group.svg" alt="" draggable={false} />
+        </div>
+      );
     }
   } else if (contact) {
     // if representing single user

@@ -84,11 +84,11 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
       <div className="popup-container">
         <div className="chat-popup">
           <button className="close-btn" onClick={() => setShowChatPopup(false)}>
-            X
+            <img src="/close.svg" alt="" />
           </button>
           {!isGroup ? (
             <>
-              <p>Create a new chat</p>
+              <h3>Create a new chat</h3>
               <div className="non-group-users">
                 <button className="grp-btn" onClick={() => setIsGroup(true)}>
                   <div className="btn-img">+</div>
@@ -109,9 +109,9 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
           ) : isGroup && !isFinal ? (
             <>
               <button className="back-btn" onClick={goBack}>
-                &lt;
+                <img src="/arrow-back.svg" alt="" />
               </button>
-              <p>Select group members</p>
+              <h3>Select group members</h3>
               <div className="group-users">
                 {contacts.map((contact) => {
                   if (contact._id !== user._id) {
@@ -142,9 +142,9 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
           ) : (
             <>
               <button className="back-btn" onClick={() => setIsFinal(false)}>
-                &lt;
+                <img src="/arrow-back.svg" alt="" />
               </button>
-              <p>Name group</p>
+              <h3>Name group</h3>
               <form
                 action=""
                 className="create-group-form"
@@ -160,7 +160,7 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
                   placeholder="Group name"
                   required
                 />
-                <p className="members-title">Members</p>
+                <h3 className="members-title">Members</h3>
                 <div className="added-users">
                   {contacts.map((contact) => {
                     if (groupUsers.includes(contact._id)) {

@@ -54,15 +54,17 @@ function ChatList({ chats, contacts, userDetails, groupHash, chatId }) {
                           ? 'Started new group chat'
                           : 'Started new chat'}
                     </div>
-                    <div className="new-msg">
-                      {obj._id === chatId
-                        ? ''
-                        : (obj.lastMessage && userConv && !userConv.lastRead) ||
-                            (obj.lastMessage &&
-                              userConv &&
-                              userConv.lastRead < obj.lastMessage.timestamp)
-                          ? '*'
-                          : ''}
+                    <div>
+                      {obj._id === chatId ? (
+                        ''
+                      ) : (obj.lastMessage && userConv && !userConv.lastRead) ||
+                        (obj.lastMessage &&
+                          userConv &&
+                          userConv.lastRead < obj.lastMessage.timestamp) ? (
+                        <div className="new-msg"></div>
+                      ) : (
+                        ''
+                      )}
                     </div>
                   </div>
                 </div>

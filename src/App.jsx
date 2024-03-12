@@ -40,12 +40,43 @@ export default App;
 
 // ~~~~~~~~~~ TO DO NEXT ~~~~~~~~~~
 
-// ~~~~~~~~~~ ALL TO DO ~~~~~~~~~~
+// Add icons for certain buttons
+//--Maybe add group icon for group messages without an image???
 
-// Socket/Computer going to sleep
-//--Figure out how to refresh page if it was left open while computer went to sleep
-//--Figure out how to disconnect from socket when computer goes to sleep??
-//--How to make socket reconnect when waking computer up??
+// ~~~~~~~~~~ STYLING TO DO ~~~~~~~~~~
+
+// Chat info scroll bar (move x over)
+
+// Style login page
+
+// Style sign up page
+
+// Style chat page
+
+// Style contact page
+
+// Style new chat popup
+
+// Style edit profile popup
+
+// Style chat info tab
+
+// Pick a new font
+
+// Refine color palette
+
+// Add button hover style
+
+//---- Style image error to be a popup that goes away
+
+// Style scroll bar
+
+// Add animations for popups
+
+// Styling validation
+//--On certain forms, maybe add input border styling if invalid after submission
+
+// Make responsive
 
 // Refine demo user
 
@@ -82,39 +113,12 @@ export default App;
 
 // Check all eslint warnings
 
-// ~~~~~~~~~~ STYLING TO DO ~~~~~~~~~~
+// ~~~~~~~~~~ AFTER PUBLISHING ON RAILWAY ~~~~~~~~~~
 
-// Style login page
-
-// Style sign up page
-
-// Style chat page
-
-// Style contact page
-
-// Style new chat popup
-
-// Style edit profile popup
-
-// Style chat info tab
-
-// Pick a new font
-
-// Refine color palette
-
-// Add button hover style
-
-//---- Style image error to be a popup that goes away
-
-// Add icons for certain buttons
-//--Maybe add group icon for group messages without an image???
-
-// Style scroll bar
-
-// Add animations for popups
-
-// Styling validation
-//--On certain forms, maybe add input border styling if invalid after submission
+// Socket/Computer going to sleep
+//--Figure out how to refresh page if it was left open while computer went to sleep
+//--Figure out how to disconnect from socket when computer goes to sleep??
+//--How to make socket reconnect when waking computer up??
 
 // ~~~~~~~~~~ CAN ADD LATER BUT UNNECESSARY FOR NOW ~~~~~~~~~~
 
@@ -138,3 +142,5 @@ export default App;
 //--every time a message is clicked on
 
 // Figure out JWT verification on socket requests
+
+// Add number of unread messages in notification bubble

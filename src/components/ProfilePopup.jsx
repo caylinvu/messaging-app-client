@@ -85,7 +85,7 @@ function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user, userHa
       <div className="popup-container">
         <div className="profile-popup">
           <button className="close-btn" onClick={() => setShowProfilePopup(false)}>
-            X
+            <img src="/close.svg" alt="" />
           </button>
           <h3>Profile</h3>
           <p>Edit your public information</p>

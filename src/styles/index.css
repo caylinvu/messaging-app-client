@@ -9,6 +9,12 @@
 } */
 
 button,
+label {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
 input,
 textarea {
   font-family: inherit;

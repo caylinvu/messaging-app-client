@@ -142,7 +142,7 @@ function ChatInfo({
               </div>
             )}
             <button className="close-btn" onClick={() => setShowChatInfo(false)}>
-              X
+              <img src="/close.svg" alt="" />
             </button>
           </div>
         </div>

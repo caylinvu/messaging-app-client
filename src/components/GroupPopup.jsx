@@ -78,7 +78,7 @@ function GroupPopup({ setShowGroupPopup, chat, chats, setChats, user, groupHash,
       <div className="popup-container">
         <div className="group-popup">
           <button className="close-btn" onClick={() => setShowGroupPopup(false)}>
-            X
+            <img src="/close.svg" alt="" />
           </button>
           <h3>Group Profile</h3>
           <p>Edit your group information</p>

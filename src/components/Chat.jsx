@@ -223,7 +223,9 @@ function Chat() {
                       </div>
                     </div>
                     <div className="info-right">
-                      <button onClick={() => setShowChatInfo(true)}>Info</button>
+                      <button onClick={() => setShowChatInfo(true)}>
+                        <img src="/menu.svg" alt="" />
+                      </button>
                     </div>
                   </div>
                   <MessageContainer
@@ -247,7 +249,9 @@ function Chat() {
                     <form action="" className="msg-form" autoComplete="off">
                       <div className="form-group">
                         <label htmlFor="send-image" className="img-upload">
-                          <button type="button">Image</button>
+                          <button type="button">
+                            <img src="/image.svg" alt="" />
+                          </button>
                         </label>
                         <input
                           type="file"
@@ -265,7 +269,9 @@ function Chat() {
                         value={text}
                         onChange={(e) => setText(e.target.value)}
                       />
-                      <button type="submit">Send</button>
+                      <button type="submit" className="send-btn">
+                        <img src="/send.svg" alt="" />
+                      </button>
                     </form>
                   </div>
                   {showChatInfo && (

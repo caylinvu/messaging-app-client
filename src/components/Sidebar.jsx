@@ -37,11 +37,15 @@ function Sidebar({ userDetails, socket, setShowProfilePopup, userHash, chats }) 
     <div className="sidebar">
       <div className="nav-btns">
         <button className="chats-btn" onClick={() => navigate('/chats')}>
-          Chats
-          {showBubble && <span>*</span>}
+          <img src="/chat.svg" alt="" />
+          {showBubble && <span></span>}
         </button>
-        <button onClick={() => navigate('/contacts')}>Contacts</button>
-        <button onClick={handleLogout}>Logout</button>
+        <button onClick={() => navigate('/contacts')}>
+          <img src="/contacts.svg" alt="" />
+        </button>
+        <button onClick={handleLogout}>
+          <img src="/logout.svg" alt="" />
+        </button>
       </div>
       <button className="profile-btn" onClick={() => setShowProfilePopup(true)}>
         <ProfileImage
