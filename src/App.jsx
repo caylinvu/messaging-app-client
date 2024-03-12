@@ -40,12 +40,9 @@ export default App;
 
 // ~~~~~~~~~~ TO DO NEXT ~~~~~~~~~~
 
-// Add icons for certain buttons
-//--Maybe add group icon for group messages without an image???
-
 // ~~~~~~~~~~ STYLING TO DO ~~~~~~~~~~
 
-// Chat info scroll bar (move x over)
+// Hover on profile button styling
 
 // Style login page
 
@@ -79,6 +76,11 @@ export default App;
 // Make responsive
 
 // Refine demo user
+
+// Keep letters or generic images for users with no image??
+
+// Add max length to certain inputs???
+//--25 char limit on first name and last name at least
 
 // ~~~~~~~~~~ REFACTOR TO DO ~~~~~~~~~~
 

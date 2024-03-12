@@ -53,9 +53,17 @@ function ProfileImage({ chat, contact, showOnlineStatus, imgClass, socket, userH
       );
     } else if (contact.firstName) {
       // if user has no image
+      // return (
+      //   <div className={imgClass + ' no-img'}>
+      //     {contact.firstName.slice(0, 1).toUpperCase()}
+      //     {showOnlineStatus &&
+      //       ((socket && socket.connected) || (!socket && contact.isOnline) ? <span></span> : '')}
+      //   </div>
+      // );
       return (
-        <div className={imgClass + ' no-img'}>
-          {contact.firstName.slice(0, 1).toUpperCase()}
+        <div className={imgClass + ' person-icon'}>
+          {' '}
+          <img src="/person.svg" alt="" draggable={false} />
           {showOnlineStatus &&
             ((socket && socket.connected) || (!socket && contact.isOnline) ? <span></span> : '')}
         </div>

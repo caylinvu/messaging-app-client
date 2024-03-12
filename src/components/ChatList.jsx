@@ -32,7 +32,7 @@ function ChatList({ chats, contacts, userDetails, groupHash, chatId }) {
                 />
                 <div className="chat-details">
                   <div className="preview-top">
-                    <div>
+                    <div className="preview-name">
                       {obj.isGroup && obj.groupName}
                       {!obj.isGroup && otherUser && otherUser.firstName + ' ' + otherUser.lastName}
                     </div>

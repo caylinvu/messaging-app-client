@@ -1,17 +1,23 @@
 :root {
-  --color1: #909a77;
-  /* --color1: #818a6a; */
+  /* --color1: #909a77; */
+  --color1: #818a6a;
   --color2: #f7c5a8;
   --color3: #f18e7d;
   --color4: #ffeadb;
+  --preview-color: #eeb696;
   --online-color: #60c560;
   --notification-color: #e47c69;
   --notification-color2: #60694a;
-  --bio-bottom: var(--color4);
   --scroll-color: var(--color3) var(--color4);
   --header-text: #8a4336;
   --text-color: #6d2e23;
   --text-color2: #ffeadb;
+  /* --received-color: #ffa191; */
+  --received-color: #eeb696;
+  /* --sent-color: #bece98; */
+  /* --sent-color: #eeb696; */
+  --sent-color: var(--color1);
+  --bio-bottom: var(--text-color2);
   --blocker-color: rgba(0, 0, 0, 0.5);
   --icon-filter: invert(31%) sepia(10%) saturate(2951%) hue-rotate(321deg) brightness(95%)
     contrast(92%);
@@ -110,6 +116,10 @@
   background-color: inherit;
 }
 
+.profile-btn:hover {
+  filter: brightness(90%);
+}
+
 /* ~~~~~~~~~~~~~~~CHAT PAGE~~~~~~~~~~~~~~~ */
 
 .chat-page,
@@ -134,6 +144,7 @@
   display: flex;
   justify-content: space-between;
   padding-bottom: 20px;
+  align-items: center;
 }
 
 .chat-list,
@@ -142,7 +153,7 @@
 .offline-contacts {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 7px;
 }
 
 .contact-list {
@@ -151,13 +162,20 @@
 
 .chat-preview,
 .contact-preview {
-  border: solid var(--color3) 1px;
+  /* border: solid var(--color3) 1px; */
+  border: none;
   padding: 13px 10px;
   display: flex;
   gap: 10px;
   border-radius: 5px;
   align-items: center;
   max-width: 280px;
+  background-color: var(--preview-color);
+}
+
+.chat-preview:hover,
+.contact-preview:hover {
+  filter: brightness(103%);
 }
 
 .chat-img,
@@ -255,7 +273,8 @@
   border: var(--color1) solid 1px;
 }
 
-.group-icon img {
+.group-icon img,
+.person-icon img {
   filter: var(--icon-filter);
 }
 
@@ -267,11 +286,19 @@
 .preview-top {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 5px;
+}
+
+.preview-name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .preview-time {
   font-size: 15px;
+  flex-shrink: 0;
 }
 
 .preview-bottom {
@@ -347,9 +374,12 @@
   background-color: var(--color2);
 }
 
-.info-right button:hover,
-.chat-header button:hover {
+.info-right button:hover {
   filter: brightness(110%);
+}
+
+.chat-header button:hover {
+  filter: brightness(107%);
 }
 
 .info-right img,
@@ -400,7 +430,7 @@
 }
 
 .msg-inner {
-  border: solid var(--color3) 1px;
+  /* border: solid var(--color3) 1px; */
   max-width: 250px;
   min-width: 125px;
   border-radius: 5px;
@@ -408,15 +438,20 @@
 }
 
 .received .msg-inner {
+  background-color: var(--received-color);
 }
 
 .sent .msg-inner {
-  /* background-color: rgb(113, 209, 113); */
+  background-color: var(--sent-color);
+  color: var(--text-color2);
 }
 
 .msg .author {
   font-size: 15px;
   margin-bottom: 3px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .inner-img {
@@ -442,11 +477,12 @@
   overflow: hidden;
   text-align: center;
   margin: 10px 0 20px;
+  color: var(--header-text);
 }
 
 .full-date::before,
 .full-date::after {
-  background-color: var(--text-color);
+  background-color: var(--header-text);
   content: '';
   display: inline-block;
   height: 1px;
@@ -744,11 +780,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
 }
 
 .tab-name {
   margin: 10px 0 3px;
   font-size: 22px;
+  word-break: break-all;
+  text-align: center;
 }
 
 .edit-chat-btn {
@@ -773,6 +812,11 @@
   gap: 10px;
   align-items: center;
   padding: 5px 0px;
+}
+
+.tab-members-name {
+  overflow: hidden;
+  word-wrap: break-word;
 }
 
 .tab-user-info {
@@ -801,12 +845,11 @@
 
 /* ~~~~~~~~~~~~~~~CONTACTS PAGE~~~~~~~~~~~~~~~ */
 
-.contact-preview {
-  background-color: inherit;
-}
-
 .contact-name {
   font-size: 16px;
+  text-align: left;
+  overflow: hidden;
+  word-wrap: break-word;
 }
 
 /* ~~~~~~~~~~~~~~~PROFILE POPUP~~~~~~~~~~~~~~~ */

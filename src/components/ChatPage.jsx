@@ -96,7 +96,7 @@ function ChatPage() {
         <div className="chat-header">
           <h1>Chats</h1>
           <button onClick={() => setShowChatPopup(true)}>
-            <img src="/add-outline.svg" alt="" />
+            <img src="/add-simple.svg" alt="" />
           </button>
         </div>
         {chats.length > 0 ? (
