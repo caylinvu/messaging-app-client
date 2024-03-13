@@ -689,13 +689,18 @@
 .added-users {
   display: flex;
   flex-direction: column;
-  max-height: 242px;
+  max-height: 235px;
   overflow-y: auto;
   font-size: 16px;
   scrollbar-color: var(--scroll-color);
   gap: 2px;
   padding: 0 5px;
+  padding-bottom: 1px;
 }
+
+/* .added-users div {
+  line-height: normal;
+} */
 
 .grp-btn {
   margin-bottom: 5px;
@@ -779,6 +784,8 @@
 .checkbox-input {
   cursor: pointer;
   accent-color: var(--color1);
+  width: 15px;
+  height: 15px;
 }
 
 /* ~~~~~~~~~~~~~~~CHAT INFO~~~~~~~~~~~~~~~ */
