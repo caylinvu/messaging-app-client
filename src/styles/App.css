@@ -594,8 +594,16 @@
   flex-grow: 1;
 }
 
-.msg-form input {
+.message-input {
   flex-grow: 1;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--color4);
+  padding: 0 10px;
+}
+
+.message-input:focus {
+  outline: none;
 }
 
 /* ~~~~~~~~~~~~~~~NEW CHAT POPUP~~~~~~~~~~~~~~~ */
@@ -625,13 +633,13 @@
   color: var(--text-color);
   padding: 20px 30px 40px;
   width: 350px;
-  max-height: 400px;
+  /* max-height: 400px; */
   position: relative;
 }
 
 .chat-popup h3 {
   text-align: center;
-  font-size: 18px;
+  /* font-size: 18px; */
   padding-bottom: 5px;
   color: var(--text-color2);
 }
@@ -674,6 +682,8 @@
   overflow-y: auto;
   font-size: 16px;
   scrollbar-color: var(--scroll-color);
+  gap: 2px;
+  padding: 0 5px;
 }
 
 .added-users {
@@ -683,10 +693,13 @@
   overflow-y: auto;
   font-size: 16px;
   scrollbar-color: var(--scroll-color);
+  gap: 2px;
+  padding: 0 5px;
 }
 
 .grp-btn {
-  margin-bottom: 7px;
+  margin-bottom: 5px;
+  border-radius: 5px;
 }
 
 .non-group-users button,
@@ -698,18 +711,37 @@
   padding: 13px 10px;
   background-color: var(--color2);
   border: none;
-  border-bottom: var(--color1) solid 1px;
 }
 
-.non-group-users button:first-child,
+.group-users {
+  overflow-x: hidden;
+}
+
+.user-name {
+  text-align: left;
+  word-break: break-all;
+}
+
+.non-group-users button:nth-child(2),
+.user-select:first-child,
+.added-users > div:first-child {
+  border-radius: 5px 5px 0 0;
+}
+
 .non-group-users button:last-child,
 .user-select:last-child,
 .added-users > div:last-child {
-  border-bottom: none;
+  border-radius: 0 0 5px 5px;
+}
+
+.non-group-users button:hover,
+.user-select:hover {
+  filter: brightness(107%);
 }
 
 .user-select {
   justify-content: space-between;
+  cursor: pointer;
 }
 
 .label-info {
@@ -718,24 +750,22 @@
   align-items: center;
 }
 
-.next-btn {
-  float: right;
+.next-btn,
+.create-btn {
+  margin-top: 15px;
+  margin-bottom: -25px;
   color: var(--text-color);
+}
+
+.btn-div {
+  display: flex;
+  justify-content: end;
 }
 
 .group-err {
   float: left;
-}
-
-.next-btn,
-.group-err,
-.create-btn {
+  color: var(--color4);
   margin-top: 7px;
-}
-
-.create-btn {
-  float: right;
-  color: var(--text-color);
 }
 
 .create-group-form input {
@@ -746,8 +776,9 @@
   margin-top: 10px;
 }
 
-.added-users > div {
-  /* color: black; */
+.checkbox-input {
+  cursor: pointer;
+  accent-color: var(--color1);
 }
 
 /* ~~~~~~~~~~~~~~~CHAT INFO~~~~~~~~~~~~~~~ */
@@ -791,13 +822,23 @@
   text-align: center;
 }
 
-.edit-chat-btn {
-  margin-bottom: -10px;
-  width: 100%;
-}
-
+.edit-chat-btn,
 .delete-btn {
   width: 100%;
+  border: none;
+  background-color: var(--color2);
+  border-radius: 5px;
+  padding: 10px 0;
+  font-weight: 500;
+}
+
+.edit-chat-btn {
+  margin-bottom: -10px;
+}
+
+.edit-chat-btn:hover,
+.delete-btn:hover {
+  filter: brightness(107%);
 }
 
 .tab-members {
@@ -873,12 +914,12 @@
 .group-form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 }
 
 .save-btn {
   align-self: flex-end;
-  margin-top: 10px;
+  /* margin-top: 10px; */
   color: var(--text-color);
 }
 
@@ -915,6 +956,28 @@
   color: var(--text-color);
   border-radius: 5px;
   cursor: pointer;
+  font-weight: 500;
+}
+
+.file-change:hover {
+  filter: brightness(107%);
+}
+
+.text-input,
+.bio-input {
+  border: none;
+  border-radius: 5px;
+  padding: 5px 7px;
+  background-color: var(--color4);
+}
+
+.bio-input {
+  resize: none;
+}
+
+.text-input:focus,
+.bio-input {
+  outline: none;
 }
 
 /* ~~~~~~~~~~~~~~~GROUP POPUP~~~~~~~~~~~~~~~ */
@@ -951,19 +1014,47 @@
 
 .delete-popup > div {
   display: flex;
-  gap: 5px;
+  gap: 8px;
   justify-content: end;
 }
 
-.delete-popup button {
+.popup-btns button,
+.save-btn,
+.next-btn,
+.create-btn {
   color: var(--text-color);
+  background-color: var(--color2);
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: 500;
+}
+
+.popup-btns button:hover,
+.save-btn:hover,
+.next-btn:hover,
+.create-btn:hover {
+  filter: brightness(107%);
 }
 
 /* ~~~~~~~~~~~~~~~ERROR PAGES & LOADING~~~~~~~~~~~~~~~ */
 
+.error-page,
 .message-error {
   background-color: var(--color2);
   flex-grow: 1;
+  text-align: center;
+}
+
+.error-page > h1,
+.message-error > h1 {
+  margin-top: 40px;
+}
+
+.error-page > p:first-of-type,
+.message-error > p:first-of-type {
+  margin-top: 10px;
+  margin-bottom: 5px;
 }
 
 .loading,

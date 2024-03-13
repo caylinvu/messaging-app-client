@@ -10,7 +10,7 @@ function DeletePopup({ setShowDeletePopup, deleteChat }) {
           </button>
           <h3>Delete chat</h3>
           <p>Are you sure you want to delete this chat?</p>
-          <div>
+          <div className="popup-btns">
             <button onClick={deleteChat}>Delete</button>
             <button onClick={() => setShowDeletePopup(false)}>Cancel</button>
           </div>

@@ -92,6 +92,7 @@ function GroupPopup({ setShowGroupPopup, chat, chats, setChats, user, groupHash,
                 value={groupName}
                 onChange={(e) => setGroupName(e.target.value)}
                 required
+                className="text-input"
               />
               {errors.map((error) => {
                 if (error.path === 'groupName') {

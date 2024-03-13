@@ -268,6 +268,7 @@ function Chat() {
                         id="text"
                         value={text}
                         onChange={(e) => setText(e.target.value)}
+                        className="message-input"
                       />
                       <button type="submit" className="send-btn">
                         <img src="/send.svg" alt="" />

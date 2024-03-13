@@ -99,6 +99,7 @@ function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user, userHa
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 required
+                className="text-input"
               />
               {errors.map((error) => {
                 if (error.path === 'firstName') {
@@ -115,6 +116,7 @@ function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user, userHa
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 required
+                className="text-input"
               />
               {errors.map((error) => {
                 if (error.path === 'lastName') {
@@ -124,7 +126,13 @@ function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user, userHa
             </div>
             <div className="form-group">
               <label htmlFor="bio">Bio</label>
-              <textarea name="bio" id="bio" value={bio} onChange={(e) => setBio(e.target.value)} />
+              <textarea
+                name="bio"
+                id="bio"
+                value={bio}
+                onChange={(e) => setBio(e.target.value)}
+                className="bio-input"
+              />
             </div>
             <div className="form-group">
               <p>Photo</p>

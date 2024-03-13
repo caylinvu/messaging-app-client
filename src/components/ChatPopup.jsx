@@ -99,7 +99,9 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
                     return (
                       <button onClick={() => startChat(contact)} key={contact._id}>
                         <ProfileImage contact={contact} imgClass="btn-img" />
-                        {contact.firstName + ' ' + contact.lastName}
+                        <div className="user-name">
+                          {contact.firstName + ' ' + contact.lastName}
+                        </div>
                       </button>
                     );
                   }
@@ -119,7 +121,9 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
                       <label htmlFor={contact._id} key={contact._id} className="user-select">
                         <div className="label-info">
                           <ProfileImage contact={contact} imgClass="btn-img" />
-                          <div>{contact.firstName + ' ' + contact.lastName}</div>
+                          <div className="user-name">
+                            {contact.firstName + ' ' + contact.lastName}
+                          </div>
                         </div>
                         <input
                           type="checkbox"
@@ -128,6 +132,7 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
                           value={contact._id}
                           onChange={(e) => handleChange(e)}
                           checked={groupUsers.includes(contact._id)}
+                          className="checkbox-input"
                         />
                       </label>
                     );
@@ -135,9 +140,11 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
                 })}
               </div>
               <span className="group-err">{groupError}</span>
-              <button className="next-btn" onClick={selectUsers}>
-                Next
-              </button>
+              <div className="btn-div">
+                <button className="next-btn" onClick={selectUsers}>
+                  Next
+                </button>
+              </div>
             </>
           ) : (
             <>
@@ -159,6 +166,7 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
                   onChange={(e) => setGroupName(e.target.value)}
                   placeholder="Group name"
                   required
+                  className="text-input"
                 />
                 <h3 className="members-title">Members</h3>
                 <div className="added-users">
@@ -167,15 +175,19 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
                       return (
                         <div key={contact._id}>
                           <ProfileImage contact={contact} imgClass="btn-img" />
-                          {contact.firstName + ' ' + contact.lastName}
+                          <div className="user-name">
+                            {contact.firstName + ' ' + contact.lastName}
+                          </div>
                         </div>
                       );
                     }
                   })}
                 </div>
-                <button className="create-btn" type="submit">
-                  Create
-                </button>
+                <div className="btn-div">
+                  <button className="create-btn" type="submit">
+                    Create
+                  </button>
+                </div>
               </form>
             </>
           )}

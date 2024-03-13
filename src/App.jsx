@@ -135,4 +135,6 @@ export default App;
 
 // Figure out JWT verification on socket requests
 
+// Make message input increase rows as you type longer messages
+
 // Add number of unread messages in notification bubble
