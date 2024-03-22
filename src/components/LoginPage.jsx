@@ -37,43 +37,47 @@ function LoginPage() {
   return (
     <div className="login-page">
       <h1>Login to your account</h1>
-      <form
-        action=""
-        onSubmit={(e) => handleLogin(e, email, password)}
-        className="login-form"
-        autoComplete="off"
-      >
-        <div className="form-group">
-          <label htmlFor="email">Email address</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        {loginError ? <p>{loginError}</p> : null}
-        <button type="submit">Login</button>
-      </form>
-      <button type="button" onClick={(e) => handleLogin(e, 'jon@gmail.com', 'JonSnow3')}>
-        Demo user (Jon Snow)
-      </button>
-      <p>
-        New to Cherry Chat? <a href="/sign-up">Create an account</a>
-      </p>
+      <div className="login-div">
+        <form
+          action=""
+          onSubmit={(e) => handleLogin(e, email, password)}
+          className="login-form"
+          autoComplete="off"
+        >
+          <div className="form-group">
+            <label htmlFor="email">Email address</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              placeholder="Email address"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              placeholder="Password"
+            />
+          </div>
+          {loginError ? <p className="login-error">*{loginError}</p> : null}
+          <button type="submit">Login</button>
+        </form>
+        <button type="button" onClick={(e) => handleLogin(e, 'jon@gmail.com', 'JonSnow3')}>
+          Demo user
+        </button>
+        <p>
+          New to Cherry Chat? <a href="/sign-up">Create an account</a>
+        </p>
+      </div>
     </div>
   );
 }

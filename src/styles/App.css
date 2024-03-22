@@ -1,21 +1,20 @@
 :root {
-  /* --color1: #909a77; */
-  --color1: #818a6a;
+  /* --color1: #818a6a;
+  --text-color2: #ffeadb; */
+  --color1: #6c7459;
   --color2: #f7c5a8;
   --color3: #f18e7d;
   --color4: #ffeadb;
-  --preview-color: #eeb696;
+  --preview-color: #f0b18d;
   --online-color: #60c560;
   --notification-color: #e47c69;
   --notification-color2: #60694a;
   --scroll-color: var(--color3) var(--color4);
   --header-text: #8a4336;
-  --text-color: #6d2e23;
-  --text-color2: #ffeadb;
-  /* --received-color: #ffa191; */
-  --received-color: #eeb696;
-  /* --sent-color: #bece98; */
-  /* --sent-color: #eeb696; */
+  --text-color: #662b20;
+  --text-color2: #fff4ec;
+  --text-color3: #545a45;
+  --received-color: var(--preview-color);
   --sent-color: var(--color1);
   --bio-bottom: var(--text-color2);
   --blocker-color: rgba(0, 0, 0, 0.5);
@@ -27,13 +26,94 @@
     contrast(101%);
 }
 
-/* ~~~~~~~~~~~~~~~LOGIN FORM~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~LOGIN PAGE~~~~~~~~~~~~~~~ */
 
-.login-form button {
-  display: block;
+.login-page,
+.sign-up-page {
+  background-color: var(--color1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+  gap: 10px;
+  padding: 30px 10px;
 }
 
-/* ~~~~~~~~~~~~~~~SIGN UP FORM~~~~~~~~~~~~~~~ */
+.login-page h1,
+.sign-up-page h1 {
+  color: var(--color4);
+}
+
+.login-div,
+.sign-up-div {
+  background-color: var(--color3);
+  color: var(--text-color);
+  border-radius: 10px;
+  padding: 30px 30px;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.login-form,
+.sign-up-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.login-form > .form-group,
+.sign-up-form > .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.login-form input,
+.sign-up-form input {
+  border: none;
+  border-radius: 5px;
+  padding: 12px;
+  background-color: var(--color4);
+  color: var(--text-color);
+}
+
+.login-form input:focus,
+.sign-up-form input:focus {
+  outline: none;
+}
+
+.login-div a,
+.sign-up-div a {
+  color: inherit;
+}
+
+.login-error {
+  font-weight: 500;
+}
+
+.sign-up-form span {
+  font-weight: 500;
+}
+
+.login-div button,
+.sign-up-div button {
+  color: var(--text-color3);
+  background-color: var(--color2);
+  border: none;
+  border-radius: 5px;
+  padding: 12px 0;
+  font-weight: 500;
+}
+
+.login-div button:hover,
+.sign-up-div button:hover {
+  filter: brightness(93%);
+}
+
+/* ~~~~~~~~~~~~~~~SIGN UP PAGE~~~~~~~~~~~~~~~ */
 
 /* ~~~~~~~~~~~~~~~MAIN APP (ONCE LOGGED IN)~~~~~~~~~~~~~~~ */
 
@@ -87,7 +167,7 @@
 }
 
 .nav-btns button:hover {
-  filter: brightness(110%);
+  filter: brightness(90%);
 }
 
 .nav-btns img {
@@ -175,7 +255,7 @@
 
 .chat-preview:hover,
 .contact-preview:hover {
-  filter: brightness(103%);
+  filter: brightness(95%);
 }
 
 .chat-img,
@@ -349,11 +429,10 @@
 .info-bar {
   display: flex;
   justify-content: space-between;
-  /* flex-grow: 1; */
   padding: 10px;
   background-color: var(--color3);
-  /* height: fit-content; */
   align-items: center;
+  color: var(--text-color);
 }
 
 .info-left {
@@ -375,11 +454,11 @@
 }
 
 .info-right button:hover {
-  filter: brightness(110%);
+  filter: brightness(90%);
 }
 
 .chat-header button:hover {
-  filter: brightness(107%);
+  filter: brightness(90%);
 }
 
 .info-right img,
@@ -578,7 +657,7 @@
 
 .img-upload:hover,
 .send-btn:hover {
-  filter: brightness(110%);
+  filter: brightness(90%);
 }
 
 .img-upload img,
@@ -627,6 +706,10 @@
   transform: translate(-50%, -50%);
 }
 
+.popup-container h3 {
+  color: var(--color4);
+}
+
 .chat-popup {
   border-radius: 10px;
   background-color: var(--color1);
@@ -641,7 +724,7 @@
   text-align: center;
   /* font-size: 18px; */
   padding-bottom: 5px;
-  color: var(--text-color2);
+  /* color: var(--text-color2); */
 }
 
 .close-btn,
@@ -656,7 +739,7 @@
 
 .close-btn:hover,
 .back-btn:hover {
-  filter: brightness(110%);
+  filter: brightness(90%);
 }
 
 .close-btn {
@@ -741,7 +824,7 @@
 
 .non-group-users button:hover,
 .user-select:hover {
-  filter: brightness(107%);
+  filter: brightness(93%);
 }
 
 .user-select {
@@ -811,10 +894,6 @@
   position: relative;
 }
 
-.chat-info button {
-  color: var(--text-color);
-}
-
 .tab-top {
   display: flex;
   flex-direction: column;
@@ -837,6 +916,7 @@
   border-radius: 5px;
   padding: 10px 0;
   font-weight: 500;
+  color: var(--text-color3);
 }
 
 .edit-chat-btn {
@@ -845,7 +925,7 @@
 
 .edit-chat-btn:hover,
 .delete-btn:hover {
-  filter: brightness(107%);
+  filter: brightness(90%);
 }
 
 .tab-members {
@@ -960,14 +1040,14 @@
 .file-change {
   padding: 10px 20px;
   background-color: var(--color2);
-  color: var(--text-color);
+  color: var(--text-color3);
   border-radius: 5px;
   cursor: pointer;
   font-weight: 500;
 }
 
 .file-change:hover {
-  filter: brightness(107%);
+  filter: brightness(90%);
 }
 
 .text-input,
@@ -1029,7 +1109,7 @@
 .save-btn,
 .next-btn,
 .create-btn {
-  color: var(--text-color);
+  color: var(--text-color3);
   background-color: var(--color2);
   border: none;
   padding: 5px 10px;
@@ -1041,7 +1121,7 @@
 .save-btn:hover,
 .next-btn:hover,
 .create-btn:hover {
-  filter: brightness(107%);
+  filter: brightness(90%);
 }
 
 /* ~~~~~~~~~~~~~~~ERROR PAGES & LOADING~~~~~~~~~~~~~~~ */

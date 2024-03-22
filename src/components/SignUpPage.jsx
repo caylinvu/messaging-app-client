@@ -46,92 +46,99 @@ function SignUpPage() {
   return (
     <div className="sign-up-page">
       <h1>Create a new account</h1>
-      <form action="" onSubmit={handleSignUp} className="sign-up-form" autoComplete="off">
-        <div className="form-group">
-          <label htmlFor="firstName">First name</label>
-          <input
-            type="text"
-            name="firstName"
-            id="firstName"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
-          {errors.map((error) => {
-            if (error.path === 'firstName') {
-              return <span key={error.path}>{error.msg}</span>;
-            }
-          })}
-        </div>
-        <div className="form-group">
-          <label htmlFor="lastName">Last name</label>
-          <input
-            type="text"
-            name="lastName"
-            id="lastName"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
-          />
-          {errors.map((error) => {
-            if (error.path === 'lastName') {
-              return <span key={error.path}>{error.msg}</span>;
-            }
-          })}
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email address</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          {errors.map((error) => {
-            if (error.path === 'email') {
-              return <span key={error.path}>{error.msg}</span>;
-            }
-          })}
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          {errors.map((error) => {
-            if (error.path === 'password') {
-              return <span key={error.path}>{error.msg}</span>;
-            }
-          })}
-        </div>
-        <div className="form-group">
-          <label htmlFor="passwordConf">Password confirmation</label>
-          <input
-            type="password"
-            name="passwordConf"
-            id="passwordConf"
-            value={passwordConf}
-            onChange={(e) => setPasswordConf(e.target.value)}
-            required
-          />
-          {errors.map((error) => {
-            if (error.path === 'passwordConf') {
-              return <span key={error.path}>{error.msg}</span>;
-            }
-          })}
-        </div>
-        <button type="submit">Sign up</button>
-      </form>
-      <p>
-        Already have an account? <a href="/login">Please login here</a>
-      </p>
+      <div className="sign-up-div">
+        <form action="" onSubmit={handleSignUp} className="sign-up-form" autoComplete="off">
+          <div className="form-group">
+            <label htmlFor="firstName">First name</label>
+            <input
+              type="text"
+              name="firstName"
+              id="firstName"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+              placeholder="First name"
+            />
+            {errors.map((error) => {
+              if (error.path === 'firstName') {
+                return <span key={error.path}>*{error.msg}</span>;
+              }
+            })}
+          </div>
+          <div className="form-group">
+            <label htmlFor="lastName">Last name</label>
+            <input
+              type="text"
+              name="lastName"
+              id="lastName"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
+              placeholder="Last name"
+            />
+            {errors.map((error) => {
+              if (error.path === 'lastName') {
+                return <span key={error.path}>*{error.msg}</span>;
+              }
+            })}
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Email address</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              placeholder="Email address"
+            />
+            {errors.map((error) => {
+              if (error.path === 'email') {
+                return <span key={error.path}>*{error.msg}</span>;
+              }
+            })}
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              placeholder="Password"
+            />
+            {errors.map((error) => {
+              if (error.path === 'password') {
+                return <span key={error.path}>*{error.msg}</span>;
+              }
+            })}
+          </div>
+          <div className="form-group">
+            <label htmlFor="passwordConf">Password confirmation</label>
+            <input
+              type="password"
+              name="passwordConf"
+              id="passwordConf"
+              value={passwordConf}
+              onChange={(e) => setPasswordConf(e.target.value)}
+              required
+              placeholder="Password confirmation"
+            />
+            {errors.map((error) => {
+              if (error.path === 'passwordConf') {
+                return <span key={error.path}>*{error.msg}</span>;
+              }
+            })}
+          </div>
+          <button type="submit">Sign up</button>
+        </form>
+        <p>
+          Already have an account? <a href="/login">Login here</a>
+        </p>
+      </div>
     </div>
   );
 }

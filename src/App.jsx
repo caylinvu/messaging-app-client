@@ -46,13 +46,7 @@ export default App;
 
 // Style sign up page
 
-// Style all inputs
-
-// Style all buttons
-
-// Style all popups
-
-// Add button hover style
+// hover on icons
 
 //---- Style image error to be a popup that goes away
 
@@ -71,6 +65,10 @@ export default App;
 
 // Add max length to certain inputs???
 //--25 char limit on first name and last name at least
+
+// Maybe make hover darker??
+
+// when shrinking screen, tab scroll isn't working correctly???
 
 // ~~~~~~~~~~ REFACTOR TO DO ~~~~~~~~~~
 
