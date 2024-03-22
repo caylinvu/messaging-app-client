@@ -40,35 +40,19 @@ export default App;
 
 // ~~~~~~~~~~ TO DO NEXT ~~~~~~~~~~
 
+// when shrinking screen, tab scroll isn't working correctly???
+
 // ~~~~~~~~~~ STYLING TO DO ~~~~~~~~~~
 
-// Style login page
-
-// Style sign up page
-
-// hover on icons
-
-//---- Style image error to be a popup that goes away
+// Style image error to be a popup that goes away
 
 // Add animations for popups
 
 // Add animation for hover
 
-// Styling validation
-//--On certain forms, maybe add input border styling if invalid after submission
-
 // Make responsive
 
 // Refine demo user
-
-// Keep letters or generic images for users with no image??
-
-// Add max length to certain inputs???
-//--25 char limit on first name and last name at least
-
-// Maybe make hover darker??
-
-// when shrinking screen, tab scroll isn't working correctly???
 
 // ~~~~~~~~~~ REFACTOR TO DO ~~~~~~~~~~
 
@@ -125,6 +109,8 @@ export default App;
 // Also validate image uploads on frontend/backend (message images)
 
 // Add better error handling (images/other http requests besides fetching data)
+
+// Add better validation styling
 
 // Add drafts to keep unsent text when switching between chats
 

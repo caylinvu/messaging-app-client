@@ -58,6 +58,7 @@ function SignUpPage() {
               onChange={(e) => setFirstName(e.target.value)}
               required
               placeholder="First name"
+              maxLength={25}
             />
             {errors.map((error) => {
               if (error.path === 'firstName') {
@@ -75,6 +76,7 @@ function SignUpPage() {
               onChange={(e) => setLastName(e.target.value)}
               required
               placeholder="Last name"
+              maxLength={25}
             />
             {errors.map((error) => {
               if (error.path === 'lastName') {
