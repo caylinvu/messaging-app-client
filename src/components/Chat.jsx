@@ -239,7 +239,7 @@ function Chat() {
                       <div className="img-display">
                         <img src={URL.createObjectURL(image)} alt="" draggable={false} />
                         <button className="img-close" onClick={cancelImage}>
-                          X
+                          <img src="/close.svg" alt="" />
                         </button>
                       </div>
                     </div>
