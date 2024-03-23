@@ -40,8 +40,6 @@ export default App;
 
 // ~~~~~~~~~~ TO DO NEXT ~~~~~~~~~~
 
-// when shrinking screen, tab scroll isn't working correctly???
-
 // ~~~~~~~~~~ STYLING TO DO ~~~~~~~~~~
 
 // Style image error to be a popup that goes away
