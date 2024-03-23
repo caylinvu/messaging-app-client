@@ -16,6 +16,8 @@ function Chat() {
   const [text, setText] = useState('');
   const [image, setImage] = useState('');
   const [imageError, setImageError] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertTimer, setAlertTimer] = useState(null);
   const { chatId } = useParams();
   const {
     contacts,
@@ -79,14 +81,20 @@ function Chat() {
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       if (e.target.files[0].size > 1024 * 1024 * 2) {
+        const form = document.querySelector('.msg-form');
+        form.reset();
         setImageError('*Max file size of 2MB');
+        handleAlert();
         return;
       } else if (
         e.target.files[0].type !== 'image/png' &&
         e.target.files[0].type !== 'image/jpg' &&
         e.target.files[0].type !== 'image/jpeg'
       ) {
+        const form = document.querySelector('.msg-form');
+        form.reset();
         setImageError('*Only png, jpg, and jpeg files allowed');
+        handleAlert();
         return;
       }
     }
@@ -181,6 +189,42 @@ function Chat() {
     }
   }, [chatId, chats, navigate, user]);
 
+  // Start the alert timer
+  const startAlertTimer = () => {
+    setAlertTimer(
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 5000),
+    );
+  };
+
+  // Clear the alert timer and start a new one
+  function resetAlertTimer() {
+    clearTimeout(alertTimer);
+    startAlertTimer();
+  }
+
+  // Reset the animation for the alert notification
+  const resetAnimation = () => {
+    const alert = document.querySelector('.img-err');
+    alert.style.animation = 'none';
+    alert.offsetHeight;
+    alert.style.animation = null;
+  };
+
+  // Handle alert display
+  const handleAlert = () => {
+    if (showAlert === false) {
+      // Display alert if no alert is currently shown
+      setShowAlert(true);
+      startAlertTimer();
+    } else {
+      // If alert is already displayed, reset it and show new alert
+      resetAlertTimer();
+      resetAnimation();
+    }
+  };
+
   return (
     <>
       {messageLoading ? (
@@ -244,7 +288,7 @@ function Chat() {
                       </div>
                     </div>
                   )}
-                  <span className="img-err">{imageError}</span>
+                  {showAlert && <div className="img-err">{imageError}</div>}
                   <div onSubmit={handleSend} className="send-bar">
                     <form action="" className="msg-form" autoComplete="off">
                       <div className="form-group">
@@ -269,6 +313,7 @@ function Chat() {
                         value={text}
                         onChange={(e) => setText(e.target.value)}
                         className="message-input"
+                        placeholder="Write a message"
                       />
                       <button type="submit" className="send-btn">
                         <img src="/send.svg" alt="" />

@@ -431,6 +431,7 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  position: relative;
 }
 
 .info-bar {
@@ -646,6 +647,46 @@
   display: block;
   width: 25px;
   filter: var(--icon-filter3);
+}
+
+.img-err {
+  font-size: 16px;
+  padding: 20px 25px;
+  border-radius: 5px;
+  background-color: var(--color3);
+  color: var(--text-color);
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 500;
+  text-align: center;
+  opacity: 0;
+  animation: fadeInAndOut 5000ms;
+}
+
+@keyframes fadeInAndOut {
+  0% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.5;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 .send-bar {
@@ -1044,7 +1085,9 @@
 .profile-img-err {
   font-size: 15px;
   position: absolute;
-  bottom: -19px;
+  top: 85px;
+  font-weight: 500;
+  max-width: 230px;
 }
 
 .file-input {

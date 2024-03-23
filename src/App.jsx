@@ -42,8 +42,6 @@ export default App;
 
 // ~~~~~~~~~~ STYLING TO DO ~~~~~~~~~~
 
-// Style image error to be a popup that goes away
-
 // Add animations for popups
 
 // Add animation for hover
