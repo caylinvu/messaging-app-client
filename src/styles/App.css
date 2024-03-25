@@ -180,7 +180,6 @@
 }
 
 .hover-text {
-  /* visibility: hidden; */
   opacity: 0;
   position: absolute;
   left: 64px;
@@ -193,7 +192,6 @@
 }
 
 .nav-btns button:hover .hover-text {
-  /* visibility: visible; */
   animation: fadeIn 0.5s;
   opacity: 1;
 }
@@ -299,10 +297,10 @@
 .btn-img {
   width: 40px;
   height: 40px;
-  text-align: center;
-  line-height: 40px;
+  /* text-align: center;
+  line-height: 40px; */
   border-radius: 50%;
-  position: relative;
+  /* position: relative; */
   background-color: var(--color4);
   color: var(--text-color);
 }
@@ -311,13 +309,22 @@
   background-color: inherit;
 }
 
+.info-img,
+.chat-img,
+.contact-img,
+.tab-members-img,
+.tab-img,
+.sidebar-img {
+  position: relative;
+}
+
 .tab-img,
 .profile-img,
 .group-img,
 .sidebar-img {
   width: 60px;
   height: 60px;
-  line-height: 60px;
+  /* line-height: 60px; */
   color: var(--text-color);
   font-size: 24px;
 }
@@ -796,15 +803,12 @@
   color: var(--text-color);
   padding: 20px 30px 40px;
   width: 350px;
-  /* max-height: 400px; */
   position: relative;
 }
 
 .chat-popup h3 {
   text-align: center;
-  /* font-size: 18px; */
-  padding-bottom: 5px;
-  /* color: var(--text-color2); */
+  margin-bottom: 6px;
 }
 
 .close-btn,
@@ -862,13 +866,14 @@
   padding-bottom: 1px;
 }
 
-/* .added-users div {
-  line-height: normal;
-} */
-
 .grp-btn {
   margin-bottom: 5px;
   border-radius: 5px;
+}
+
+.grp-btn .btn-img {
+  line-height: 40px;
+  text-align: center;
 }
 
 .non-group-users button,
@@ -939,7 +944,7 @@
 }
 
 .members-title {
-  margin-top: 10px;
+  margin-top: 11px;
 }
 
 .checkbox-input {

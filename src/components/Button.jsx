@@ -2,7 +2,11 @@ import PropTypes from 'prop-types';
 
 function Button({ btnText, btnClass, btnType, handleClick }) {
   return (
-    <button className={btnClass} type={btnType} onClick={handleClick ? handleClick : ''}>
+    <button
+      className={btnClass ? btnClass : ''}
+      type={btnType}
+      onClick={handleClick ? handleClick : ''}
+    >
       {btnText}
     </button>
   );
