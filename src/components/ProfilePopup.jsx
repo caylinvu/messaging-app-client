@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import ProfileImage from './ProfileImage';
+import Button from './Button';
 
 function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user, userHash, setUserHash }) {
   const [currentUser, setCurrentUser] = useState(contacts.find((obj) => obj._id === user._id));
@@ -163,9 +164,7 @@ function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user, userHa
               })}
               <span className="profile-img-err">{imageError}</span>
             </div>
-            <button type="submit" className="save-btn">
-              Save
-            </button>
+            <Button btnText="Save" btnClass="save-btn" btnType="submit" />
           </form>
         </div>
       </div>

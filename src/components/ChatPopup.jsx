@@ -9,6 +9,7 @@ import {
 } from '../helpers/chatHelpers';
 import { removeExclusion } from '../helpers/fetchHelpers';
 import ProfileImage from './ProfileImage';
+import Button from './Button';
 
 function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }) {
   const [isGroup, setIsGroup] = useState(false);
@@ -139,11 +140,14 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
                   }
                 })}
               </div>
-              <span className="group-err">{groupError}</span>
+              {groupError && <span className="group-err">{groupError}</span>}
               <div className="btn-div">
-                <button className="next-btn" onClick={selectUsers}>
-                  Next
-                </button>
+                <Button
+                  btnText="Next"
+                  btnClass="next-btn"
+                  btnType="button"
+                  handleClick={selectUsers}
+                />
               </div>
             </>
           ) : (
@@ -184,9 +188,7 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
                   })}
                 </div>
                 <div className="btn-div">
-                  <button className="create-btn" type="submit">
-                    Create
-                  </button>
+                  <Button btnText="Create" btnClass="create-btn" btnType="submit" />
                 </div>
               </form>
             </>

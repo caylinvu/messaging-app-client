@@ -104,12 +104,13 @@
   border: none;
   border-radius: 5px;
   padding: 12px 0;
-  font-weight: 500;
+  font-weight: bold;
 }
 
 .login-div button:hover,
 .sign-up-div button:hover {
   filter: brightness(93%);
+  transition: filter 0.1s;
 }
 
 /* ~~~~~~~~~~~~~~~SIGN UP PAGE~~~~~~~~~~~~~~~ */
@@ -169,6 +170,7 @@
 
 .nav-btns button:hover {
   filter: brightness(90%);
+  transition: filter 0.3s;
 }
 
 .nav-btns img {
@@ -178,7 +180,8 @@
 }
 
 .hover-text {
-  visibility: hidden;
+  /* visibility: hidden; */
+  opacity: 0;
   position: absolute;
   left: 64px;
   top: 9px;
@@ -190,7 +193,18 @@
 }
 
 .nav-btns button:hover .hover-text {
-  visibility: visible;
+  /* visibility: visible; */
+  animation: fadeIn 0.5s;
+  opacity: 1;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .chats-btn span {
@@ -210,7 +224,8 @@
 }
 
 .profile-btn:hover {
-  filter: brightness(90%);
+  filter: brightness(85%);
+  transition: filter 0.1s;
 }
 
 /* ~~~~~~~~~~~~~~~CHAT PAGE~~~~~~~~~~~~~~~ */
@@ -269,6 +284,7 @@
 .chat-preview:hover,
 .contact-preview:hover {
   filter: brightness(95%);
+  /* transition: filter 0.1s; */
 }
 
 .chat-img,
@@ -463,10 +479,12 @@
 
 .info-right button:hover {
   filter: brightness(90%);
+  transition: filter 0.1s;
 }
 
 .chat-header button:hover {
   filter: brightness(90%);
+  transition: filter 0.1s;
 }
 
 .info-right img,
@@ -641,6 +659,7 @@
 
 .img-close:hover {
   filter: brightness(90%);
+  transition: filter 0.1s;
 }
 
 .img-close img {
@@ -718,6 +737,7 @@
 .img-upload:hover,
 .send-btn:hover {
   filter: brightness(90%);
+  transition: filter 0.1s;
 }
 
 .img-upload img,
@@ -800,6 +820,7 @@
 .close-btn:hover,
 .back-btn:hover {
   filter: brightness(90%);
+  transition: filter 0.1s;
 }
 
 .close-btn {
@@ -898,22 +919,19 @@
   align-items: center;
 }
 
-.next-btn,
-.create-btn {
-  margin-top: 15px;
-  margin-bottom: -25px;
-  color: var(--text-color);
-}
-
 .btn-div {
   display: flex;
   justify-content: end;
+  margin-top: 15px;
+  margin-bottom: -25px;
 }
 
 .group-err {
   float: left;
   color: var(--color4);
   margin-top: 7px;
+  font-weight: 500;
+  font-size: 15px;
 }
 
 .create-group-form input {
@@ -976,7 +994,7 @@
   background-color: var(--color2);
   border-radius: 5px;
   padding: 10px 0;
-  font-weight: 500;
+  font-weight: bold;
   color: var(--text-color3);
 }
 
@@ -987,6 +1005,7 @@
 .edit-chat-btn:hover,
 .delete-btn:hover {
   filter: brightness(90%);
+  transition: filter 0.1s;
 }
 
 .tab-members {
@@ -1106,11 +1125,12 @@
   color: var(--text-color3);
   border-radius: 5px;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: bold;
 }
 
 .file-change:hover {
   filter: brightness(90%);
+  transition: filter 0.1s;
 }
 
 .text-input,
@@ -1177,7 +1197,7 @@
   border: none;
   padding: 5px 10px;
   border-radius: 5px;
-  font-weight: 500;
+  font-weight: bold;
 }
 
 .popup-btns button:hover,
@@ -1185,6 +1205,8 @@
 .next-btn:hover,
 .create-btn:hover {
   filter: brightness(90%);
+  /* will-change: filter; */
+  transition: filter 0.1s;
 }
 
 /* ~~~~~~~~~~~~~~~ERROR PAGES & LOADING~~~~~~~~~~~~~~~ */
@@ -1193,14 +1215,11 @@
 .message-error {
   background-color: var(--color2);
   text-align: center;
+  flex-grow: 1;
 }
 
 .error-page {
   height: 100vh;
-}
-
-.message-error {
-  flex-grow: 1;
 }
 
 .error-page > h1,

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import ProfileImage from './ProfileImage';
+import Button from './Button';
 
 function GroupPopup({ setShowGroupPopup, chat, chats, setChats, user, groupHash, setGroupHash }) {
   const [groupName, setGroupName] = useState(chat.groupName);
@@ -129,9 +130,7 @@ function GroupPopup({ setShowGroupPopup, chat, chats, setChats, user, groupHash,
               })}
               <span className="profile-img-err">{imageError}</span>
             </div>
-            <button type="submit" className="save-btn">
-              Save
-            </button>
+            <Button btnText="Save" btnClass="save-btn" btnType="submit" />
           </form>
         </div>
       </div>

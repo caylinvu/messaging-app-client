@@ -40,11 +40,17 @@ export default App;
 
 // ~~~~~~~~~~ TO DO NEXT ~~~~~~~~~~
 
-// ~~~~~~~~~~ STYLING TO DO ~~~~~~~~~~
+// Figure out why text is jumping on animation
+
+// Add animation for hover
 
 // Add animations for popups
 
-// Add animation for hover
+// Highlight selected chat???
+
+// Maybe change some hovers back to brighter??
+
+// ~~~~~~~~~~ STYLING TO DO ~~~~~~~~~~
 
 // Make responsive
 
