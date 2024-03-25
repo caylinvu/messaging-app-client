@@ -40,8 +40,6 @@ export default App;
 
 // ~~~~~~~~~~ TO DO NEXT ~~~~~~~~~~
 
-// disable buttons on chat-info tab
-
 // Highlight selected chat???
 
 // Maybe change some hovers back to brighter??
