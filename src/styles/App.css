@@ -1,28 +1,46 @@
 :root {
   /* --color1: #818a6a;
   --text-color2: #ffeadb; */
-  --color1: #6c7459;
-  --color2: #f7c5a8;
-  --color3: #f18e7d;
-  --color4: #ffeadb;
-  --preview-color: #f0b18d;
+  --color1: #636b51;
+  /* --color2: #f7c5a8; */
+  --color2: #f18e7d;
+  --color3: var(--color6);
+  /* --color4: #ffeadb; */
+  --color4: #fddfc9;
+  --color5: #e4735f;
+  --color6: #e9644d;
+  /* --color5: #f0b18d; */
+  /* --color6: #f8a372; */
+  --color7: #a7b97d;
   --online-color: #60c560;
   --notification-color: #ec7864;
   --scroll-color: var(--color3) var(--color4);
-  --header-text: #8a4336;
-  --text-color: #662b20;
-  --text-color2: #fff4ec;
-  --text-color3: #545a45;
-  --received-color: var(--preview-color);
+  /* --header-text: #8a4336; */
+  --header-text: #3a3a3a;
+  --header-text2: #ffe9d9;
+  /* --header-text: #2e2e2e; */
+
+  /* --text-color: #662b20; */
+  /* --text-color: #1b1b1b; */
+  --text-color: #272727;
+  --text-color2: #ffe9d9;
+  --text-color3: #303030;
+  --received-color: var(--color5);
   --sent-color: var(--color1);
   --bio-bottom: var(--text-color2);
   --blocker-color: rgba(0, 0, 0, 0.5);
-  --icon-filter: invert(31%) sepia(10%) saturate(2951%) hue-rotate(321deg) brightness(95%)
-    contrast(92%);
-  --icon-filter2: invert(16%) sepia(54%) saturate(1666%) hue-rotate(338deg) brightness(98%)
-    contrast(86%);
-  --icon-filter3: invert(91%) sepia(55%) saturate(476%) hue-rotate(295deg) brightness(110%)
-    contrast(101%);
+  /* --icon-filter: invert(31%) sepia(10%) saturate(2951%) hue-rotate(321deg) brightness(95%)
+    contrast(92%); */
+  --icon-filter: invert(19%) sepia(3%) saturate(0%) hue-rotate(137deg) brightness(101%)
+    contrast(89%);
+  --icon-filter2: invert(16%) sepia(0%) saturate(1819%) hue-rotate(138deg) brightness(105%)
+    contrast(98%);
+  /* --icon-filter2: invert(16%) sepia(54%) saturate(1666%) hue-rotate(338deg) brightness(98%)
+    contrast(86%); */
+  /* --icon-filter3: invert(91%) sepia(55%) saturate(476%) hue-rotate(295deg) brightness(110%)
+    contrast(101%); */
+  --icon-filter3: invert(92%) sepia(8%) saturate(1865%) hue-rotate(306deg) brightness(108%)
+    contrast(107%);
 }
 
 /* ~~~~~~~~~~~~~~~LOGIN/SIGN UP PAGES~~~~~~~~~~~~~~~ */
@@ -41,12 +59,12 @@
 
 .login-page h1,
 .sign-up-page h1 {
-  color: var(--color4);
+  color: var(--header-text2);
 }
 
 .login-div,
 .sign-up-div {
-  background-color: var(--color3);
+  background-color: var(--color2);
   color: var(--text-color);
   border-radius: 10px;
   padding: 30px 30px;
@@ -100,7 +118,7 @@
 .login-div button,
 .sign-up-div button {
   color: var(--text-color3);
-  background-color: var(--color2);
+  background-color: var(--color5);
   border: none;
   border-radius: 5px;
   padding: 12px 0;
@@ -274,7 +292,11 @@
   border-radius: 5px;
   align-items: center;
   max-width: 280px;
-  background-color: var(--preview-color);
+  background-color: var(--color5);
+}
+
+.selected-chat {
+  background-color: var(--color6);
 }
 
 .chat-preview:hover,
@@ -588,7 +610,7 @@
   overflow: hidden;
   text-align: center;
   margin: 10px 0 20px;
-  color: var(--header-text);
+  color: var(--text-color);
 }
 
 .full-date::before,
@@ -807,7 +829,7 @@
 }
 
 .popup-container h3 {
-  color: var(--color4);
+  color: var(--header-text2);
 }
 
 .chat-popup {
@@ -1019,7 +1041,7 @@
 .delete-btn {
   width: 100%;
   border: none;
-  background-color: var(--color2);
+  background-color: var(--color7);
   border-radius: 5px;
   padding: 10px 0;
   font-weight: bold;
@@ -1149,7 +1171,7 @@
 
 .file-change {
   padding: 10px 20px;
-  background-color: var(--color2);
+  background-color: var(--color7);
   color: var(--text-color3);
   border-radius: 5px;
   cursor: pointer;
@@ -1221,9 +1243,9 @@
 .next-btn,
 .create-btn {
   color: var(--text-color3);
-  background-color: var(--color2);
+  background-color: var(--color7);
   border: none;
-  padding: 5px 10px;
+  padding: 7px 12px;
   border-radius: 5px;
   font-weight: bold;
 }

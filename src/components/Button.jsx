@@ -5,7 +5,7 @@ function Button({ btnText, btnClass, btnType, handleClick }) {
     <button
       className={btnClass ? btnClass : ''}
       type={btnType}
-      onClick={handleClick ? handleClick : ''}
+      onClick={handleClick ? handleClick : null}
     >
       {btnText}
     </button>

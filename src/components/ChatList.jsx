@@ -22,7 +22,7 @@ function ChatList({ chats, contacts, userDetails, groupHash, chatId }) {
 
           return (
             <Link to={'/chats/' + obj._id} key={obj._id}>
-              <div className="chat-preview">
+              <div className={obj._id === chatId ? 'chat-preview selected-chat' : 'chat-preview'}>
                 <ProfileImage
                   chat={obj}
                   contact={otherUser}

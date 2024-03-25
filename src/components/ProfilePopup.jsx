@@ -164,7 +164,7 @@ function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user, userHa
               })}
               <span className="profile-img-err">{imageError}</span>
             </div>
-            <Button btnText="Save" btnClass="save-btn" btnType="submit" />
+            <Button btnText="Save" btnClass="save-btn" btnType="submit" handleClick={null} />
           </form>
         </div>
       </div>
