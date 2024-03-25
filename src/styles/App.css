@@ -25,7 +25,7 @@
     contrast(101%);
 }
 
-/* ~~~~~~~~~~~~~~~LOGIN PAGE~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~LOGIN/SIGN UP PAGES~~~~~~~~~~~~~~~ */
 
 .login-page,
 .sign-up-page {
@@ -112,8 +112,6 @@
   filter: brightness(93%);
   transition: filter 0.1s;
 }
-
-/* ~~~~~~~~~~~~~~~SIGN UP PAGE~~~~~~~~~~~~~~~ */
 
 /* ~~~~~~~~~~~~~~~MAIN APP (ONCE LOGGED IN)~~~~~~~~~~~~~~~ */
 
@@ -680,6 +678,8 @@
   padding: 20px 25px;
   border-radius: 5px;
   background-color: var(--color3);
+  border-left: var(--header-text) 5px solid;
+  border-right: var(--header-text) 5px solid;
   color: var(--text-color);
   position: absolute;
   top: 80px;
@@ -791,6 +791,19 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.popup-container > div {
+  animation: grow 0.3s ease 1;
+}
+
+@keyframes grow {
+  from {
+    transform: scale(0.9);
+  }
+  to {
+    transform: scale(1);
+  }
 }
 
 .popup-container h3 {
@@ -975,6 +988,16 @@
   gap: 20px;
   scrollbar-color: var(--scroll-color);
   position: relative;
+  animation: slide 0.4s ease 1;
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
 }
 
 .tab-top {
@@ -1210,7 +1233,6 @@
 .next-btn:hover,
 .create-btn:hover {
   filter: brightness(90%);
-  /* will-change: filter; */
   transition: filter 0.1s;
 }
 

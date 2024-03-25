@@ -40,11 +40,7 @@ export default App;
 
 // ~~~~~~~~~~ TO DO NEXT ~~~~~~~~~~
 
-// Figure out why text is jumping on animation
-
-// Add animation for hover
-
-// Add animations for popups
+// disable buttons on chat-info tab
 
 // Highlight selected chat???
 
