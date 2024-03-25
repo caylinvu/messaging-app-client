@@ -40,8 +40,6 @@ export default App;
 
 // ~~~~~~~~~~ TO DO NEXT ~~~~~~~~~~
 
-// Maybe change some hovers back to brighter??
-
 // ~~~~~~~~~~ STYLING TO DO ~~~~~~~~~~
 
 // Make responsive

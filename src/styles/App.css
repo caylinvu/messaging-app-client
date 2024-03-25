@@ -1,27 +1,16 @@
 :root {
-  /* --color1: #818a6a;
-  --text-color2: #ffeadb; */
   --color1: #636b51;
-  /* --color2: #f7c5a8; */
   --color2: #f18e7d;
   --color3: var(--color6);
-  /* --color4: #ffeadb; */
   --color4: #fddfc9;
   --color5: #e4735f;
   --color6: #e9644d;
-  /* --color5: #f0b18d; */
-  /* --color6: #f8a372; */
   --color7: #a7b97d;
   --online-color: #60c560;
   --notification-color: #ec7864;
   --scroll-color: var(--color3) var(--color4);
-  /* --header-text: #8a4336; */
   --header-text: #3a3a3a;
-  --header-text2: #ffe9d9;
-  /* --header-text: #2e2e2e; */
-
-  /* --text-color: #662b20; */
-  /* --text-color: #1b1b1b; */
+  --header-text2: var(--text-color2);
   --text-color: #272727;
   --text-color2: #ffe9d9;
   --text-color3: #303030;
@@ -29,16 +18,10 @@
   --sent-color: var(--color1);
   --bio-bottom: var(--text-color2);
   --blocker-color: rgba(0, 0, 0, 0.5);
-  /* --icon-filter: invert(31%) sepia(10%) saturate(2951%) hue-rotate(321deg) brightness(95%)
-    contrast(92%); */
   --icon-filter: invert(19%) sepia(3%) saturate(0%) hue-rotate(137deg) brightness(101%)
     contrast(89%);
   --icon-filter2: invert(16%) sepia(0%) saturate(1819%) hue-rotate(138deg) brightness(105%)
     contrast(98%);
-  /* --icon-filter2: invert(16%) sepia(54%) saturate(1666%) hue-rotate(338deg) brightness(98%)
-    contrast(86%); */
-  /* --icon-filter3: invert(91%) sepia(55%) saturate(476%) hue-rotate(295deg) brightness(110%)
-    contrast(101%); */
   --icon-filter3: invert(92%) sepia(8%) saturate(1865%) hue-rotate(306deg) brightness(108%)
     contrast(107%);
 }
@@ -462,10 +445,19 @@
   flex-grow: 1;
   gap: 20px;
   background-color: var(--color2);
+  padding: 20px;
+  text-align: center;
 }
 
 .intro-page img {
   width: 150px;
+}
+
+.intro-page p {
+  font-size: 24px;
+  font-weight: bold;
+  color: #5c4d4d;
+  max-width: 350px;
 }
 
 /* ~~~~~~~~~~~~~~~CHAT OUTLET~~~~~~~~~~~~~~~ */
@@ -699,10 +691,9 @@
   font-size: 16px;
   padding: 20px 25px;
   border-radius: 5px;
-  background-color: var(--color3);
-  border-left: var(--header-text) 5px solid;
-  border-right: var(--header-text) 5px solid;
-  color: var(--text-color);
+  background-color: var(--color1);
+  box-shadow: 0 0 5px var(--color1);
+  color: var(--text-color2);
   position: absolute;
   top: 80px;
   left: 50%;
@@ -757,9 +748,7 @@
 .send-btn {
   background-color: var(--color3);
   border: none;
-  /* border: 1px solid var(--color1); */
-  /* border-radius: 50%; */
-  padding: 5px 10px;
+  padding: 7px 10px;
   border-radius: 5px;
 }
 
