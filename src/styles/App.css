@@ -456,7 +456,7 @@
 .intro-page p {
   font-size: 24px;
   font-weight: bold;
-  color: #5c4d4d;
+  color: var(--header-text);
   max-width: 350px;
 }
 
