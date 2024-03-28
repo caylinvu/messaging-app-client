@@ -6,8 +6,11 @@
   --color5: #e4735f;
   --color6: #e9644d;
   --color7: #a7b97d;
+  --color8: #ac3f2b;
   --online-color: #60c560;
-  --notification-color: #ec7864;
+  /* --notification-color: #fda595; */
+  --notification-color: #d3442a;
+  --notification-color2: #f86950;
   --scroll-color: var(--color3) var(--color4);
   --header-text: #3a3a3a;
   --header-text2: var(--text-color2);
@@ -24,6 +27,10 @@
     contrast(98%);
   --icon-filter3: invert(92%) sepia(8%) saturate(1865%) hue-rotate(306deg) brightness(108%)
     contrast(107%);
+}
+
+* {
+  scrollbar-color: var(--scroll-color);
 }
 
 /* ~~~~~~~~~~~~~~~LOGIN/SIGN UP PAGES~~~~~~~~~~~~~~~ */
@@ -211,7 +218,7 @@
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background-color: var(--notification-color);
+  background-color: var(--notification-color2);
 }
 
 .profile-btn {
@@ -235,13 +242,14 @@
 
 .chat-column,
 .contact-column {
-  width: 321px;
+  width: 320px;
   background-color: var(--color2);
   border-right: solid var(--color3) 1px;
   overflow-y: auto;
   flex-shrink: 0;
   padding: 20px;
   scrollbar-color: var(--scroll-color);
+  z-index: 6;
 }
 
 .chat-header,
@@ -300,10 +308,7 @@
 .btn-img {
   width: 40px;
   height: 40px;
-  /* text-align: center;
-  line-height: 40px; */
   border-radius: 50%;
-  /* position: relative; */
   background-color: var(--color4);
   color: var(--text-color);
 }
@@ -327,9 +332,7 @@
 .sidebar-img {
   width: 60px;
   height: 60px;
-  /* line-height: 60px; */
   color: var(--text-color);
-  font-size: 24px;
 }
 
 .sidebar-img img {
@@ -401,6 +404,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 5px;
+  gap: 5px;
 }
 
 .preview-name {
@@ -476,6 +480,8 @@
   background-color: var(--color3);
   align-items: center;
   color: var(--text-color);
+  box-shadow: 0 1px 5px var(--color8);
+  z-index: 5;
 }
 
 .info-left {
@@ -526,7 +532,7 @@
 }
 
 #msg-container {
-  padding: 20px 10px;
+  padding: 20px 15px;
   display: flex;
   flex-direction: column;
   gap: 10px;
