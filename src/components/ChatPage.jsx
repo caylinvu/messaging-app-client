@@ -5,6 +5,7 @@ import ChatList from './ChatList';
 
 function ChatPage() {
   const [showChatPopup, setShowChatPopup] = useState(false);
+  // const [showChatList, setShowChatList] = useState(true);
   const {
     contacts,
     setContacts,
@@ -16,6 +17,9 @@ function ChatPage() {
     userHash,
     groupHash,
     setGroupHash,
+    minimizeList,
+    showMobileList,
+    expandList,
   } = useOutletContext();
   const { chatId } = useParams();
 
@@ -90,9 +94,24 @@ function ChatPage() {
     }
   }, [chatId, chats, contacts, user]);
 
+  useEffect(() => {
+    const resizeWindow = () => {
+      if (chatId) {
+        console.log(chatId);
+        minimizeList();
+      }
+    };
+
+    window.addEventListener('resize', resizeWindow);
+
+    return () => {
+      window.removeEventListener('resize', resizeWindow);
+    };
+  });
+
   return (
     <div className="chat-page">
-      <div className="chat-column">
+      <div className={showMobileList ? 'chat-column show' : 'chat-column'}>
         <div className="chat-header">
           <h1>Chats</h1>
           <button onClick={() => setShowChatPopup(true)}>
@@ -106,6 +125,7 @@ function ChatPage() {
             userDetails={userDetails}
             groupHash={groupHash}
             chatId={chatId}
+            minimizeList={minimizeList}
           />
         ) : (
           <div>You currently have no chats open. Choose a contact to get started!</div>
@@ -122,6 +142,9 @@ function ChatPage() {
           userHash,
           groupHash,
           setGroupHash,
+          showMobileList,
+          minimizeList,
+          expandList,
         }}
       />
       {showChatPopup && (
@@ -132,6 +155,7 @@ function ChatPage() {
           setChats={setChats}
           user={user}
           socket={socket}
+          minimizeList={minimizeList}
         />
       )}
     </div>

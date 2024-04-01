@@ -5,7 +5,7 @@ import { removeExclusion } from '../helpers/fetchHelpers';
 import ProfileImage from './ProfileImage';
 
 function ContactPage() {
-  const { contacts, chats, setChats, user, socket } = useOutletContext();
+  const { contacts, chats, setChats, user, socket, minimizeList } = useOutletContext();
   const navigate = useNavigate();
 
   // Handle choosing contact to start new chat
@@ -27,6 +27,7 @@ function ContactPage() {
       // If chat does not exist, create new chat
       createNewChat(contact, user, socket);
     }
+    minimizeList();
   };
 
   return (

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ProfileImage from './ProfileImage';
 import DatePreview from './DatePreview';
 
-function ChatList({ chats, contacts, userDetails, groupHash, chatId }) {
+function ChatList({ chats, contacts, userDetails, groupHash, chatId, minimizeList }) {
   return (
     <div className="chat-list">
       {chats.map((obj) => {
@@ -21,7 +21,7 @@ function ChatList({ chats, contacts, userDetails, groupHash, chatId }) {
           }
 
           return (
-            <Link to={'/chats/' + obj._id} key={obj._id}>
+            <Link to={'/chats/' + obj._id} key={obj._id} onClick={minimizeList}>
               <div className={obj._id === chatId ? 'chat-preview selected-chat' : 'chat-preview'}>
                 <ProfileImage
                   chat={obj}
@@ -83,6 +83,7 @@ ChatList.propTypes = {
   userDetails: PropTypes.object,
   groupHash: PropTypes.string,
   chatId: PropTypes.string,
+  minimizeList: PropTypes.func,
 };
 
 export default ChatList;

@@ -48,6 +48,8 @@ export default App;
 
 // ~~~~~~~~~~ REFACTOR TO DO ~~~~~~~~~~
 
+// Remove !important styles
+
 // Add better comments throughout all files!!!
 
 // Put socket creation in useEffect???
@@ -114,3 +116,7 @@ export default App;
 // Make message input increase rows as you type longer messages
 
 // Add number of unread messages in notification bubble
+
+// When clicking on contacts after having a chat open, make chat button return to previous chat
+
+// When in tablet/mobile view and click on chat, have the chat list scroll to the top afterwards

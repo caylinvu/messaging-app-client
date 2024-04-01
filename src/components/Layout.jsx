@@ -1,4 +1,4 @@
-import { Outlet, useOutletContext, useNavigate } from 'react-router-dom';
+import { Outlet, useOutletContext, useNavigate, useLocation, useParams } from 'react-router-dom';
 import { useState, useEffect, useCallback } from 'react';
 import Sidebar from './Sidebar';
 import ProfilePopup from './ProfilePopup';
@@ -7,6 +7,7 @@ import Loading from './Loading';
 import FetchError from './FetchError';
 
 function Layout() {
+  const { chatId } = useParams();
   const [contacts, setContacts] = useState([]);
   const [chats, setChats] = useState([]);
   const [userDetails, setUserDetails] = useState({});
@@ -17,8 +18,10 @@ function Layout() {
   const [contactError, setContactError] = useState(null);
   const [chatLoading, setChatLoading] = useState(true);
   const [chatError, setChatError] = useState(null);
+  const [showMobileList, setShowMobileList] = useState(chatId ? false : true);
   const { user, socket } = useOutletContext();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     socket.on('onlineStatus', (currentUser) => {
@@ -192,6 +195,36 @@ function Layout() {
     }
   }, [contacts, user]);
 
+  const toggleList = () => {
+    setShowMobileList(!showMobileList);
+  };
+
+  const expandList = () => {
+    setShowMobileList(true);
+  };
+
+  const minimizeList = () => {
+    setShowMobileList(false);
+  };
+
+  // useEffect(() => {
+  //   window.addEventListener('resize', () => {
+  //     if (chatId) {
+  //       console.log(chatId);
+  //       setShowMobileList(false);
+  //     }
+  //   });
+
+  //   return () => {
+  //     window.removeEventListener('resize', () => {
+  //       if (chatId) {
+  //         console.log(chatId);
+  //         setShowMobileList(false);
+  //       }
+  //     });
+  //   };
+  // });
+
   return (
     <div className="main-app">
       {contactLoading || chatLoading ? (
@@ -206,6 +239,10 @@ function Layout() {
             setShowProfilePopup={setShowProfilePopup}
             userHash={userHash}
             chats={chats}
+            toggleList={toggleList}
+            expandList={expandList}
+            showMobileList={showMobileList}
+            minimizeList={minimizeList}
           />
           <Outlet
             context={{
@@ -219,6 +256,9 @@ function Layout() {
               userHash,
               groupHash,
               setGroupHash,
+              minimizeList,
+              showMobileList,
+              expandList,
             }}
           />
           {showProfilePopup && (

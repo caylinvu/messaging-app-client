@@ -11,7 +11,7 @@ import { removeExclusion } from '../helpers/fetchHelpers';
 import ProfileImage from './ProfileImage';
 import Button from './Button';
 
-function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }) {
+function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket, minimizeList }) {
   const [isGroup, setIsGroup] = useState(false);
   const [isFinal, setIsFinal] = useState(false);
   const [groupUsers, setGroupUsers] = useState([]);
@@ -40,6 +40,7 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
       createNewChat(contact, user, socket);
       setShowChatPopup(false);
     }
+    minimizeList();
   };
 
   // Handle checkbox input (add/remove user from groupUsers array)
@@ -77,6 +78,7 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
     if (groupName && groupUsers) {
       createNewGroup(groupName, groupUsers, user, socket);
       setShowChatPopup(false);
+      minimizeList();
     }
   };
 
@@ -206,6 +208,7 @@ ChatPopup.propTypes = {
   setChats: PropTypes.func,
   user: PropTypes.object,
   socket: PropTypes.object,
+  minimizeList: PropTypes.func,
 };
 
 export default ChatPopup;
