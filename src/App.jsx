@@ -120,3 +120,5 @@ export default App;
 // When in tablet/mobile view and click on chat, have the chat list scroll to the top afterwards
 
 // New message causes chat list to scroll to top
+
+// Update so if you refresh on message page, it only shows one loader

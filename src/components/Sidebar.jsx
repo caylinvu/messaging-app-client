@@ -2,6 +2,7 @@ import { useOutletContext, useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ProfileImage from './ProfileImage';
+import { showNotification } from '../helpers/chatHelpers';
 
 function Sidebar({ userDetails, socket, setShowProfilePopup, userHash, chats }) {
   const [showBubble, setShowBubble] = useState(false);
@@ -11,26 +12,7 @@ function Sidebar({ userDetails, socket, setShowProfilePopup, userHash, chats }) 
 
   // Check to see if there are any new messages to show alert on 'Chats' button on sidebar
   useEffect(() => {
-    const notifications = chats.filter((obj) => {
-      let userConv;
-      if (userDetails.convData) {
-        userConv = userDetails.convData.find((conv) => conv.conv.toString() === obj._id);
-      }
-      if (
-        (obj.lastMessage && userConv && !userConv.lastRead) ||
-        (obj.lastMessage && userConv && userConv.lastRead < obj.lastMessage.timestamp)
-      ) {
-        return obj;
-      }
-    });
-
-    if (chatId && notifications.length === 1 && notifications[0]._id === chatId) {
-      setShowBubble(false);
-    } else if (notifications.length >= 1) {
-      setShowBubble(true);
-    } else {
-      setShowBubble(false);
-    }
+    showNotification(chats, chatId, userDetails, setShowBubble);
   }, [chats, chatId, userDetails]);
 
   return (

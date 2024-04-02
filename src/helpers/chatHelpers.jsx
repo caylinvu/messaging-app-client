@@ -87,3 +87,27 @@ export const handleExclusions = (chat, chats, user) => {
 
   return updatedChats;
 };
+
+// Handle showing notification bubble
+export const showNotification = (chats, chatId, userDetails, setShowBubble) => {
+  const notifications = chats.filter((obj) => {
+    let userConv;
+    if (userDetails.convData) {
+      userConv = userDetails.convData.find((conv) => conv.conv.toString() === obj._id);
+    }
+    if (
+      (obj.lastMessage && userConv && !userConv.lastRead) ||
+      (obj.lastMessage && userConv && userConv.lastRead < obj.lastMessage.timestamp)
+    ) {
+      return obj;
+    }
+  });
+
+  if (chatId && notifications.length === 1 && notifications[0]._id === chatId) {
+    setShowBubble(false);
+  } else if (notifications.length >= 1) {
+    setShowBubble(true);
+  } else {
+    setShowBubble(false);
+  }
+};

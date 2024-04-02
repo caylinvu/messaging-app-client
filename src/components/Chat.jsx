@@ -6,6 +6,7 @@ import GroupPopup from './GroupPopup';
 import ProfileImage from './ProfileImage';
 import FetchError from './FetchError';
 import Loading from './Loading';
+import { showNotification } from '../helpers/chatHelpers';
 
 function Chat() {
   const [messageLoading, setMessageLoading] = useState(true);
@@ -18,6 +19,7 @@ function Chat() {
   const [imageError, setImageError] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const [alertTimer, setAlertTimer] = useState(null);
+  const [showBubble, setShowBubble] = useState(false);
   const { chatId } = useParams();
   const {
     contacts,
@@ -225,6 +227,10 @@ function Chat() {
     }
   };
 
+  useEffect(() => {
+    showNotification(chats, chatId, userDetails, setShowBubble);
+  }, [chats, chatId, userDetails]);
+
   return (
     <>
       {messageLoading ? (
@@ -247,7 +253,14 @@ function Chat() {
                   <div className="info-bar">
                     <div className="info-left">
                       <button className="mobile-back" onClick={() => navigate('/chats')}>
-                        <img src="/arrow-back.svg" alt="" />
+                        {showBubble ? (
+                          <>
+                            <img src="/chat.svg" alt="" />
+                            {showBubble && <span></span>}
+                          </>
+                        ) : (
+                          <img src="/arrow-back.svg" alt="" />
+                        )}
                       </button>
                       <ProfileImage
                         chat={obj}
