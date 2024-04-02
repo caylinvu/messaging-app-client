@@ -1408,10 +1408,6 @@
     height: 14px;
   }
 
-  #msg-container {
-    padding: 20px 5px;
-  }
-
   .profile-popup,
   .group-popup,
   .delete-popup {
@@ -1477,5 +1473,9 @@
   .inner-img img {
     max-width: 180px;
     min-width: 100px;
+  }
+
+  #msg-container {
+    padding: 20px 5px;
   }
 }
