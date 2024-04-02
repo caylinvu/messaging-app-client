@@ -1,4 +1,4 @@
-import { useParams, useOutletContext, useNavigate, useBlocker } from 'react-router-dom';
+import { useParams, useOutletContext, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import MessageContainer from './MessageContainer';
 import ChatInfo from './ChatInfo';
@@ -29,9 +29,6 @@ function Chat() {
     userHash,
     groupHash,
     setGroupHash,
-    showMobileList,
-    minimizeList,
-    expandList,
   } = useOutletContext();
   const navigate = useNavigate();
 
@@ -228,11 +225,6 @@ function Chat() {
     }
   };
 
-  const clickBack = () => {
-    navigate('/chats');
-    expandList();
-  };
-
   return (
     <>
       {messageLoading ? (
@@ -252,14 +244,9 @@ function Chat() {
               }
               return (
                 <div className="chat" key={obj._id}>
-                  {showMobileList ? (
-                    <div className="mobile-blocker" onClick={minimizeList}></div>
-                  ) : (
-                    ''
-                  )}
                   <div className="info-bar">
                     <div className="info-left">
-                      <button className="mobile-back" onClick={clickBack}>
+                      <button className="mobile-back" onClick={() => navigate('/chats')}>
                         <img src="/arrow-back.svg" alt="" />
                       </button>
                       <ProfileImage

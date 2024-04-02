@@ -3,16 +3,7 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ProfileImage from './ProfileImage';
 
-function Sidebar({
-  userDetails,
-  socket,
-  setShowProfilePopup,
-  userHash,
-  chats,
-  toggleList,
-  expandList,
-  minimizeList,
-}) {
+function Sidebar({ userDetails, socket, setShowProfilePopup, userHash, chats }) {
   const [showBubble, setShowBubble] = useState(false);
   const { chatId } = useParams();
   const { handleLogout } = useOutletContext();
@@ -42,34 +33,10 @@ function Sidebar({
     }
   }, [chats, chatId, userDetails]);
 
-  const clickChats = () => {
-    navigate('/chats');
-    expandList();
-  };
-
-  const clickChatsMobile = () => {
-    if (chatId) {
-      // navigate('/chats/' + chatId);
-      toggleList();
-      console.log('YES CHAT ID');
-    } else {
-      navigate('/chats');
-      expandList();
-      console.log('NO CHAT ID');
-    }
-    // navigate('/chats');
-    // toggleList();
-  };
-
   return (
     <div className="sidebar">
       <div className="nav-btns">
-        <button className="chats-btn" onClick={clickChats}>
-          <img src="/chat.svg" alt="" />
-          {showBubble && <span></span>}
-          <div className="hover-text">Chats</div>
-        </button>
-        <button className="chats-btn-mobile" onClick={clickChatsMobile}>
+        <button className="chats-btn" onClick={() => navigate('/chats')}>
           <img src="/chat.svg" alt="" />
           {showBubble && <span></span>}
           <div className="hover-text">Chats</div>
@@ -102,9 +69,6 @@ Sidebar.propTypes = {
   setShowProfilePopup: PropTypes.func,
   userHash: PropTypes.string,
   chats: PropTypes.array,
-  toggleList: PropTypes.func,
-  expandList: PropTypes.func,
-  minimizeList: PropTypes.func,
 };
 
 export default Sidebar;

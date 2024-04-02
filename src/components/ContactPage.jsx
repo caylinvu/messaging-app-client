@@ -5,7 +5,7 @@ import { removeExclusion } from '../helpers/fetchHelpers';
 import ProfileImage from './ProfileImage';
 
 function ContactPage() {
-  const { contacts, chats, setChats, user, socket, minimizeList } = useOutletContext();
+  const { contacts, chats, setChats, user, socket } = useOutletContext();
   const navigate = useNavigate();
 
   // Handle choosing contact to start new chat
@@ -27,7 +27,6 @@ function ContactPage() {
       // If chat does not exist, create new chat
       createNewChat(contact, user, socket);
     }
-    minimizeList();
   };
 
   return (
@@ -83,20 +82,6 @@ function ContactPage() {
               }
             })}
           </div>
-          {/* {contacts.map((contact) => {
-            if (contact._id !== user._id) {
-              return (
-                <button
-                  onClick={() => startChat(contact)}
-                  className="contact-preview"
-                  key={contact._id}
-                >
-                  <ProfileImage contact={contact} showOnlineStatus={true} imgClass="contact-img" />
-                  <div className="contact-name">{contact.firstName + ' ' + contact.lastName}</div>
-                </button>
-              );
-            }
-          })} */}
         </div>
       </div>
       <Intro isContactPage={true} />

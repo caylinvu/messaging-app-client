@@ -1294,71 +1294,15 @@
 
 /* ~~~~~~~~~~~~~~~RESPONSIVE DESIGN~~~~~~~~~~~~~~~ */
 
-.chats-btn-mobile {
-  display: none !important;
-}
-
-@media (max-width: 850px) {
-  .chats-btn {
-    display: none !important;
-  }
-
-  .chats-btn-mobile {
-    display: flex !important;
-  }
-
-  .chat-column {
-    display: none;
-  }
-
-  .chat-column.show {
-    display: block;
-    position: absolute;
-    height: 100vh;
-    animation: slide2 0.4s ease 1;
-  }
-
-  .chat-column.show:has(~ .intro-page) {
-    position: static;
-    animation: none;
-  }
-
-  .mobile-blocker {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: var(--blocker-color);
-    box-shadow: 0 0 0 100vmax var(--blocker-color);
-    clip-path: inset(0 -100vmax);
-    z-index: 6;
-  }
-
-  .intro-page img {
-    width: 125px;
-  }
-
-  .intro-page p {
-    font-size: 20px;
-    max-width: 350px;
-  }
-}
-
-@keyframes slide2 {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0%);
-  }
-}
-
 .mobile-back {
   display: none;
 }
 
-@media (max-width: 650px) {
+@media (max-width: 785px) {
+  .chat-ref {
+    scroll-margin: 20px;
+  }
+
   .intro-page {
     display: none;
   }
@@ -1374,14 +1318,6 @@
     max-width: none;
   }
 
-  .chats-btn {
-    display: flex !important;
-  }
-
-  .chats-btn-mobile {
-    display: none !important;
-  }
-
   .chat-column.show,
   .chat-column,
   .contact-column {
@@ -1391,7 +1327,7 @@
 
   .sidebar {
     position: fixed;
-    flex-direction: row;
+    flex-direction: row-reverse;
     bottom: 0;
     left: 0;
     right: 0;
@@ -1428,11 +1364,10 @@
 
   .chat-column:has(~ .chat),
   .chat-column:has(~ .msg-loading),
-  .chat-column:has(~ .message-error) {
-    display: none;
-  }
-
-  .sidebar:has(~ .chat-page > .chat) {
+  .chat-column:has(~ .message-error),
+  .sidebar:has(~ .chat-page > .chat),
+  .sidebar:has(~ .chat-page > .msg-loading),
+  .sidebar:has(~ .chat-page > .message-error) {
     display: none;
   }
 
@@ -1464,10 +1399,6 @@
 
   #msg-container {
     padding: 20px 5px;
-  }
-
-  .msg-inner {
-    max-width: 200px;
   }
 
   .profile-popup,
@@ -1504,6 +1435,10 @@
 }
 
 @media (max-width: 400px) {
+  .msg-inner {
+    max-width: 200px;
+  }
+
   .chat-info {
     width: 100vw;
     animation: none;

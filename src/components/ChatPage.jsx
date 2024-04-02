@@ -1,5 +1,5 @@
 import { Outlet, useOutletContext, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import ChatPopup from './ChatPopup';
 import ChatList from './ChatList';
 
@@ -17,11 +17,9 @@ function ChatPage() {
     userHash,
     groupHash,
     setGroupHash,
-    minimizeList,
-    showMobileList,
-    expandList,
   } = useOutletContext();
   const { chatId } = useParams();
+  const chatRef = useRef(null);
 
   // Update chat's lastRead time for current user in the database
   const updateDbUser = async (chat, thisUser) => {
@@ -94,24 +92,20 @@ function ChatPage() {
     }
   }, [chatId, chats, contacts, user]);
 
+  const scrollToTop = () => {
+    chatRef.current.scrollIntoView();
+  };
+
   useEffect(() => {
-    const resizeWindow = () => {
-      if (chatId) {
-        console.log(chatId);
-        minimizeList();
-      }
-    };
-
-    window.addEventListener('resize', resizeWindow);
-
-    return () => {
-      window.removeEventListener('resize', resizeWindow);
-    };
-  });
+    if (chatRef.current && window.innerWidth <= 785) {
+      scrollToTop();
+    }
+  }, [chatId]);
 
   return (
     <div className="chat-page">
-      <div className={showMobileList ? 'chat-column show' : 'chat-column'}>
+      <div className="chat-column">
+        <div className="chat-ref" ref={chatRef}></div>
         <div className="chat-header">
           <h1>Chats</h1>
           <button onClick={() => setShowChatPopup(true)}>
@@ -125,7 +119,6 @@ function ChatPage() {
             userDetails={userDetails}
             groupHash={groupHash}
             chatId={chatId}
-            minimizeList={minimizeList}
           />
         ) : (
           <div>You currently have no chats open. Choose a contact to get started!</div>
@@ -142,9 +135,6 @@ function ChatPage() {
           userHash,
           groupHash,
           setGroupHash,
-          showMobileList,
-          minimizeList,
-          expandList,
         }}
       />
       {showChatPopup && (
@@ -155,7 +145,6 @@ function ChatPage() {
           setChats={setChats}
           user={user}
           socket={socket}
-          minimizeList={minimizeList}
         />
       )}
     </div>

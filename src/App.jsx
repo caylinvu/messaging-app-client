@@ -38,14 +38,6 @@ function App() {
 
 export default App;
 
-// ~~~~~~~~~~ TO DO NEXT ~~~~~~~~~~
-
-// ~~~~~~~~~~ STYLING TO DO ~~~~~~~~~~
-
-// Make responsive
-
-// Refine demo user
-
 // ~~~~~~~~~~ REFACTOR TO DO ~~~~~~~~~~
 
 // Remove !important styles
@@ -80,6 +72,12 @@ export default App;
 // Is there a better way to implement opening messages?
 
 // Check all eslint warnings
+
+// ~~~~~~~~~~ BEFORE PUBLISHING ON RAILWAY ~~~~~~~~~~
+
+// Update populatedb for demo user and other users
+
+// Possibly remove test images from github??
 
 // ~~~~~~~~~~ AFTER PUBLISHING ON RAILWAY ~~~~~~~~~~
 
@@ -120,3 +118,5 @@ export default App;
 // When clicking on contacts after having a chat open, make chat button return to previous chat
 
 // When in tablet/mobile view and click on chat, have the chat list scroll to the top afterwards
+
+// New message causes chat list to scroll to top
