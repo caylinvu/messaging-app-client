@@ -6,6 +6,7 @@ import { io } from 'socket.io-client';
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || '');
 
+  // Socket setup
   const socket = io('http://localhost:3000', {
     autoConnect: false,
     auth: {
@@ -14,19 +15,18 @@ function App() {
     },
   });
 
+  // Connect to socket if user is logged in
   useEffect(() => {
     if (user) {
       socket.connect();
-      console.log('User connected');
-      // console.log(socket);
     }
   }, [socket, user]);
 
+  // Handle logging out
   const handleLogout = () => {
     localStorage.clear();
     setUser('');
     socket.disconnect();
-    console.log('User disconnected');
   };
 
   return (
@@ -64,6 +64,8 @@ export default App;
 // Is there a better way to implement opening messages?
 
 // Remove console.logs()
+
+// Clean up css
 
 // ~~~~~~~~~~ BEFORE PUBLISHING ON RAILWAY ~~~~~~~~~~
 

@@ -20,6 +20,7 @@ function Layout() {
   const { user, socket } = useOutletContext();
   const navigate = useNavigate();
 
+  // Locally update incoming online status of other users
   useEffect(() => {
     socket.on('onlineStatus', (currentUser) => {
       const existingContact = contacts.find((obj) => obj._id === currentUser._id);
@@ -51,13 +52,14 @@ function Layout() {
     };
   }, [contacts, socket]);
 
+  // Receive incoming conversations
   useEffect(() => {
     socket.on('receiveConversation', (data) => {
       const newChats = [...chats, data.conversation];
       const sortedChats = sortChats(newChats);
       setChats(sortedChats);
 
-      // Update new conversation under user also!!!!
+      // Locally add new chat to current user's convData array
       const updatedConvs = [
         ...userDetails.convData,
         {
@@ -74,10 +76,9 @@ function Layout() {
           return obj;
         }
       });
-      // console.log('Received conversation');
       setContacts(updatedUsers);
 
-      // If user created chat, navigate to new chat page
+      // If current user created chat, navigate to new chat page
       if (data.sender === user._id) {
         navigate('/chats/' + data.conversation._id);
       }
@@ -88,7 +89,7 @@ function Layout() {
     };
   }, [chats, contacts, navigate, socket, user, userDetails]);
 
-  // Receiving message
+  // Receive incoming message previews
   useEffect(() => {
     socket.on('receiveMessagePrev', (message) => {
       const newChats = chats.map((chat) => {
@@ -111,6 +112,7 @@ function Layout() {
     };
   }, [chats, socket]);
 
+  // Fetch contacts
   const getContacts = useCallback(async () => {
     try {
       const response = await fetch('http://localhost:3000/api/users', {
@@ -122,29 +124,23 @@ function Layout() {
       console.log(response);
       if (!response.ok) {
         if (response.status === 403) {
-          console.log('forbidden');
           throw { message: response.statusText, status: response.status };
         }
-        console.log('response is not okay');
         const error = await response.json();
-        console.log(error);
         throw { message: error.message || response.statusText, status: response.status };
       }
       const contactData = await response.json();
-      // console.log('Contacts fetched');
       setContacts(contactData);
       setContactError(null);
-      // console.log(contactData);
     } catch (err) {
-      console.log('Contacts failed to fetch');
       setContacts([]);
       setContactError(err);
-      console.log(err);
     } finally {
       setContactLoading(false);
     }
   }, [user]);
 
+  // Fetch current user's chats
   const getChats = useCallback(async () => {
     try {
       const response = await fetch(
@@ -155,16 +151,13 @@ function Layout() {
       );
       if (!response.ok) {
         if (response.status === 403) {
-          console.log('forbidden');
           throw { message: response.statusText, status: response.status };
         }
         const error = await response.json();
         throw { message: error.message || response.statusText, status: response.status };
-        // throw new Error(`This is an HTTP error: The status is ${response.status}`);
       }
       const chatData = await response.json();
       const sortedChats = sortChats(chatData);
-      // console.log('Chats fetched');
       setChats(sortedChats);
       setChatError(null);
     } catch (err) {
@@ -176,6 +169,7 @@ function Layout() {
     }
   }, [user]);
 
+  // If user is logged in, fetch contact/chat data
   useEffect(() => {
     if (user) {
       getContacts();
@@ -183,11 +177,10 @@ function Layout() {
     }
   }, [user, getContacts, getChats]);
 
+  // Set userDetails to use throughout components
   useEffect(() => {
     if (contacts.length > 0) {
       const currentUser = contacts.find((obj) => obj._id === user._id);
-      // console.log(socket.connected);
-      // currentUser.isOnline = socket.connected;
       setUserDetails(currentUser);
     }
   }, [contacts, user]);
