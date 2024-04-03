@@ -580,7 +580,8 @@
 
 .inner-img img {
   max-width: 225px;
-  min-width: 125px;
+  min-width: 100px;
+  max-height: 275px;
 }
 
 .msg .text {
@@ -685,9 +686,9 @@
   font-size: 16px;
   padding: 20px 25px;
   border-radius: 5px;
-  background-color: var(--color1);
+  background-color: var(--color7);
   box-shadow: 0 0 5px var(--color1);
-  color: var(--text-color2);
+  color: var(--text-color3);
   position: absolute;
   top: 80px;
   left: 50%;
@@ -1471,9 +1472,14 @@
 
   .inner-img img {
     max-width: 180px;
-    min-width: 100px;
+    min-width: 80px;
+    max-height: 200px;
   }
-
+  /* .inner-img img {
+    max-width: 225px;
+    min-width: 100px;
+    max-height: 275px;
+  } */
   #msg-container {
     padding: 20px 5px;
   }

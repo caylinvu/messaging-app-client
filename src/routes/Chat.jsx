@@ -7,6 +7,7 @@ import ProfileImage from '../components/ProfileImage';
 import FetchError from '../components/FetchError';
 import Loading from '../components/Loading';
 import { showNotification } from '../helpers/chatHelpers';
+import { uploadImage } from '../helpers/fetchHelpers';
 
 function Chat() {
   const [messageLoading, setMessageLoading] = useState(true);
@@ -34,6 +35,7 @@ function Chat() {
   } = useOutletContext();
   const navigate = useNavigate();
 
+  // Reset message form when switching between chats
   useEffect(() => {
     setText('');
     setImage('');
@@ -42,6 +44,7 @@ function Chat() {
     setMessageLoading(true);
   }, [chatId]);
 
+  // Fetch messages
   useEffect(() => {
     const getMessages = async () => {
       try {
@@ -53,14 +56,10 @@ function Chat() {
         );
         if (!response.ok) {
           if (response.status === 403) {
-            console.log('forbidden');
             throw { message: response.statusText, status: response.status };
           }
-          // console.log(response);
           const error = await response.json();
-          // console.log(error);
           throw { message: error.message || response.statusText, status: response.status };
-          // throw new Error(`This is an HTTP error: The status is ${response.status}`);
         }
         const messageData = await response.json();
         setMessages(messageData);
@@ -69,7 +68,6 @@ function Chat() {
         setMessages([]);
         setMessageError(err);
         console.log(err);
-        // throw new Error('Failed to fetch messages');
       } finally {
         setMessageLoading(false);
       }
@@ -79,7 +77,7 @@ function Chat() {
     }
   }, [chatId, user.token]);
 
-  // Handle selecting file
+  // Handle selecting an image file
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       if (e.target.files[0].size > 1024 * 1024 * 2) {
@@ -102,42 +100,23 @@ function Chat() {
     }
     setImageError('');
     setImage(e.target.files[0]);
-    console.log(e.target.files[0]);
   };
 
-  // Handle cancelling an input image
+  // Handle removing a selected image file
   const cancelImage = () => {
     setImage('');
     const form = document.querySelector('.msg-form');
     form.reset();
   };
 
-  // Handle file upload
+  // Handle file upload to database
   const handleUpload = async () => {
     const formData = new FormData();
     formData.append('image', image);
-
-    try {
-      const response = await fetch('http://localhost:3000/api/messages/send-img', {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${user.token}` },
-        body: formData,
-      });
-      const responseData = await response.json();
-      console.log(responseData);
-      if (response.status === 200) {
-        console.log(responseData);
-        emitMessage(responseData.image);
-        setText('');
-        setImage('');
-        setImageError('');
-      }
-    } catch (err) {
-      console.log(err);
-    }
+    uploadImage(user, formData, emitMessage, setText, setImage, setImageError);
   };
 
-  // Handle emitting message
+  // Handle emitting message object to backend
   const emitMessage = (img) => {
     const msg = {
       text: text,
@@ -149,28 +128,23 @@ function Chat() {
     socket.emit('sendMessage', msg);
   };
 
-  // Send new message with msg object (including text, author, conversation, image, and timestamp)
-  // Save new message to local messages state and broadcast OR just emit to all including sender
+  // Handle sending a text/image message
   const handleSend = (e) => {
     e.preventDefault();
     if (text && !image) {
-      console.log('text only');
       emitMessage('');
       setText('');
       setImageError('');
     } else if (image) {
-      console.log('image uploaded');
       handleUpload();
     }
   };
 
-  // Receiving message
-  // Save new message to messages object
+  // Handle receiving a new messages
   useEffect(() => {
     socket.on('receiveMessage', (message) => {
       if (chatId === message.conversation.toString()) {
         const newMessages = [...messages, message];
-        // Maybe just add message to end of array for performance???
         const sortedMessages = newMessages.sort((x, y) => {
           return new Date(x.timestamp) - new Date(y.timestamp);
         });
@@ -183,9 +157,9 @@ function Chat() {
     };
   }, [chatId, messages, socket]);
 
+  // If a 'deleted' chatId is navigated to, redirect to /chats
   useEffect(() => {
     const currentChat = chats.find((obj) => obj._id === chatId);
-    // if (!currentChat || (currentChat && currentChat.exclude.includes(user._id))) {
     if (currentChat && currentChat.exclude.includes(user._id)) {
       navigate('/chats');
     }
@@ -227,6 +201,7 @@ function Chat() {
     }
   };
 
+  // Check to see if there are any new messages to show alert on mobile back button in chat
   useEffect(() => {
     showNotification(chats, chatId, userDetails, setShowBubble);
   }, [chats, chatId, userDetails]);

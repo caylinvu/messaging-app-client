@@ -26,3 +26,30 @@ export const removeExclusion = async (
     console.log(err);
   }
 };
+
+// Upload an image sent in chat to database
+export const uploadImage = async (
+  user,
+  formData,
+  emitMessage,
+  setText,
+  setImage,
+  setImageError,
+) => {
+  try {
+    const response = await fetch('http://localhost:3000/api/messages/send-img', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${user.token}` },
+      body: formData,
+    });
+    const responseData = await response.json();
+    if (response.status === 200) {
+      emitMessage(responseData.image);
+      setText('');
+      setImage('');
+      setImageError('');
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
