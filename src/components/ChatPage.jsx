@@ -1,5 +1,5 @@
 import { Outlet, useOutletContext, useParams } from 'react-router-dom';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import ChatPopup from './ChatPopup';
 import ChatList from './ChatList';
 
@@ -21,64 +21,73 @@ function ChatPage() {
   const { chatId } = useParams();
   const chatRef = useRef(null);
 
-  // Update chat's lastRead time for current user in the database
-  const updateDbUser = async (chat, thisUser) => {
-    try {
-      const response = await fetch(
-        'http://localhost:3000/api/users/' + user._id + '/timestamp/' + chat._id,
-        {
-          method: 'PUT',
-          headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            timestamp: new Date().toISOString(),
-          }),
-        },
-      );
-      if (response.status === 200) {
-        updateLocalUser(chat, thisUser);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   // Update chat's lastRead time for current user locally
-  const updateLocalUser = (chat, thisUser) => {
-    const updatedConvs = thisUser.convData.map((obj) => {
-      if (obj.conv.toString() === chat._id) {
-        return {
-          ...obj,
-          lastRead: new Date().toISOString(),
-        };
-      } else {
-        return obj;
-      }
-    });
+  const updateLocalUser = useCallback(
+    (chat, thisUser) => {
+      const updatedConvs = thisUser.convData.map((obj) => {
+        if (obj.conv.toString() === chat._id) {
+          return {
+            ...obj,
+            lastRead: new Date().toISOString(),
+          };
+        } else {
+          return obj;
+        }
+      });
 
-    const updatedUsers = contacts.map((obj) => {
-      if (obj._id === thisUser._id) {
-        return {
-          ...obj,
-          convData: updatedConvs,
-        };
-      } else {
-        return obj;
+      const updatedUsers = contacts.map((obj) => {
+        if (obj._id === thisUser._id) {
+          return {
+            ...obj,
+            convData: updatedConvs,
+          };
+        } else {
+          return obj;
+        }
+      });
+      console.log('Updated local user lastRead');
+      setContacts(updatedUsers);
+    },
+    [contacts, setContacts],
+  );
+
+  // Update chat's lastRead time for current user in the database
+  const updateDbUser = useCallback(
+    async (chat, thisUser) => {
+      try {
+        const response = await fetch(
+          'http://localhost:3000/api/users/' + user._id + '/timestamp/' + chat._id,
+          {
+            method: 'PUT',
+            headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              timestamp: new Date().toISOString(),
+            }),
+          },
+        );
+        if (response.status === 200) {
+          updateLocalUser(chat, thisUser);
+        }
+      } catch (err) {
+        console.log(err);
       }
-    });
-    console.log('Updated local user lastRead');
-    setContacts(updatedUsers);
-  };
+    },
+    [updateLocalUser, user],
+  );
 
   // Update database when new message is opened
-  const openNewMsg = (chat, thisUser, userConv) => {
-    // console.log('newmsg ' + userConv);
-    if (
-      (chat.lastMessage && !userConv.lastRead) ||
-      (chat.lastMessage && userConv.lastRead < chat.lastMessage.timestamp)
-    ) {
-      updateDbUser(chat, thisUser);
-    }
-  };
+  const openNewMsg = useCallback(
+    (chat, thisUser, userConv) => {
+      // console.log('newmsg ' + userConv);
+      if (
+        (chat.lastMessage && !userConv.lastRead) ||
+        (chat.lastMessage && userConv.lastRead < chat.lastMessage.timestamp)
+      ) {
+        updateDbUser(chat, thisUser);
+      }
+    },
+    [updateDbUser],
+  );
 
   // Handle opening new chat notications
   useEffect(() => {
@@ -90,7 +99,7 @@ function ChatPage() {
         openNewMsg(thisChat, thisUser, userConv);
       }
     }
-  }, [chatId, chats, contacts, user]);
+  }, [chatId, chats, contacts, user, openNewMsg]);
 
   const scrollToTop = () => {
     chatRef.current.scrollIntoView();

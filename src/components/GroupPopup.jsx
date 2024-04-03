@@ -5,7 +5,6 @@ import Button from './Button';
 
 function GroupPopup({ setShowGroupPopup, chat, chats, setChats, user, groupHash, setGroupHash }) {
   const [groupName, setGroupName] = useState(chat.groupName);
-  const [lastImage, setLastImage] = useState(chat.image);
   const [newImage, setNewImage] = useState('');
   const [imageError, setImageError] = useState('');
   const [errors, setErrors] = useState([]);
@@ -15,7 +14,7 @@ function GroupPopup({ setShowGroupPopup, chat, chats, setChats, user, groupHash,
 
     const formData = new FormData();
     formData.set('groupName', groupName);
-    formData.set('lastImage', lastImage ? lastImage : '');
+    formData.set('lastImage', chat.image ? chat.image : '');
     formData.append('image', newImage);
 
     try {

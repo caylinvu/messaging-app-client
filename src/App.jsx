@@ -40,8 +40,6 @@ export default App;
 
 // ~~~~~~~~~~ REFACTOR TO DO ~~~~~~~~~~
 
-// Remove !important styles
-
 // Add better comments throughout all files!!!
 
 // Put socket creation in useEffect???
@@ -70,8 +68,6 @@ export default App;
 // Instead of doing a conditional statement on returned HTML, use state and useEffect to store the variable on render and then display dynamically
 
 // Is there a better way to implement opening messages?
-
-// Check all eslint warnings
 
 // ~~~~~~~~~~ BEFORE PUBLISHING ON RAILWAY ~~~~~~~~~~
 

@@ -4,10 +4,9 @@ import ProfileImage from './ProfileImage';
 import Button from './Button';
 
 function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user, userHash, setUserHash }) {
-  const [currentUser, setCurrentUser] = useState(contacts.find((obj) => obj._id === user._id));
+  const currentUser = contacts.find((obj) => obj._id === user._id);
   const [firstName, setFirstName] = useState(currentUser.firstName);
   const [lastName, setLastName] = useState(currentUser.lastName);
-  const [lastImage, setLastImage] = useState(currentUser.image);
   const [newImage, setNewImage] = useState('');
   const [bio, setBio] = useState(currentUser.bio);
   const [imageError, setImageError] = useState('');
@@ -19,7 +18,7 @@ function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user, userHa
     const formData = new FormData();
     formData.set('firstName', firstName);
     formData.set('lastName', lastName);
-    formData.set('lastImage', lastImage ? lastImage : '');
+    formData.set('lastImage', currentUser.image ? currentUser.image : '');
     formData.append('image', newImage);
     formData.set('bio', bio ? bio : '');
 

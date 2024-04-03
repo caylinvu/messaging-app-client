@@ -1,4 +1,4 @@
-import { Outlet, useOutletContext, useNavigate, useLocation, useParams } from 'react-router-dom';
+import { Outlet, useOutletContext, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useCallback } from 'react';
 import Sidebar from './Sidebar';
 import ProfilePopup from './ProfilePopup';
