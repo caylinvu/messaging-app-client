@@ -30,13 +30,13 @@ function ContactPage() {
 
   return (
     <div className="contact-page">
-      <ChatColumn contacts={contacts} user={user} startChat={startChat} />
+      <ContactColumn contacts={contacts} user={user} startChat={startChat} />
       <Intro isContactPage={true} />
     </div>
   );
 }
 
-function ChatColumn({ contacts, user, startChat }) {
+function ContactColumn({ contacts, user, startChat }) {
   return (
     <div className="contact-column">
       <div className="contact-header">
@@ -82,7 +82,7 @@ function ContactSection({ status, contacts, user, startChat }) {
   );
 }
 
-ChatColumn.propTypes = {
+ContactColumn.propTypes = {
   contacts: PropTypes.array,
   user: PropTypes.object,
   startChat: PropTypes.func,
