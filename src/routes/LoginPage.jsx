@@ -25,7 +25,6 @@ function LoginPage() {
         setEmail('');
         setPassword('');
         localStorage.setItem('user', JSON.stringify(responseData.user));
-        // localStorage.setItem('createdAt', new Date().getTime());
       } else if (!response.ok) {
         setLoginError(responseData.message);
       }

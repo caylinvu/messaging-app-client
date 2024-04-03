@@ -42,9 +42,10 @@ export default App;
 
 // Add better comments throughout all files!!!
 
-// Put socket creation in useEffect???
-
 // Make more helper files (fetching, socket, etc)
+
+// Make components or factory function or helper functions or SOMETHING
+// for repeat code when display user info between group or other user
 
 // Figure out what to do about user vs userDetails
 
@@ -55,15 +56,14 @@ export default App;
 
 // Can I manipulate current contacts to update local user's online status while mapping over the contacts??
 
-// Make components or factory function or helper functions or SOMETHING for repeat code when display user info between group or other user
-
 // Clean up class names???
 
-// Remove logout after 24 hour stuff
-
-// Instead of doing a conditional statement on returned HTML, use state and useEffect to store the variable on render and then display dynamically
+// Instead of doing a conditional statement on returned HTML, utilize useState and useEffect
+// to store the variable on render and then display dynamically
 
 // Is there a better way to implement opening messages?
+
+// Remove console.logs()
 
 // ~~~~~~~~~~ BEFORE PUBLISHING ON RAILWAY ~~~~~~~~~~
 
