@@ -596,8 +596,12 @@
 .full-date {
   overflow: hidden;
   text-align: center;
-  margin: 10px 0 20px;
+  margin: 20px 0;
   color: var(--text-color3);
+}
+
+.full-date:first-child {
+  margin: 10px 0;
 }
 
 .full-date::before,
@@ -619,11 +623,6 @@
 .full-date::after {
   left: 0.5em;
   margin-right: -50%;
-}
-
-.msg-outer {
-  display: flex;
-  flex-direction: column;
 }
 
 .received {

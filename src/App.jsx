@@ -40,8 +40,6 @@ export default App;
 
 // ~~~~~~~~~~ REFACTOR TO DO ~~~~~~~~~~
 
-// messages: get rid of msg-outer div
-
 // Add better comments throughout all files!!!
 
 // Put socket creation in useEffect???

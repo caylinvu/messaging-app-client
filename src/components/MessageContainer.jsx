@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { DateTime } from 'luxon';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import ProfileImage from './ProfileImage';
 
@@ -27,7 +27,7 @@ function MessageContainer({ messages, userDetails, contacts, userHash }) {
           const nextMsg = arr[index + 1];
           const author = contacts.find((contact) => msg.author.toString() === contact._id);
           return (
-            <div className="msg-outer" key={msg._id}>
+            <Fragment key={msg._id}>
               {!prevMsg ? (
                 <div className="full-date">
                   {DateTime.fromISO(msg.timestamp).toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)}
@@ -76,7 +76,7 @@ function MessageContainer({ messages, userDetails, contacts, userHash }) {
                   </p>
                 </div>
               </div>
-            </div>
+            </Fragment>
           );
         })}
       </div>
