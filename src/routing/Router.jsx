@@ -1,15 +1,15 @@
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import App from '../App';
-import ChatPage from '../components/ChatPage';
-import Chat from '../components/Chat';
-import ContactPage from '../components/ContactPage';
-import LoginPage from '../components/LoginPage';
-import SignUpPage from '../components/SignUpPage';
+import ChatPage from '../routes/ChatPage';
+import Chat from '../routes/Chat';
+import ContactPage from '../routes/ContactPage';
+import LoginPage from '../routes/LoginPage';
+import SignUpPage from '../routes/SignUpPage';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
-import Layout from '../components/Layout';
-import Intro from '../components/Intro';
-import ErrorPage from '../components/ErrorPage';
+import Layout from '../routes/Layout';
+import Intro from '../routes/Intro';
+import ErrorPage from './ErrorPage';
 
 function Router() {
   const router = createBrowserRouter([

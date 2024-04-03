@@ -2,7 +2,7 @@ import { useOutletContext, useNavigate } from 'react-router-dom';
 import Intro from './Intro';
 import { checkExistingChats, createNewChat, handleExclusions } from '../helpers/chatHelpers';
 import { removeExclusion } from '../helpers/fetchHelpers';
-import ProfileImage from './ProfileImage';
+import ProfileImage from '../components/ProfileImage';
 
 function ContactPage() {
   const { contacts, chats, setChats, user, socket } = useOutletContext();

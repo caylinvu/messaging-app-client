@@ -1,11 +1,11 @@
 import { useParams, useOutletContext, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import MessageContainer from './MessageContainer';
-import ChatInfo from './ChatInfo';
-import GroupPopup from './GroupPopup';
-import ProfileImage from './ProfileImage';
-import FetchError from './FetchError';
-import Loading from './Loading';
+import MessageContainer from '../components/MessageContainer';
+import ChatInfo from '../components/ChatInfo';
+import GroupPopup from '../components/GroupPopup';
+import ProfileImage from '../components/ProfileImage';
+import FetchError from '../components/FetchError';
+import Loading from '../components/Loading';
 import { showNotification } from '../helpers/chatHelpers';
 
 function Chat() {

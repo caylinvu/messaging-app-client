@@ -1,7 +1,7 @@
 import { Outlet, useOutletContext, useParams } from 'react-router-dom';
 import { useEffect, useState, useRef, useCallback } from 'react';
-import ChatPopup from './ChatPopup';
-import ChatList from './ChatList';
+import ChatPopup from '../components/ChatPopup';
+import ChatList from '../components/ChatList';
 
 function ChatPage() {
   const [showChatPopup, setShowChatPopup] = useState(false);

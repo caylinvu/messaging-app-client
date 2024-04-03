@@ -40,6 +40,8 @@ export default App;
 
 // ~~~~~~~~~~ REFACTOR TO DO ~~~~~~~~~~
 
+// messages: get rid of msg-outer div
+
 // Add better comments throughout all files!!!
 
 // Put socket creation in useEffect???
@@ -58,10 +60,6 @@ export default App;
 // Make components or factory function or helper functions or SOMETHING for repeat code when display user info between group or other user
 
 // Clean up class names???
-
-// messages: get rid of msg-outer div
-
-// Create routes folder
 
 // Remove logout after 24 hour stuff
 

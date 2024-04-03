@@ -1,10 +1,10 @@
 import { Outlet, useOutletContext, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useCallback } from 'react';
-import Sidebar from './Sidebar';
-import ProfilePopup from './ProfilePopup';
+import Sidebar from '../components/Sidebar';
+import ProfilePopup from '../components/ProfilePopup';
 import { sortChats } from '../helpers/chatHelpers';
-import Loading from './Loading';
-import FetchError from './FetchError';
+import Loading from '../components/Loading';
+import FetchError from '../components/FetchError';
 
 function Layout() {
   const [contacts, setContacts] = useState([]);
