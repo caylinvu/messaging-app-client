@@ -2,10 +2,10 @@ import { Outlet, useOutletContext, useParams } from 'react-router-dom';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import ChatPopup from '../components/ChatPopup';
 import ChatList from '../components/ChatList';
+import PropTypes from 'prop-types';
 
 function ChatPage() {
   const [showChatPopup, setShowChatPopup] = useState(false);
-  // const [showChatList, setShowChatList] = useState(true);
   const {
     contacts,
     setContacts,
@@ -19,7 +19,6 @@ function ChatPage() {
     setGroupHash,
   } = useOutletContext();
   const { chatId } = useParams();
-  const chatRef = useRef(null);
 
   // Update chat's lastRead time for current user locally
   const updateLocalUser = useCallback(
@@ -101,38 +100,16 @@ function ChatPage() {
     }
   }, [chatId, chats, contacts, user, openNewMsg]);
 
-  const scrollToTop = () => {
-    chatRef.current.scrollIntoView();
-  };
-
-  useEffect(() => {
-    if (chatRef.current && window.innerWidth <= 785) {
-      scrollToTop();
-    }
-  }, [chatId]);
-
   return (
     <div className="chat-page">
-      <div className="chat-column">
-        <div className="chat-ref" ref={chatRef}></div>
-        <div className="chat-header">
-          <h1>Chats</h1>
-          <button onClick={() => setShowChatPopup(true)}>
-            <img src="/add-simple.svg" alt="" />
-          </button>
-        </div>
-        {chats.length > 0 ? (
-          <ChatList
-            chats={chats}
-            contacts={contacts}
-            userDetails={userDetails}
-            groupHash={groupHash}
-            chatId={chatId}
-          />
-        ) : (
-          <div>You currently have no chats open. Choose a contact to get started!</div>
-        )}
-      </div>
+      <ChatColumn
+        setShowChatPopup={setShowChatPopup}
+        chats={chats}
+        contacts={contacts}
+        userDetails={userDetails}
+        groupHash={groupHash}
+        chatId={chatId}
+      />
       <Outlet
         context={{
           contacts,
@@ -159,5 +136,51 @@ function ChatPage() {
     </div>
   );
 }
+
+function ChatColumn({ setShowChatPopup, chats, contacts, userDetails, groupHash, chatId }) {
+  const chatRef = useRef(null);
+
+  const scrollToTop = () => {
+    chatRef.current.scrollIntoView();
+  };
+
+  useEffect(() => {
+    if (chatRef.current && window.innerWidth <= 785) {
+      scrollToTop();
+    }
+  }, [chatId]);
+
+  return (
+    <div className="chat-column">
+      <div className="chat-ref" ref={chatRef}></div>
+      <div className="chat-header">
+        <h1>Chats</h1>
+        <button onClick={() => setShowChatPopup(true)}>
+          <img src="/add-simple.svg" alt="" />
+        </button>
+      </div>
+      {chats.length > 0 ? (
+        <ChatList
+          chats={chats}
+          contacts={contacts}
+          userDetails={userDetails}
+          groupHash={groupHash}
+          chatId={chatId}
+        />
+      ) : (
+        <div>You currently have no chats open. Choose a contact to get started!</div>
+      )}
+    </div>
+  );
+}
+
+ChatColumn.propTypes = {
+  setShowChatPopup: PropTypes.func,
+  chats: PropTypes.array,
+  contacts: PropTypes.array,
+  userDetails: PropTypes.object,
+  groupHash: PropTypes.string,
+  chatId: PropTypes.string,
+};
 
 export default ChatPage;
