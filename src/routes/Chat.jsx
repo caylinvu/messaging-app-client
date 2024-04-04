@@ -10,6 +10,7 @@ import { showNotification } from '../helpers/chatHelpers';
 import { uploadImage } from '../helpers/fetchHelpers';
 import PropTypes from 'prop-types';
 import { handleAlert } from '../helpers/alertHelpers';
+import { receiveMessage } from '../helpers/socketHelpers';
 
 function Chat() {
   const [messageLoading, setMessageLoading] = useState(true);
@@ -146,13 +147,7 @@ function Chat() {
   // Handle receiving a new messages
   useEffect(() => {
     socket.on('receiveMessage', (message) => {
-      if (chatId === message.conversation.toString()) {
-        const newMessages = [...messages, message];
-        const sortedMessages = newMessages.sort((x, y) => {
-          return new Date(x.timestamp) - new Date(y.timestamp);
-        });
-        setMessages(sortedMessages);
-      }
+      receiveMessage(chatId, message, messages, setMessages);
     });
 
     return () => {
