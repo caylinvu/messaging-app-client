@@ -1,3 +1,59 @@
+import { sortChats } from './chatHelpers';
+
+// Fetch contacts in Layout component
+export const getContacts = async (user, setContacts, setContactError, setContactLoading) => {
+  try {
+    const response = await fetch('http://localhost:3000/api/users', {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log(response);
+    if (!response.ok) {
+      if (response.status === 403) {
+        throw { message: response.statusText, status: response.status };
+      }
+      const error = await response.json();
+      throw { message: error.message || response.statusText, status: response.status };
+    }
+    const contactData = await response.json();
+    setContacts(contactData);
+    setContactError(null);
+  } catch (err) {
+    setContacts([]);
+    setContactError(err);
+  } finally {
+    setContactLoading(false);
+  }
+};
+
+// Fetch chats in Layout component
+export const getChats = async (user, setChats, setChatError, setChatLoading) => {
+  try {
+    const response = await fetch('http://localhost:3000/api/users/' + user._id + '/conversations', {
+      headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' },
+    });
+    if (!response.ok) {
+      if (response.status === 403) {
+        throw { message: response.statusText, status: response.status };
+      }
+      const error = await response.json();
+      throw { message: error.message || response.statusText, status: response.status };
+    }
+    const chatData = await response.json();
+    const sortedChats = sortChats(chatData);
+    setChats(sortedChats);
+    setChatError(null);
+  } catch (err) {
+    setChats([]);
+    setChatError(err);
+    console.log(err);
+  } finally {
+    setChatLoading(false);
+  }
+};
+
 // Remove a user id from exclusions list on chat
 export const removeExclusion = async (
   setChats,
