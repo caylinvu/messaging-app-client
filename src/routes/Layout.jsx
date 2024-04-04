@@ -5,6 +5,11 @@ import ProfilePopup from '../components/ProfilePopup';
 import { sortChats } from '../helpers/chatHelpers';
 import Loading from '../components/Loading';
 import FetchError from '../components/FetchError';
+import {
+  updateOnlineStatus,
+  receiveConversation,
+  receiveMessagePrev,
+} from '../helpers/socketHelpers';
 
 function Layout() {
   const [contacts, setContacts] = useState([]);
@@ -23,28 +28,7 @@ function Layout() {
   // Locally update incoming online status of other users
   useEffect(() => {
     socket.on('onlineStatus', (currentUser) => {
-      const existingContact = contacts.find((obj) => obj._id === currentUser._id);
-      if (existingContact) {
-        const updatedContacts = contacts.map((contact) => {
-          if (contact._id === currentUser._id) {
-            return {
-              ...contact,
-              isOnline: currentUser.isOnline,
-            };
-          } else {
-            return contact;
-          }
-        });
-        setContacts(updatedContacts);
-      } else if (!existingContact) {
-        const newContacts = [...contacts, currentUser];
-        const sortedContacts = newContacts.sort((a, b) => {
-          let textA = a.firstName.toLowerCase();
-          let textB = b.firstName.toLowerCase();
-          return textA < textB ? -1 : textA > textB ? 1 : 0;
-        });
-        setContacts(sortedContacts);
-      }
+      updateOnlineStatus(contacts, currentUser, setContacts);
     });
 
     return () => {
@@ -55,28 +39,7 @@ function Layout() {
   // Receive incoming conversations
   useEffect(() => {
     socket.on('receiveConversation', (data) => {
-      const newChats = [...chats, data.conversation];
-      const sortedChats = sortChats(newChats);
-      setChats(sortedChats);
-
-      // Locally add new chat to current user's convData array
-      const updatedConvs = [
-        ...userDetails.convData,
-        {
-          conv: data.conversation._id,
-        },
-      ];
-      const updatedUsers = contacts.map((obj) => {
-        if (obj._id === user._id) {
-          return {
-            ...obj,
-            convData: updatedConvs,
-          };
-        } else {
-          return obj;
-        }
-      });
-      setContacts(updatedUsers);
+      receiveConversation(data, chats, setChats, contacts, setContacts, user, userDetails);
 
       // If current user created chat, navigate to new chat page
       if (data.sender === user._id) {
@@ -92,19 +55,7 @@ function Layout() {
   // Receive incoming message previews
   useEffect(() => {
     socket.on('receiveMessagePrev', (message) => {
-      const newChats = chats.map((chat) => {
-        if (message.conversation.toString() === chat._id) {
-          return {
-            ...chat,
-            lastMessage: message,
-            exclude: [],
-          };
-        } else {
-          return chat;
-        }
-      });
-      const sortedChats = sortChats(newChats);
-      setChats(sortedChats);
+      receiveMessagePrev(message, chats, setChats);
     });
 
     return () => {

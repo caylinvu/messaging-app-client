@@ -44,9 +44,6 @@ export default App;
 
 // Make more helper files (fetching, socket, etc)
 
-// Make components or factory function or helper functions or SOMETHING
-// for repeat code when display user info between group or other user
-
 // Figure out what to do about user vs userDetails
 
 // Maybe need to get rid of userDetails and just pull from contacts every time???
