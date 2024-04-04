@@ -1,6 +1,6 @@
 import { sortChats } from './chatHelpers';
 
-// Fetch contacts in Layout component
+// Fetch contacts (Layout component)
 export const getContacts = async (user, setContacts, setContactError, setContactLoading) => {
   try {
     const response = await fetch('http://localhost:3000/api/users', {
@@ -27,7 +27,7 @@ export const getContacts = async (user, setContacts, setContactError, setContact
   }
 };
 
-// Fetch chats in Layout component
+// Fetch chats (Layout component)
 export const getChats = async (user, setChats, setChatError, setChatLoading) => {
   try {
     const response = await fetch('http://localhost:3000/api/users/' + user._id + '/conversations', {
@@ -53,7 +53,7 @@ export const getChats = async (user, setChats, setChatError, setChatLoading) => 
   }
 };
 
-// Remove a user id from exclusions list on chat
+// Remove a user id from exclusions list on chat (ChatPopup and ContactPage components)
 export const removeExclusion = async (
   setChats,
   updatedChats,
@@ -82,7 +82,7 @@ export const removeExclusion = async (
   }
 };
 
-// Upload an image sent in chat to database
+// Upload an image sent in chat to database (Chat component)
 export const uploadImage = async (
   user,
   formData,
@@ -103,6 +103,27 @@ export const uploadImage = async (
       setText('');
       setImage('');
       setImageError('');
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// Update last read time (ChatPage component)
+export const updateLastRead = async (user, thisUser, chat, updateLocalUser) => {
+  try {
+    const response = await fetch(
+      'http://localhost:3000/api/users/' + user._id + '/timestamp/' + chat._id,
+      {
+        method: 'PUT',
+        headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          timestamp: new Date().toISOString(),
+        }),
+      },
+    );
+    if (response.status === 200) {
+      updateLocalUser(chat, thisUser);
     }
   } catch (err) {
     console.log(err);

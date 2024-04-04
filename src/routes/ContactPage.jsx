@@ -50,6 +50,12 @@ function ContactColumn({ contacts, user, startChat }) {
   );
 }
 
+ContactColumn.propTypes = {
+  contacts: PropTypes.array,
+  user: PropTypes.object,
+  startChat: PropTypes.func,
+};
+
 function ContactSection({ status, contacts, user, startChat }) {
   return (
     <div className={status === 'Online' ? 'online-contacts' : 'offline-contacts'}>
@@ -81,12 +87,6 @@ function ContactSection({ status, contacts, user, startChat }) {
     </div>
   );
 }
-
-ContactColumn.propTypes = {
-  contacts: PropTypes.array,
-  user: PropTypes.object,
-  startChat: PropTypes.func,
-};
 
 ContactSection.propTypes = {
   status: PropTypes.string,

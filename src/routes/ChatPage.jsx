@@ -3,6 +3,7 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import ChatPopup from '../components/ChatPopup';
 import ChatList from '../components/ChatList';
 import PropTypes from 'prop-types';
+import { updateLastRead } from '../helpers/fetchHelpers';
 
 function ChatPage() {
   const [showChatPopup, setShowChatPopup] = useState(false);
@@ -49,43 +50,6 @@ function ChatPage() {
     [contacts, setContacts],
   );
 
-  // Update chat's lastRead time for current user in the database
-  const updateDbUser = useCallback(
-    async (chat, thisUser) => {
-      try {
-        const response = await fetch(
-          'http://localhost:3000/api/users/' + user._id + '/timestamp/' + chat._id,
-          {
-            method: 'PUT',
-            headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              timestamp: new Date().toISOString(),
-            }),
-          },
-        );
-        if (response.status === 200) {
-          updateLocalUser(chat, thisUser);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    },
-    [updateLocalUser, user],
-  );
-
-  // Update database when new message is opened
-  const openNewMsg = useCallback(
-    (chat, thisUser, userConv) => {
-      if (
-        (chat.lastMessage && !userConv.lastRead) ||
-        (chat.lastMessage && userConv.lastRead < chat.lastMessage.timestamp)
-      ) {
-        updateDbUser(chat, thisUser);
-      }
-    },
-    [updateDbUser],
-  );
-
   // Handle opening new chat notications
   useEffect(() => {
     if (chatId && chats) {
@@ -93,10 +57,16 @@ function ChatPage() {
       if (thisChat) {
         const thisUser = contacts.find((obj) => obj._id === user._id);
         const userConv = thisUser.convData.find((obj) => obj.conv.toString() === chatId);
-        openNewMsg(thisChat, thisUser, userConv);
+        // If a new message is being opened, update the user's last read time for the chat
+        if (
+          (thisChat.lastMessage && !userConv.lastRead) ||
+          (thisChat.lastMessage && userConv.lastRead < thisChat.lastMessage.timestamp)
+        ) {
+          updateLastRead(user, thisUser, thisChat, updateLocalUser);
+        }
       }
     }
-  }, [chatId, chats, contacts, user, openNewMsg]);
+  }, [chatId, chats, contacts, user, updateLocalUser]);
 
   return (
     <div className="chat-page">
