@@ -47,8 +47,6 @@ function ChatInfo({
   const deleteChat = () => {
     // Add current user to exclusions array on current chat and setChats() locally
     const exclusions = [...chat.exclude, userDetails._id];
-    console.log(exclusions);
-
     const updatedChats = chats.map((obj) => {
       if (obj._id === chat._id) {
         return {

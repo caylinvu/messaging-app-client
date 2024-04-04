@@ -9,7 +9,6 @@ export const getContacts = async (user, setContacts, setContactError, setContact
         'Content-Type': 'application/json',
       },
     });
-    console.log(response);
     if (!response.ok) {
       if (response.status === 403) {
         throw { message: response.statusText, status: response.status };

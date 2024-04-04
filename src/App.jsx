@@ -60,8 +60,6 @@ export default App;
 
 // Is there a better way to implement opening messages?
 
-// Remove console.logs()
-
 // Clean up css
 
 // ~~~~~~~~~~ BEFORE PUBLISHING ON RAILWAY ~~~~~~~~~~

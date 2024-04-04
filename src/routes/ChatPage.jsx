@@ -44,7 +44,6 @@ function ChatPage() {
           return obj;
         }
       });
-      console.log('Updated local user lastRead');
       setContacts(updatedUsers);
     },
     [contacts, setContacts],
@@ -77,7 +76,6 @@ function ChatPage() {
   // Update database when new message is opened
   const openNewMsg = useCallback(
     (chat, thisUser, userConv) => {
-      // console.log('newmsg ' + userConv);
       if (
         (chat.lastMessage && !userConv.lastRead) ||
         (chat.lastMessage && userConv.lastRead < chat.lastMessage.timestamp)

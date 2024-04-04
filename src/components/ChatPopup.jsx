@@ -27,11 +27,9 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
     // If chat already exists, navigate to existing chat
     if (existingChat) {
       if (existingChat.exclude.includes(user._id)) {
-        console.log('User is included in exclusion');
         const updatedChats = handleExclusions(existingChat, chats, user);
         removeExclusion(setChats, updatedChats, existingChat, user, navigate, setShowChatPopup);
       } else {
-        console.log('User is not included in exclusion');
         navigate('/chats/' + existingChat._id);
         setShowChatPopup(false);
       }
@@ -50,7 +48,6 @@ function ChatPopup({ setShowChatPopup, contacts, chats, setChats, user, socket }
     } else {
       users = groupUsers.filter((obj) => obj !== e.target.value);
     }
-    // console.log(users);
     setGroupUsers(users);
   };
 
