@@ -116,3 +116,7 @@ export default App;
 // New message causes chat list to scroll to top
 
 // Update so if you refresh on message page, it only shows one loader
+
+// Receiving messages
+//--Locally add to end of array instead of sorting for performance
+//--Maybe don't emit message to self and update locally on send instead

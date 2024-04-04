@@ -84,8 +84,6 @@ function MessageContainer({ messages, userDetails, contacts, userHash }) {
   );
 }
 
-export default MessageContainer;
-
 MessageContainer.propTypes = {
   messages: PropTypes.array,
   userDetails: PropTypes.object,
@@ -93,3 +91,5 @@ MessageContainer.propTypes = {
   userHash: PropTypes.string,
   image: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 };
+
+export default MessageContainer;
