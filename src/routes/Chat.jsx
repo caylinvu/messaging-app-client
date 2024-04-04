@@ -9,7 +9,7 @@ import Loading from '../components/Loading';
 import { showNotification } from '../helpers/chatHelpers';
 import { getMessages, uploadImage } from '../helpers/fetchHelpers';
 import PropTypes from 'prop-types';
-import { handleAlert } from '../helpers/alertHelpers';
+import { checkImgErr, handleAlert } from '../helpers/uploadHelpers';
 import { receiveMessage } from '../helpers/socketHelpers';
 
 function Chat() {
@@ -38,6 +38,13 @@ function Chat() {
   } = useOutletContext();
   const navigate = useNavigate();
 
+  // Fetch messages
+  useEffect(() => {
+    if (chatId) {
+      getMessages(user, chatId, setMessages, setMessageError, setMessageLoading);
+    }
+  }, [chatId, user]);
+
   // Reset message form when switching between chats
   useEffect(() => {
     setText('');
@@ -47,34 +54,39 @@ function Chat() {
     setMessageLoading(true);
   }, [chatId]);
 
-  // Fetch messages
+  // Handle receiving a new messages
   useEffect(() => {
-    if (chatId) {
-      getMessages(user, chatId, setMessages, setMessageError, setMessageLoading);
+    socket.on('receiveMessage', (message) => {
+      receiveMessage(chatId, message, messages, setMessages);
+    });
+
+    return () => {
+      socket.off('receiveMessage');
+    };
+  }, [chatId, messages, socket]);
+
+  // If a 'deleted' chatId is navigated to, redirect to /chats
+  useEffect(() => {
+    const currentChat = chats.find((obj) => obj._id === chatId);
+    if (currentChat && currentChat.exclude.includes(user._id)) {
+      navigate('/chats');
     }
-  }, [chatId, user]);
+  }, [chatId, chats, navigate, user]);
+
+  // Check to see if there are any new messages to show alert on mobile back button in chat
+  useEffect(() => {
+    showNotification(chats, chatId, userDetails, setShowBubble);
+  }, [chats, chatId, userDetails]);
 
   // Handle selecting an image file
   const handleFileChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      if (e.target.files[0].size > 1024 * 1024 * 2) {
-        const form = document.querySelector('.msg-form');
-        form.reset();
-        setImageError('*Max file size of 2MB');
-        handleAlert(showAlert, setShowAlert, alertTimer, setAlertTimer);
-        return;
-      } else if (
-        e.target.files[0].type !== 'image/png' &&
-        e.target.files[0].type !== 'image/jpg' &&
-        e.target.files[0].type !== 'image/jpeg'
-      ) {
-        const form = document.querySelector('.msg-form');
-        form.reset();
-        setImageError('*Only png, jpg, and jpeg files allowed');
-        handleAlert(showAlert, setShowAlert, alertTimer, setAlertTimer);
-        return;
-      }
+    // Check for error and display error alert if necessary
+    const isImgErr = checkImgErr(e, setImageError);
+    if (isImgErr) {
+      handleAlert(showAlert, setShowAlert, alertTimer, setAlertTimer);
+      return;
     }
+    // If no error, set the image
     setImageError('');
     setImage(e.target.files[0]);
   };
@@ -116,30 +128,6 @@ function Chat() {
       handleUpload();
     }
   };
-
-  // Handle receiving a new messages
-  useEffect(() => {
-    socket.on('receiveMessage', (message) => {
-      receiveMessage(chatId, message, messages, setMessages);
-    });
-
-    return () => {
-      socket.off('receiveMessage');
-    };
-  }, [chatId, messages, socket]);
-
-  // If a 'deleted' chatId is navigated to, redirect to /chats
-  useEffect(() => {
-    const currentChat = chats.find((obj) => obj._id === chatId);
-    if (currentChat && currentChat.exclude.includes(user._id)) {
-      navigate('/chats');
-    }
-  }, [chatId, chats, navigate, user]);
-
-  // Check to see if there are any new messages to show alert on mobile back button in chat
-  useEffect(() => {
-    showNotification(chats, chatId, userDetails, setShowBubble);
-  }, [chats, chatId, userDetails]);
 
   return (
     <>

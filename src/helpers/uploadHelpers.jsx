@@ -1,9 +1,31 @@
+// Check if image upload as an error
+export const checkImgErr = (e, setImageError) => {
+  if (e.target.files && e.target.files[0]) {
+    if (e.target.files[0].size > 1024 * 1024 * 2) {
+      const form = document.querySelector('.msg-form');
+      form.reset();
+      setImageError('*Max file size of 2MB');
+      return true;
+    } else if (
+      e.target.files[0].type !== 'image/png' &&
+      e.target.files[0].type !== 'image/jpg' &&
+      e.target.files[0].type !== 'image/jpeg'
+    ) {
+      const form = document.querySelector('.msg-form');
+      form.reset();
+      setImageError('*Only png, jpg, and jpeg files allowed');
+      return true;
+    }
+    return false;
+  }
+};
+
 // Start the alert timer
 const startAlertTimer = (setAlertTimer, setShowAlert) => {
   setAlertTimer(
     setTimeout(() => {
       setShowAlert(false);
-    }, 5000),
+    }, 3000),
   );
 };
 
