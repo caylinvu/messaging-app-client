@@ -7,7 +7,7 @@ import ProfileImage from '../components/ProfileImage';
 import FetchError from '../components/FetchError';
 import Loading from '../components/Loading';
 import { showNotification } from '../helpers/chatHelpers';
-import { uploadImage } from '../helpers/fetchHelpers';
+import { getMessages, uploadImage } from '../helpers/fetchHelpers';
 import PropTypes from 'prop-types';
 import { handleAlert } from '../helpers/alertHelpers';
 import { receiveMessage } from '../helpers/socketHelpers';
@@ -49,36 +49,10 @@ function Chat() {
 
   // Fetch messages
   useEffect(() => {
-    const getMessages = async () => {
-      try {
-        const response = await fetch(
-          'http://localhost:3000/api/conversations/' + chatId + '/messages',
-          {
-            headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' },
-          },
-        );
-        if (!response.ok) {
-          if (response.status === 403) {
-            throw { message: response.statusText, status: response.status };
-          }
-          const error = await response.json();
-          throw { message: error.message || response.statusText, status: response.status };
-        }
-        const messageData = await response.json();
-        setMessages(messageData);
-        setMessageError(null);
-      } catch (err) {
-        setMessages([]);
-        setMessageError(err);
-        console.log(err);
-      } finally {
-        setMessageLoading(false);
-      }
-    };
     if (chatId) {
-      getMessages();
+      getMessages(user, chatId, setMessages, setMessageError, setMessageLoading);
     }
-  }, [chatId, user.token]);
+  }, [chatId, user]);
 
   // Handle selecting an image file
   const handleFileChange = (e) => {

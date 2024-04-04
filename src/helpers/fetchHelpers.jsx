@@ -53,6 +53,40 @@ export const getChats = async (user, setChats, setChatError, setChatLoading) => 
   }
 };
 
+// Fetch messages (Chat component)
+export const getMessages = async (
+  user,
+  chatId,
+  setMessages,
+  setMessageError,
+  setMessageLoading,
+) => {
+  try {
+    const response = await fetch(
+      'http://localhost:3000/api/conversations/' + chatId + '/messages',
+      {
+        headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' },
+      },
+    );
+    if (!response.ok) {
+      if (response.status === 403) {
+        throw { message: response.statusText, status: response.status };
+      }
+      const error = await response.json();
+      throw { message: error.message || response.statusText, status: response.status };
+    }
+    const messageData = await response.json();
+    setMessages(messageData);
+    setMessageError(null);
+  } catch (err) {
+    setMessages([]);
+    setMessageError(err);
+    console.log(err);
+  } finally {
+    setMessageLoading(false);
+  }
+};
+
 // Remove a user id from exclusions list on chat (ChatPopup and ContactPage components)
 export const removeExclusion = async (
   setChats,
