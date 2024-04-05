@@ -28,10 +28,8 @@ function ProfileImage({ chat, contact, showOnlineStatus, imgClass, socket, userH
       );
     } else {
       // if group has no image
-      // return <div className={imgClass + ' no-img'}>{chat.groupName.slice(0, 1).toUpperCase()}</div>;
       return (
         <div className={imgClass + ' group-icon'}>
-          {' '}
           <img src="/group.svg" alt="" draggable={false} />
         </div>
       );
@@ -51,18 +49,10 @@ function ProfileImage({ chat, contact, showOnlineStatus, imgClass, socket, userH
             ((socket && socket.connected) || (!socket && contact.isOnline) ? <span></span> : '')}
         </div>
       );
-    } else if (contact.firstName) {
+    } else {
       // if user has no image
-      // return (
-      //   <div className={imgClass + ' no-img'}>
-      //     {contact.firstName.slice(0, 1).toUpperCase()}
-      //     {showOnlineStatus &&
-      //       ((socket && socket.connected) || (!socket && contact.isOnline) ? <span></span> : '')}
-      //   </div>
-      // );
       return (
         <div className={imgClass + ' person-icon'}>
-          {' '}
           <img src="/person.svg" alt="" draggable={false} />
           {showOnlineStatus &&
             ((socket && socket.connected) || (!socket && contact.isOnline) ? <span></span> : '')}
