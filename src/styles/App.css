@@ -1,12 +1,11 @@
 :root {
   --color1: #636b51;
   --color2: #f18e7d;
-  --color3: var(--color6);
+  --color3: #e9644d;
   --color4: #fddfc9;
   --color5: #e4735f;
-  --color6: #e9644d;
-  --color7: #a7b97d;
-  --color8: #ac3f2b;
+  --color6: #a7b97d;
+  --color7: #ac3f2b;
   --online-color: #60c560;
   --notification-color: #ca3217;
   --notification-color2: #ff7a62;
@@ -151,7 +150,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* align-items: center; */
   padding: 15px 10px;
   background-color: var(--color1);
   flex-shrink: 0;
@@ -195,7 +193,6 @@
   padding: 7px 10px;
   border-radius: 5px;
   font-size: 15px;
-  /* z-index: 7; */
 }
 
 .nav-btns button:hover .hover-text {
@@ -276,7 +273,6 @@
 
 .chat-preview,
 .contact-preview {
-  /* border: solid var(--color3) 1px; */
   border: none;
   padding: 13px 10px;
   display: flex;
@@ -288,13 +284,12 @@
 }
 
 .selected-chat {
-  background-color: var(--color6);
+  background-color: var(--color3);
 }
 
 .chat-preview:hover,
 .contact-preview:hover {
   filter: brightness(95%);
-  /* transition: filter 0.1s; */
 }
 
 .chat-img,
@@ -481,7 +476,7 @@
   background-color: var(--color3);
   align-items: center;
   color: var(--text-color);
-  box-shadow: 0 1px 5px var(--color8);
+  box-shadow: 0 1px 5px var(--color7);
   z-index: 5;
 }
 
@@ -686,7 +681,7 @@
   font-size: 16px;
   padding: 20px 25px;
   border-radius: 5px;
-  background-color: var(--color7);
+  background-color: var(--color6);
   box-shadow: 0 0 5px var(--color1);
   color: var(--text-color3);
   position: absolute;
@@ -1026,7 +1021,7 @@
 .delete-btn {
   width: 100%;
   border: none;
-  background-color: var(--color7);
+  background-color: var(--color6);
   border-radius: 5px;
   padding: 10px 0;
   font-weight: bold;
@@ -1121,7 +1116,6 @@
 
 .save-btn {
   align-self: flex-end;
-  /* margin-top: 10px; */
   color: var(--text-color);
 }
 
@@ -1156,7 +1150,7 @@
 
 .file-change {
   padding: 10px 20px;
-  background-color: var(--color7);
+  background-color: var(--color6);
   color: var(--text-color3);
   border-radius: 5px;
   cursor: pointer;
@@ -1228,7 +1222,7 @@
 .next-btn,
 .create-btn {
   color: var(--text-color3);
-  background-color: var(--color7);
+  background-color: var(--color6);
   border: none;
   padding: 7px 12px;
   border-radius: 5px;
@@ -1475,11 +1469,7 @@
     min-width: 80px;
     max-height: 200px;
   }
-  /* .inner-img img {
-    max-width: 225px;
-    min-width: 100px;
-    max-height: 275px;
-  } */
+
   #msg-container {
     padding: 20px 5px;
   }
