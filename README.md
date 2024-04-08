@@ -2,6 +2,8 @@
 
 A messaging app that allows users to send messages to other users in real-time via websockets
 
+Live: https://messaging-app-client-nine.vercel.app
+
 ## Features
 
 - Create an account, or sign in via a demo account
@@ -22,3 +24,7 @@ A messaging app that allows users to send messages to other users in real-time v
 - Socket.io
 - Node.js
 - MongoDB
+
+## Related Links
+
+- Backend repo: https://github.com/caylinvu/messaging-app-api
