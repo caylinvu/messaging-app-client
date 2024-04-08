@@ -64,7 +64,10 @@ function MessageContainer({ messages, userDetails, contacts, userHash }) {
                   {msg.image && (
                     <div className="inner-img">
                       <img
-                        src={'http://localhost:3000/api/img/message/' + msg._id}
+                        src={
+                          'https://messaging-app-api-production.up.railway.app/api/img/message/' +
+                          msg._id
+                        }
                         alt=""
                         draggable={false}
                       />

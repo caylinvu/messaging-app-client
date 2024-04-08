@@ -7,7 +7,7 @@ function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || '');
 
   // Socket setup
-  const socket = io('http://localhost:3000', {
+  const socket = io('https://messaging-app-api-production.up.railway.app', {
     autoConnect: false,
     auth: {
       token: user.token,

@@ -20,7 +20,11 @@ function ProfileImage({ chat, contact, showOnlineStatus, imgClass, socket, userH
       return (
         <div className={imgClass + ' has-img'}>
           <img
-            src={'http://localhost:3000/api/img/conversation/' + chat._id + groupString}
+            src={
+              'https://messaging-app-api-production.up.railway.app/api/img/conversation/' +
+              chat._id +
+              groupString
+            }
             alt=""
             draggable={false}
           />
@@ -41,7 +45,11 @@ function ProfileImage({ chat, contact, showOnlineStatus, imgClass, socket, userH
       return (
         <div className={imgClass + ' has-img'}>
           <img
-            src={'http://localhost:3000/api/img/user/' + contact._id + userString}
+            src={
+              'https://messaging-app-api-production.up.railway.app/api/img/user/' +
+              contact._id +
+              userString
+            }
             alt=""
             draggable={false}
           />

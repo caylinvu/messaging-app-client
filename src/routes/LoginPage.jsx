@@ -10,14 +10,17 @@ function LoginPage() {
   const handleLogin = async (e, userEmail, userPassword) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username: userEmail,
-          password: userPassword,
-        }),
-      });
+      const response = await fetch(
+        'https://messaging-app-api-production.up.railway.app/api/login',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: userEmail,
+            password: userPassword,
+          }),
+        },
+      );
       const responseData = await response.json();
       if (response.status === 200) {
         setLoginError(null);

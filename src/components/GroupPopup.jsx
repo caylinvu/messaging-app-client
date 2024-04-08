@@ -18,11 +18,14 @@ function GroupPopup({ setShowGroupPopup, chat, chats, setChats, user, groupHash,
     formData.append('image', newImage);
 
     try {
-      const response = await fetch('http://localhost:3000/api/conversations/' + chat._id, {
-        method: 'PUT',
-        headers: { Authorization: `Bearer ${user.token}` },
-        body: formData,
-      });
+      const response = await fetch(
+        'https://messaging-app-api-production.up.railway.app/api/conversations/' + chat._id,
+        {
+          method: 'PUT',
+          headers: { Authorization: `Bearer ${user.token}` },
+          body: formData,
+        },
+      );
       const responseData = await response.json();
       if (response.status === 200) {
         if (newImage) {

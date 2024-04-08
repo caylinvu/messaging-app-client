@@ -13,18 +13,21 @@ function SignUpPage() {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/api/users', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-          password: password,
-          passwordConf: passwordConf,
-          timestamp: new Date().toISOString(),
-        }),
-      });
+      const response = await fetch(
+        'https://messaging-app-api-production.up.railway.app/api/users',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            password: password,
+            passwordConf: passwordConf,
+            timestamp: new Date().toISOString(),
+          }),
+        },
+      );
       const responseData = await response.json();
       if (response.status === 200) {
         setErrors([]);

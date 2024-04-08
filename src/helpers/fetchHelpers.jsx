@@ -3,7 +3,7 @@ import { sortChats } from './chatHelpers';
 // Fetch contacts (Layout component)
 export const getContacts = async (user, setContacts, setContactError, setContactLoading) => {
   try {
-    const response = await fetch('http://localhost:3000/api/users', {
+    const response = await fetch('https://messaging-app-api-production.up.railway.app/api/users', {
       headers: {
         Authorization: `Bearer ${user.token}`,
         'Content-Type': 'application/json',
@@ -30,9 +30,14 @@ export const getContacts = async (user, setContacts, setContactError, setContact
 // Fetch chats (Layout component)
 export const getChats = async (user, setChats, setChatError, setChatLoading) => {
   try {
-    const response = await fetch('http://localhost:3000/api/users/' + user._id + '/conversations', {
-      headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' },
-    });
+    const response = await fetch(
+      'https://messaging-app-api-production.up.railway.app/api/users/' +
+        user._id +
+        '/conversations',
+      {
+        headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' },
+      },
+    );
     if (!response.ok) {
       if (response.status === 403) {
         throw { message: response.statusText, status: response.status };
@@ -63,7 +68,9 @@ export const getMessages = async (
 ) => {
   try {
     const response = await fetch(
-      'http://localhost:3000/api/conversations/' + chatId + '/messages',
+      'https://messaging-app-api-production.up.railway.app/api/conversations/' +
+        chatId +
+        '/messages',
       {
         headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' },
       },
@@ -98,7 +105,10 @@ export const removeExclusion = async (
 ) => {
   try {
     const response = await fetch(
-      'http://localhost:3000/api/conversations/' + chat._id + '/include/' + user._id,
+      'https://messaging-app-api-production.up.railway.app/api/conversations/' +
+        chat._id +
+        '/include/' +
+        user._id,
       {
         method: 'PUT',
         headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' },
@@ -126,11 +136,14 @@ export const uploadImage = async (
   setImageError,
 ) => {
   try {
-    const response = await fetch('http://localhost:3000/api/messages/send-img', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${user.token}` },
-      body: formData,
-    });
+    const response = await fetch(
+      'https://messaging-app-api-production.up.railway.app/api/messages/send-img',
+      {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${user.token}` },
+        body: formData,
+      },
+    );
     const responseData = await response.json();
     if (response.status === 200) {
       emitMessage(responseData.image);
@@ -147,7 +160,10 @@ export const uploadImage = async (
 export const updateLastRead = async (user, thisUser, chat, updateLocalUser) => {
   try {
     const response = await fetch(
-      'http://localhost:3000/api/users/' + user._id + '/timestamp/' + chat._id,
+      'https://messaging-app-api-production.up.railway.app/api/users/' +
+        user._id +
+        '/timestamp/' +
+        chat._id,
       {
         method: 'PUT',
         headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' },
