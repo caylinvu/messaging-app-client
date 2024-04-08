@@ -29,7 +29,10 @@ function ChatInfo({
   const updateExclusions = async (updatedChats) => {
     try {
       const response = await fetch(
-        'http://localhost:3000/api/conversations/' + chat._id + '/exclude/' + userDetails._id,
+        'https://messaging-app-api-production.up.railway.app/api/conversations/' +
+          chat._id +
+          '/exclude/' +
+          userDetails._id,
         {
           method: 'PUT',
           headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' },
