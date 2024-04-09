@@ -18,6 +18,7 @@ function ChatPage() {
     userHash,
     groupHash,
     setGroupHash,
+    triggerFetch,
   } = useOutletContext();
   const { chatId } = useParams();
 
@@ -89,6 +90,7 @@ function ChatPage() {
           userHash,
           groupHash,
           setGroupHash,
+          triggerFetch,
         }}
       />
       {showChatPopup && (

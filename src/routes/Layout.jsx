@@ -22,31 +22,23 @@ function Layout() {
   const [contactError, setContactError] = useState(null);
   const [chatLoading, setChatLoading] = useState(true);
   const [chatError, setChatError] = useState(null);
+  const [triggerFetch, setTriggerFetch] = useState(false);
   const { user, socket } = useOutletContext();
   const navigate = useNavigate();
 
-  // If user is logged in, fetch contact/chat data
+  // If user is connected, fetch contact/chat data
   useEffect(() => {
-    if (user) {
+    socket.on('fetchData', () => {
       getContacts(user, setContacts, setContactError, setContactLoading);
       getChats(user, setChats, setChatError, setChatLoading);
-      console.log('fetched data');
-    }
-  }, [user]);
 
-  // Refetch data if connection is lost and reconnected
-  useEffect(() => {
-    socket.on('refetchData', () => {
-      if (user) {
-        getContacts(user, setContacts, setContactError, setContactLoading);
-        getChats(user, setChats, setChatError, setChatLoading);
-        console.log('refetched data');
-      }
+      // Trigger refetch of messages if a chat is open on reconnection
+      setTriggerFetch(!triggerFetch);
     });
     return () => {
-      socket.off('refetchData');
+      socket.off('fetchData');
     };
-  }, [socket, user]);
+  }, [socket, user, triggerFetch]);
 
   // Locally update incoming online status of other users
   useEffect(() => {
@@ -121,6 +113,7 @@ function Layout() {
               userHash,
               groupHash,
               setGroupHash,
+              triggerFetch,
             }}
           />
           {showProfilePopup && (

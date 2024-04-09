@@ -35,6 +35,7 @@ function Chat() {
     userHash,
     groupHash,
     setGroupHash,
+    triggerFetch,
   } = useOutletContext();
   const navigate = useNavigate();
 
@@ -43,7 +44,7 @@ function Chat() {
     if (chatId) {
       getMessages(user, chatId, setMessages, setMessageError, setMessageLoading);
     }
-  }, [chatId, user]);
+  }, [chatId, user, triggerFetch]);
 
   // Reset message form when switching between chats
   useEffect(() => {

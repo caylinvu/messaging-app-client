@@ -105,3 +105,7 @@ export default App;
 //--Maybe don't emit message to self and update locally on send instead
 
 // Add loading screen for login
+
+// Mutli image send issue????
+
+// Sync multiple browsers for same user???
