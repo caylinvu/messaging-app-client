@@ -31,7 +31,7 @@ function Layout() {
       getContacts(user, setContacts, setContactError, setContactLoading);
       getChats(user, setChats, setChatError, setChatLoading);
     }
-  }, [user]);
+  }, [user, socket]);
 
   // Locally update incoming online status of other users
   useEffect(() => {

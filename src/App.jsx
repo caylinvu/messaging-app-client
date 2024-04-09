@@ -102,3 +102,5 @@ export default App;
 // Receiving messages
 //--Locally add to end of array instead of sorting for performance
 //--Maybe don't emit message to self and update locally on send instead
+
+// Add loading screen for login
