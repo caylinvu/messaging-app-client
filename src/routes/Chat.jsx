@@ -43,7 +43,7 @@ function Chat() {
     if (chatId) {
       getMessages(user, chatId, setMessages, setMessageError, setMessageLoading);
     }
-  }, [chatId, user, socket]);
+  }, [chatId, user]);
 
   // Reset message form when switching between chats
   useEffect(() => {

@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 import { useEffect, useRef, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import ProfileImage from './ProfileImage';
+import { apiLink } from '../apiLink';
 
 function MessageContainer({ messages, userDetails, contacts, userHash }) {
   const { chatId } = useParams();
@@ -63,14 +64,7 @@ function MessageContainer({ messages, userDetails, contacts, userHash }) {
                   <p className="author">{author.firstName}</p>
                   {msg.image && (
                     <div className="inner-img">
-                      <img
-                        src={
-                          'https://messaging-app-api-production.up.railway.app/api/img/message/' +
-                          msg._id
-                        }
-                        alt=""
-                        draggable={false}
-                      />
+                      <img src={apiLink + '/api/img/message/' + msg._id} alt="" draggable={false} />
                     </div>
                   )}
                   <p className="text">{msg.text}</p>

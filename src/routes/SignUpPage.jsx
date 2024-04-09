@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
+import { apiLink } from '../apiLink';
 
 function SignUpPage() {
   const [firstName, setFirstName] = useState('');
@@ -13,21 +14,18 @@ function SignUpPage() {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        'https://messaging-app-api-production.up.railway.app/api/users',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            password: password,
-            passwordConf: passwordConf,
-            timestamp: new Date().toISOString(),
-          }),
-        },
-      );
+      const response = await fetch(apiLink + '/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          password: password,
+          passwordConf: passwordConf,
+          timestamp: new Date().toISOString(),
+        }),
+      });
       const responseData = await response.json();
       if (response.status === 200) {
         setErrors([]);

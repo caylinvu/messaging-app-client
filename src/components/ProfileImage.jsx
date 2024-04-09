@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
+import { apiLink } from '../apiLink';
 
 function ProfileImage({ chat, contact, showOnlineStatus, imgClass, socket, userHash, groupHash }) {
   const [userString, setUserString] = useState(userHash ? '?' + userHash : '');
@@ -20,11 +21,7 @@ function ProfileImage({ chat, contact, showOnlineStatus, imgClass, socket, userH
       return (
         <div className={imgClass + ' has-img'}>
           <img
-            src={
-              'https://messaging-app-api-production.up.railway.app/api/img/conversation/' +
-              chat._id +
-              groupString
-            }
+            src={apiLink + '/api/img/conversation/' + chat._id + groupString}
             alt=""
             draggable={false}
           />
@@ -45,11 +42,7 @@ function ProfileImage({ chat, contact, showOnlineStatus, imgClass, socket, userH
       return (
         <div className={imgClass + ' has-img'}>
           <img
-            src={
-              'https://messaging-app-api-production.up.railway.app/api/img/user/' +
-              contact._id +
-              userString
-            }
+            src={apiLink + '/api/img/user/' + contact._id + userString}
             alt=""
             draggable={false}
           />

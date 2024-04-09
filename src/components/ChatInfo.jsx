@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import ProfileImage from './ProfileImage';
 import DeletePopup from './DeletePopup';
+import { apiLink } from '../apiLink';
 
 function ChatInfo({
   setShowChatInfo,
@@ -29,10 +30,7 @@ function ChatInfo({
   const updateExclusions = async (updatedChats) => {
     try {
       const response = await fetch(
-        'https://messaging-app-api-production.up.railway.app/api/conversations/' +
-          chat._id +
-          '/exclude/' +
-          userDetails._id,
+        apiLink + '/api/conversations/' + chat._id + '/exclude/' + userDetails._id,
         {
           method: 'PUT',
           headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' },

@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import ProfileImage from './ProfileImage';
 import Button from './Button';
+import { apiLink } from '../apiLink';
 
 function GroupPopup({ setShowGroupPopup, chat, chats, setChats, user, groupHash, setGroupHash }) {
   const [groupName, setGroupName] = useState(chat.groupName);
@@ -18,14 +19,11 @@ function GroupPopup({ setShowGroupPopup, chat, chats, setChats, user, groupHash,
     formData.append('image', newImage);
 
     try {
-      const response = await fetch(
-        'https://messaging-app-api-production.up.railway.app/api/conversations/' + chat._id,
-        {
-          method: 'PUT',
-          headers: { Authorization: `Bearer ${user.token}` },
-          body: formData,
-        },
-      );
+      const response = await fetch(apiLink + '/api/conversations/' + chat._id, {
+        method: 'PUT',
+        headers: { Authorization: `Bearer ${user.token}` },
+        body: formData,
+      });
       const responseData = await response.json();
       if (response.status === 200) {
         if (newImage) {

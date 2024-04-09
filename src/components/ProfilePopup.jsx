@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import ProfileImage from './ProfileImage';
 import Button from './Button';
+import { apiLink } from '../apiLink';
 
 function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user, userHash, setUserHash }) {
   const currentUser = contacts.find((obj) => obj._id === user._id);
@@ -23,14 +24,11 @@ function ProfilePopup({ setShowProfilePopup, contacts, setContacts, user, userHa
     formData.set('bio', bio ? bio : '');
 
     try {
-      const response = await fetch(
-        'https://messaging-app-api-production.up.railway.app/api/users/' + user._id,
-        {
-          method: 'PUT',
-          headers: { Authorization: `Bearer ${user.token}` },
-          body: formData,
-        },
-      );
+      const response = await fetch(apiLink + '/api/users/' + user._id, {
+        method: 'PUT',
+        headers: { Authorization: `Bearer ${user.token}` },
+        body: formData,
+      });
       const responseData = await response.json();
       if (response.status === 200) {
         if (newImage) {

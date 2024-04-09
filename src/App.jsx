@@ -2,12 +2,13 @@ import './styles/App.css';
 import { Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
+import { apiLink } from './apiLink';
 
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || '');
 
   // Socket setup
-  const socket = io('https://messaging-app-api-production.up.railway.app', {
+  const socket = io(apiLink, {
     autoConnect: false,
     auth: {
       token: user.token,

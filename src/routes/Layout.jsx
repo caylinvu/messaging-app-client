@@ -30,8 +30,23 @@ function Layout() {
     if (user) {
       getContacts(user, setContacts, setContactError, setContactLoading);
       getChats(user, setChats, setChatError, setChatLoading);
+      console.log('fetched data');
     }
-  }, [user, socket]);
+  }, [user]);
+
+  // Refetch data if connection is lost and reconnected
+  useEffect(() => {
+    socket.on('refetchData', () => {
+      if (user) {
+        getContacts(user, setContacts, setContactError, setContactLoading);
+        getChats(user, setChats, setChatError, setChatLoading);
+        console.log('refetched data');
+      }
+    });
+    return () => {
+      socket.off('refetchData');
+    };
+  }, [socket, user]);
 
   // Locally update incoming online status of other users
   useEffect(() => {

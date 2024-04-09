@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
+import { apiLink } from '../apiLink';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -10,17 +11,14 @@ function LoginPage() {
   const handleLogin = async (e, userEmail, userPassword) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        'https://messaging-app-api-production.up.railway.app/api/login',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            username: userEmail,
-            password: userPassword,
-          }),
-        },
-      );
+      const response = await fetch(apiLink + '/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: userEmail,
+          password: userPassword,
+        }),
+      });
       const responseData = await response.json();
       if (response.status === 200) {
         setLoginError(null);
