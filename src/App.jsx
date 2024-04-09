@@ -13,7 +13,6 @@ function App() {
       token: user.token,
       user: user._id,
     },
-    forceNew: true,
   });
 
   // Connect to socket if user is logged in
