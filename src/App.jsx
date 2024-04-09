@@ -38,19 +38,6 @@ function App() {
 
 export default App;
 
-// ~~~~~~~~~~ BEFORE PUBLISHING ON RAILWAY ~~~~~~~~~~
-
-// Update populatedb for demo user and other users
-
-// Possibly remove test images from github??
-
-// ~~~~~~~~~~ AFTER PUBLISHING ON RAILWAY ~~~~~~~~~~
-
-// Socket/Computer going to sleep
-//--Figure out how to refresh page if it was left open while computer went to sleep
-//--Figure out how to disconnect from socket when computer goes to sleep??
-//--How to make socket reconnect when waking computer up??
-
 // ~~~~~~~~~~ REFACTOR TO DO ~~~~~~~~~~
 
 // Add better comments throughout all files!!!
