@@ -109,3 +109,7 @@ export default App;
 // Mutli image send issue????
 
 // Sync multiple browsers for same user???
+
+// Fix white line at bottom of message container sometimes?? only when images are displayed
+
+// Add delete messages for admin use
