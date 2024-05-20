@@ -11,7 +11,8 @@ Live: https://messaging-app-client-nine.vercel.app
 - Create group chats
 - Send images in chat
 - View a user list to see who is currently online/offline
-- Customize user profile
+- Customize user/group profile
+- Delete a chat
 
 ## Purpose
 
